@@ -48,6 +48,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/StrengthProfile.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/ValueTypes.swift"
         },
         {
@@ -76,6 +80,7 @@
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/FortachonCore.swift.o",
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/RoutineGenerator.swift.o",
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/SessionTypes.swift.o",
+        "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/StrengthProfile.swift.o",
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/ValueTypes.swift.o",
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/WeightUtils.swift.o",
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/WorkoutTypes.swift.o"
@@ -153,6 +158,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/StrengthProfile.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/ValueTypes.swift.o"
         },
         {
@@ -175,6 +184,7 @@
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/FortachonCore.swift",
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/RoutineGenerator.swift",
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/SessionTypes.swift",
+        "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/StrengthProfile.swift",
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/ValueTypes.swift",
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/WeightUtils.swift",
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/WorkoutTypes.swift"
@@ -304,6 +314,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Tests/FortachonCoreTests/StrengthProfileTests.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Tests/FortachonCoreTests/ValueTypesTests.swift"
         },
         {
@@ -332,6 +346,7 @@
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCoreTests.build/FortachonCoreTests.swift.o",
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCoreTests.build/RoutineGeneratorTests.swift.o",
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCoreTests.build/SessionTypesTests.swift.o",
+        "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCoreTests.build/StrengthProfileTests.swift.o",
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCoreTests.build/ValueTypesTests.swift.o",
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCoreTests.build/WeightUtilsTests.swift.o"
       ],
@@ -407,6 +422,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCoreTests.build/StrengthProfileTests.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCoreTests.build/ValueTypesTests.swift.o"
         },
         {
@@ -425,6 +444,7 @@
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Tests/FortachonCoreTests/FortachonCoreTests.swift",
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Tests/FortachonCoreTests/RoutineGeneratorTests.swift",
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Tests/FortachonCoreTests/SessionTypesTests.swift",
+        "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Tests/FortachonCoreTests/StrengthProfileTests.swift",
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Tests/FortachonCoreTests/ValueTypesTests.swift",
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Tests/FortachonCoreTests/WeightUtilsTests.swift"
       ],
@@ -448,6 +468,7 @@
       "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/FortachonCore.swift",
       "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/RoutineGenerator.swift",
       "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/SessionTypes.swift",
+      "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/StrengthProfile.swift",
       "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/ValueTypes.swift",
       "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/WeightUtils.swift",
       "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/WorkoutTypes.swift",
@@ -575,6 +596,7 @@
       "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Tests/FortachonCoreTests/FortachonCoreTests.swift",
       "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Tests/FortachonCoreTests/RoutineGeneratorTests.swift",
       "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Tests/FortachonCoreTests/SessionTypesTests.swift",
+      "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Tests/FortachonCoreTests/StrengthProfileTests.swift",
       "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Tests/FortachonCoreTests/ValueTypesTests.swift",
       "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Tests/FortachonCoreTests/WeightUtilsTests.swift",
       "-I",
@@ -692,6 +714,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/StrengthProfile.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/ValueTypes.swift"
         },
         {
@@ -748,6 +774,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/StrengthProfile.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/ValueTypes.swift.o"
         },
         {
@@ -781,6 +811,10 @@
         {
           "kind" : "file",
           "name" : "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCoreTests.build/SessionTypesTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCoreTests.build/StrengthProfileTests.swift.o"
         },
         {
           "kind" : "file",
@@ -819,6 +853,10 @@
         {
           "kind" : "file",
           "name" : "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Tests/FortachonCoreTests/SessionTypesTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Tests/FortachonCoreTests/StrengthProfileTests.swift"
         },
         {
           "kind" : "file",

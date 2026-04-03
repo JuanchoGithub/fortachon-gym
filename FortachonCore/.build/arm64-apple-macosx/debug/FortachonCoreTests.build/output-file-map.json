@@ -37,6 +37,13 @@
     "swift-dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCoreTests.build/SessionTypesTests.swiftdeps",
     "diagnostics": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCoreTests.build/SessionTypesTests.dia"
   },
+  "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Tests/FortachonCoreTests/StrengthProfileTests.swift": {
+    "dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCoreTests.build/StrengthProfileTests.d",
+    "object": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCoreTests.build/StrengthProfileTests.swift.o",
+    "swiftmodule": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCoreTests.build/StrengthProfileTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCoreTests.build/StrengthProfileTests.swiftdeps",
+    "diagnostics": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCoreTests.build/StrengthProfileTests.dia"
+  },
   "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Tests/FortachonCoreTests/ValueTypesTests.swift": {
     "dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCoreTests.build/ValueTypesTests.d",
     "object": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCoreTests.build/ValueTypesTests.swift.o",

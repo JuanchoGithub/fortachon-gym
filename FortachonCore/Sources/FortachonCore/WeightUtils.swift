@@ -1,3 +1,5 @@
+import Foundation
+
 // MARK: - Constants
 
 public let KG_TO_LBS: Double = 2.20462
@@ -59,7 +61,7 @@ public func convertCmToFtIn(_ cm: Double) -> (feet: Int, inches: Int) {
     if cm.isNaN || cm <= 0 { return (0, 0) }
     let totalInches = cm * CM_TO_INCHES
     let feet = Int(totalInches / 12)
-    var inches = Int(round(totalInches.truncatingRemainder(dividingBy: 12)))
+    let inches = Int(round(totalInches.truncatingRemainder(dividingBy: 12)))
     if inches == 12 { return (feet + 1, 0) }
     return (feet, inches)
 }

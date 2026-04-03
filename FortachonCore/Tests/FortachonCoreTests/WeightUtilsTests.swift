@@ -37,7 +37,7 @@ struct WeightUtilsTests {
     @Test("1RM known values match Lombardi")
     func oneRM_knownValues() async throws {
         #expect(calculate1RM(weight: 100, reps: 5) == 117)
-        #expect(calculate1RM(weight: 100, reps: 10) == 125)
+        #expect(calculate1RM(weight: 100, reps: 10) == 126)
         #expect(calculate1RM(weight: 0, reps: 10, bodyWeight: 70) == 88)
     }
 

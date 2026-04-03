@@ -48,3 +48,11 @@ public enum SetType: String, Codable, CaseIterable, Sendable, Equatable {
     case failure = "failure"
     case timed = "timed"
 }
+
+// MARK: - WeightUnit
+
+/// Display unit for weight.
+public enum WeightUnit: String, Codable, CaseIterable, Sendable {
+    case kg
+    case lbs
+}

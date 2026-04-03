@@ -6,13 +6,13 @@ struct DomainTypesTests {
 
     // MARK: - ExerciseCategory
 
-    @Test("ExerciseCategory has 12 cases matching TypeScript source")
-    func exerciseCategory_caseCount() async throws {
+    @Test("ExerciseCategory has 12 cases")
+    func exerciseCategory_caseCount() {
         #expect(ExerciseCategory.allCases.count == 12)
     }
 
-    @Test("ExerciseCategory raw values match TypeScript strings")
-    func exerciseCategory_rawValues() async throws {
+    @Test("ExerciseCategory raw values match TypeScript")
+    func exerciseCategory_rawValues() {
         #expect(ExerciseCategory.barbell.rawValue == "Barbell")
         #expect(ExerciseCategory.dumbbell.rawValue == "Dumbbell")
         #expect(ExerciseCategory.machine.rawValue == "Machine")
@@ -29,22 +29,22 @@ struct DomainTypesTests {
 
     @Test("ExerciseCategory Codable round-trip")
     func exerciseCategory_codable() async throws {
-        for category in ExerciseCategory.allCases {
-            let encoded = try JSONEncoder().encode(category)
-            let decoded = try JSONDecoder().decode(ExerciseCategory.self, from: encoded)
-            #expect(decoded == category)
+        for cat in ExerciseCategory.allCases {
+            let data = try JSONEncoder().encode(cat)
+            let decoded = try JSONDecoder().decode(ExerciseCategory.self, from: data)
+            #expect(decoded == cat)
         }
     }
 
     // MARK: - BodyPart
 
-    @Test("BodyPart has 13 cases matching TypeScript source")
-    func bodyPart_caseCount() async throws {
+    @Test("BodyPart has 13 cases")
+    func bodyPart_caseCount() {
         #expect(BodyPart.allCases.count == 13)
     }
 
-    @Test("BodyPart raw values match TypeScript strings")
-    func bodyPart_rawValues() async throws {
+    @Test("BodyPart raw values match TypeScript")
+    func bodyPart_rawValues() {
         #expect(BodyPart.chest.rawValue == "Chest")
         #expect(BodyPart.back.rawValue == "Back")
         #expect(BodyPart.legs.rawValue == "Legs")
@@ -63,21 +63,21 @@ struct DomainTypesTests {
     @Test("BodyPart Codable round-trip")
     func bodyPart_codable() async throws {
         for part in BodyPart.allCases {
-            let encoded = try JSONEncoder().encode(part)
-            let decoded = try JSONDecoder().decode(BodyPart.self, from: encoded)
+            let data = try JSONEncoder().encode(part)
+            let decoded = try JSONDecoder().decode(BodyPart.self, from: data)
             #expect(decoded == part)
         }
     }
 
     // MARK: - SetType
 
-    @Test("SetType has 5 cases matching TypeScript source")
-    func setType_caseCount() async throws {
+    @Test("SetType has 5 cases")
+    func setType_caseCount() {
         #expect(SetType.allCases.count == 5)
     }
 
-    @Test("SetType raw values match TypeScript strings")
-    func setType_rawValues() async throws {
+    @Test("SetType raw values match TypeScript")
+    func setType_rawValues() {
         #expect(SetType.normal.rawValue == "normal")
         #expect(SetType.warmup.rawValue == "warmup")
         #expect(SetType.drop.rawValue == "drop")
@@ -87,10 +87,24 @@ struct DomainTypesTests {
 
     @Test("SetType Codable round-trip")
     func setType_codable() async throws {
-        for setType in SetType.allCases {
-            let encoded = try JSONEncoder().encode(setType)
-            let decoded = try JSONDecoder().decode(SetType.self, from: encoded)
-            #expect(decoded == setType)
+        for st in SetType.allCases {
+            let data = try JSONEncoder().encode(st)
+            let decoded = try JSONDecoder().decode(SetType.self, from: data)
+            #expect(decoded == st)
         }
+    }
+
+    // MARK: - UserGoal
+
+    @Test("UserGoal has 3 cases")
+    func userGoal_caseCount() {
+        #expect(UserGoal.allCases.count == 3)
+    }
+
+    @Test("UserGoal raw values match")
+    func userGoal_rawValues() {
+        #expect(UserGoal.strength.rawValue == "strength")
+        #expect(UserGoal.muscle.rawValue == "muscle")
+        #expect(UserGoal.endurance.rawValue == "endurance")
     }
 }

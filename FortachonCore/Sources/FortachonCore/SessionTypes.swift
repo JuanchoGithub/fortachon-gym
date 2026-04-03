@@ -9,7 +9,7 @@ public enum RoutineType: String, Codable, CaseIterable, Sendable {
 
 // MARK: - HiitConfig
 
-public struct HiitConfig: Codable {
+public struct HiitConfig: Codable, Sendable {
     public let workTime: Int
     public let restTime: Int
     public let prepareTime: Int?
@@ -21,7 +21,7 @@ public struct HiitConfig: Codable {
 
 // MARK: - WorkoutSession
 
-public struct WorkoutSession: Codable, Identifiable {
+public struct WorkoutSession: Codable, Identifiable, Sendable {
     public let id: String
     public let routineId: String
     public let routineName: String
@@ -47,7 +47,7 @@ public struct WorkoutSession: Codable, Identifiable {
 
 // MARK: - Routine
 
-public struct Routine: Codable, Identifiable {
+public struct Routine: Codable, Identifiable, Sendable {
     public let id: String
     public var name: String
     public var description: String
@@ -77,13 +77,13 @@ public struct Routine: Codable, Identifiable {
 
 // MARK: - calculateRecords
 
-public struct RecordEntry {
+public struct RecordEntry: Sendable {
     public let value: Double
     public let set: PerformedSet
     public let session: WorkoutSession
 }
 
-public struct PersonalRecords {
+public struct PersonalRecords: Sendable {
     public let maxWeight: RecordEntry?
     public let maxReps: RecordEntry?
     public let maxVolume: RecordEntry?
@@ -111,11 +111,11 @@ public func calculateRecords(_ history: [(session: WorkoutSession, sets: [Perfor
 
 // MARK: - generate1RMProtocol
 
-public enum ProtocolStepType: String, Codable {
+public enum ProtocolStepType: String, Codable, Sendable {
     case warmup, attempt
 }
 
-public struct ProtocolStep: Codable {
+public struct ProtocolStep: Codable, Sendable {
     public let reps: Int
     public let percentage: Double
     public let rest: Int

@@ -1,5 +1,5 @@
 ---
 triple:          'arm64-apple-darwin'
-binary-path:     '/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCorePackageTests.xctest/Contents/MacOS/FortachonCorePackageTests'
+binary-path:     '/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCorePackageTests.xctest/Contents/MacOS/FortachonCorePackageTests'
 relocations:     []
 ...

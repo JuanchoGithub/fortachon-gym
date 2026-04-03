@@ -49,7 +49,7 @@ public let BODY_PART_ANCHORS: [String: String] = [
 
 // MARK: - PatternMax
 
-public struct PatternMax: Codable {
+public struct PatternMax: Codable, Sendable {
     public let exerciseId: String
     public let weight: Double
     public let reps: Int
@@ -60,7 +60,7 @@ public struct PatternMax: Codable {
 
 // MARK: - StrengthProfile
 
-public struct StrengthProfile {
+public struct StrengthProfile: Sendable {
     public let SQUAT: PatternMax
     public let BENCH: PatternMax
     public let DEADLIFT: PatternMax
@@ -131,7 +131,7 @@ public func calculateMaxStrengthProfile(
 
 // MARK: - Normalized Scores
 
-public struct NormalizedScores {
+public struct NormalizedScores: Sendable {
     public let squat: Double, bench: Double, deadlift: Double
     public let overhead: Double, row: Double, verticalPull: Double
     public func max() -> Double {

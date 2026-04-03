@@ -1,58 +1,84 @@
-// MARK: - ExerciseCategory
+import Foundation
 
-/// Identifies the equipment category for an exercise.
-/// Mirrors `ExerciseCategory` from types/index.ts.
+// MARK: - Recommendation Types
+
+public enum RecommendationType: String, Codable, Sendable {
+    case rest, workout, promotion, activeRecovery, imbalance, deload
+}
+
+public struct Recommendation: Sendable {
+    public let type: RecommendationType
+    public let title: String
+    public let reason: String
+    public let suggestedBodyParts: [BodyPart]
+    public let relevantRoutineIds: [String]
+    public let generatedRoutine: Routine?
+    public let systemicFatigue: (score: Double, level: String)?
+    public init(type: RecommendationType, title: String, reason: String,
+                suggestedBodyParts: [BodyPart] = [], relevantRoutineIds: [String] = [],
+                generatedRoutine: Routine? = nil,
+                systemicFatigue: (score: Double, level: String)? = nil) {
+        self.type = type; self.title = title; self.reason = reason
+        self.suggestedBodyParts = suggestedBodyParts
+        self.relevantRoutineIds = relevantRoutineIds
+        self.generatedRoutine = generatedRoutine
+        self.systemicFatigue = systemicFatigue
+    }
+}
+
+// MARK: - CheckInReason
+
+public enum CheckInReason: String, Codable, CaseIterable, Sendable {
+    case busy, deload, injury
+    public var label: String {
+        switch self {
+        case .busy: return "I'm busy this week"
+        case .deload: return "I need a deload"
+        case .injury: return "I'm injured"
+        }
+    }
+}
+
+// MARK: - MUSCLES
+
+public enum MUSCLES {
+    public static let pectorals = "Pectorals"
+    public static let quads = "Quads"
+    public static let hamstrings = "Hamstrings"
+    public static let glutes = "Glutes"
+    public static let lats = "Lats"
+    public static let traps = "Traps"
+    public static let biceps = "Biceps"
+    public static let triceps = "Triceps"
+    public static let frontDelts = "Front Delts"
+    public static let sideDelts = "Side Delts"
+    public static let rearDelts = "Rear Delts"
+    public static let lowerBack = "Lower Back"
+    public static let calves = "Calves"
+    public static let abs = "Abs"
+    public static let forearms = "Forearms"
+}
+
 public enum ExerciseCategory: String, Codable, CaseIterable, Sendable {
-    case barbell = "Barbell"
-    case dumbbell = "Dumbbell"
-    case machine = "Machine"
-    case cable = "Cable"
-    case bodyweight = "Bodyweight"
-    case assistedBodyweight = "Assisted Bodyweight"
-    case kettlebell = "Kettlebell"
-    case plyometrics = "Plyometrics"
-    case repsOnly = "Reps Only"
-    case cardio = "Cardio"
-    case duration = "Duration"
+    case barbell = "Barbell", dumbbell = "Dumbbell", machine = "Machine", cable = "Cable"
+    case bodyweight = "Bodyweight", assistedBodyweight = "Assisted Bodyweight"
+    case kettlebell = "Kettlebell", plyometrics = "Plyometrics"
+    case repsOnly = "Reps Only", cardio = "Cardio", duration = "Duration"
     case smithMachine = "Smith Machine"
 }
 
-// MARK: - BodyPart
-
-/// The primary body part / region targeted by an exercise.
-/// Mirrors `BodyPart` from types/index.ts.
 public enum BodyPart: String, Codable, CaseIterable, Sendable {
-    case chest = "Chest"
-    case back = "Back"
-    case legs = "Legs"
-    case glutes = "Glutes"
-    case shoulders = "Shoulders"
-    case biceps = "Biceps"
-    case triceps = "Triceps"
-    case core = "Core"
-    case fullBody = "Full Body"
-    case calves = "Calves"
-    case forearms = "Forearms"
-    case mobility = "Mobility"
-    case cardio = "Cardio"
+    case chest = "Chest", back = "Back", legs = "Legs", glutes = "Glutes"
+    case shoulders = "Shoulders", biceps = "Biceps", triceps = "Triceps"
+    case core = "Core", fullBody = "Full Body"
+    case calves = "Calves", forearms = "Forearms"
+    case mobility = "Mobility", cardio = "Cardio"
 }
 
-// MARK: - SetType
-
-/// The type of a performed set.
-/// Mirrors `SetType` from types/index.ts.
 public enum SetType: String, Codable, CaseIterable, Sendable, Equatable {
-    case normal = "normal"
-    case warmup = "warmup"
-    case drop = "drop"
-    case failure = "failure"
-    case timed = "timed"
+    case normal = "normal", warmup = "warmup", drop = "drop", failure = "failure", timed = "timed"
 }
 
-// MARK: - WeightUnit
-
-/// Display unit for weight.
 public enum WeightUnit: String, Codable, CaseIterable, Sendable {
-    case kg
-    case lbs
+    case kg, lbs
 }

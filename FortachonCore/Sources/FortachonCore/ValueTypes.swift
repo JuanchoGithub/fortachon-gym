@@ -2,7 +2,7 @@ import Foundation
 
 // MARK: - RestTimes
 
-public struct RestTimes: Codable {
+public struct RestTimes: Codable, Sendable {
     public var normal, warmup, drop, timed, effort, failure: Int
     public init(normal: Int = 90, warmup: Int = 60, drop: Int = 30,
                 timed: Int = 10, effort: Int = 90, failure: Int = 300) {
@@ -13,7 +13,7 @@ public struct RestTimes: Codable {
 
 // MARK: - PreviousVersion
 
-public struct PreviousVersion: Codable {
+public struct PreviousVersion: Codable, Sendable {
     public let exerciseId: String
     public let sets: [PerformedSet]
     public let note: String?
@@ -21,7 +21,7 @@ public struct PreviousVersion: Codable {
 
 // MARK: - Exercise
 
-public struct Exercise: Codable, Identifiable {
+public struct Exercise: Codable, Identifiable, Sendable {
     public let id: String
     public let name: String
     public let bodyPart: BodyPart
@@ -44,7 +44,7 @@ public struct Exercise: Codable, Identifiable {
 
 // MARK: - PerformedSet
 
-public struct PerformedSet: Codable, Identifiable {
+public struct PerformedSet: Codable, Identifiable, Sendable {
     public let id: String
     public var reps: Int
     public var weight: Double
@@ -83,7 +83,7 @@ public struct PerformedSet: Codable, Identifiable {
 
 // MARK: - SupersetDefinition
 
-public struct SupersetDefinition: Codable, Identifiable {
+public struct SupersetDefinition: Codable, Identifiable, Sendable {
     public let id: String
     public var name: String
     public var color: String?
@@ -94,7 +94,7 @@ public struct SupersetDefinition: Codable, Identifiable {
 
 // MARK: - WorkoutExercise
 
-public struct WorkoutExercise: Codable, Identifiable {
+public struct WorkoutExercise: Codable, Identifiable, Sendable {
     public let id: String
     public let exerciseId: String
     public var sets: [PerformedSet]
@@ -147,7 +147,7 @@ public func getTimerDuration(set: PerformedSet, workoutExercise: WorkoutExercise
 
 // MARK: - groupExercises
 
-public enum GroupedExerciseItem {
+public enum GroupedExerciseItem: Sendable {
     case single(WorkoutExercise, index: Int)
     case superset([WorkoutExercise], id: String, definition: SupersetDefinition?, indices: [Int])
 }

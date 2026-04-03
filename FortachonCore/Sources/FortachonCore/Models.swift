@@ -196,6 +196,49 @@ extension Routine {
     }
 }
 
+// MARK: - UserPreferences Model
+
+@Model
+public final class UserPreferencesM {
+    public var id: UUID
+    public var weightUnitStr: String
+    public var mainGoalStr: String
+    public var hasCompletedOnboarding: Bool
+    public var lastCheckInDate: Date?
+    public var lastCheckInReason: String?
+    @Relationship
+    public var activeSupplements: [SupplementLogM] = []
+    public init(id: UUID = UUID(), weightUnit: String = "kg", goal: String = "muscle",
+                hasCompletedOnboarding: Bool = false, lastCheckInDate: Date? = nil,
+                lastCheckInReason: String? = nil) {
+        self.id = id; weightUnitStr = weightUnit; mainGoalStr = goal
+        self.hasCompletedOnboarding = hasCompletedOnboarding
+        self.lastCheckInDate = lastCheckInDate
+        self.lastCheckInReason = lastCheckInReason
+    }
+    public var weightUnit: WeightUnit { WeightUnit(rawValue: weightUnitStr) ?? .kg }
+    public var mainGoal: UserGoal { UserGoal(rawValue: mainGoalStr) ?? .muscle }
+}
+
+// MARK: - SupplementLog Model
+
+@Model
+public final class SupplementLogM {
+    public var id: UUID
+    public var name: String
+    public var dosage: String
+    public var timingStr: String
+    public var isSnoozed: Bool
+    public var snoozedUntil: Date?
+    public var takenDate: Date?
+    public init(id: UUID = UUID(), name: String, dosage: String = "", timing: String = "daily",
+                isSnoozed: Bool = false, snoozedUntil: Date? = nil, takenDate: Date? = nil) {
+        self.id = id; self.name = name; self.dosage = dosage
+        timingStr = timing; self.isSnoozed = isSnoozed
+        self.snoozedUntil = snoozedUntil; self.takenDate = takenDate
+    }
+}
+
 // MARK: - ModelContainer Factory
 
 public func makeInMemoryContainer() throws -> ModelContainer {
@@ -203,5 +246,6 @@ public func makeInMemoryContainer() throws -> ModelContainer {
     return try ModelContainer(for: ExerciseM.self, PerformedSetM.self,
                               WorkoutExerciseM.self, SupersetM.self,
                               WorkoutSessionM.self, RoutineM.self,
+                              UserPreferencesM.self, SupplementLogM.self,
                               configurations: config)
 }

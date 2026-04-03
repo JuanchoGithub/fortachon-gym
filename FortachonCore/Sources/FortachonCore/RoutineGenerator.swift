@@ -6,7 +6,7 @@ public enum RoutineLevel: String, Codable, CaseIterable, Sendable {
     case beginner, intermediate, advanced
 }
 
-public struct SurveyAnswers: Codable {
+public struct SurveyAnswers: Codable, Sendable {
     public let experience: RoutineLevel
     public let goal: UserGoal
     public let equipment: EquipmentType

@@ -1,6 +1,44 @@
 import SwiftUI
 import FortachonCore
 
+// MARK: - Placeholder Views for other tabs
+
+struct HistoryView: View {
+    var body: some View {
+        NavigationStack {
+            Text("History")
+                .navigationTitle("History")
+        }
+    }
+}
+
+struct ExercisesView: View {
+    var body: some View {
+        NavigationStack {
+            Text("Exercises")
+                .navigationTitle("Exercises")
+        }
+    }
+}
+
+struct SupplementsView: View {
+    var body: some View {
+        NavigationStack {
+            Text("Supplements")
+                .navigationTitle("Supplements")
+        }
+    }
+}
+
+struct ProfileView: View {
+    var body: some View {
+        NavigationStack {
+            Text("Profile")
+                .navigationTitle("Profile")
+        }
+    }
+}
+
 struct ContentView: View {
     @State private var selectedTab: AppTab = .train
 

@@ -38,12 +38,38 @@ public final class PerformedSetM {
     public var completedAt: Date?
     public var restTime: Int?
     public var actualRestTime: Int?
+    // Historical comparison fields
+    public var historicalWeight: Double?
+    public var historicalReps: Int?
+    // Inheritance flags for supersets
+    public var isWeightInherited: Bool
+    public var isRepsInherited: Bool
+    public var isTimeInherited: Bool
+    // RPE (Rate of Perceived Exertion)
+    public var rpe: Int?
+    // Body weight at time of set
+    public var storedBodyWeight: Double?
+    // Cardio distance in km
+    public var distance: Double?
+    
     public init(id: String, reps: Int, weight: Double, time: Int? = nil,
                 type: String, isComplete: Bool = false, completedAt: Date? = nil,
-                rest: Int? = nil, actualRest: Int? = nil) {
+                rest: Int? = nil, actualRest: Int? = nil,
+                historicalWeight: Double? = nil, historicalReps: Int? = nil,
+                isWeightInherited: Bool = false, isRepsInherited: Bool = false,
+                isTimeInherited: Bool = false, rpe: Int? = nil,
+                storedBodyWeight: Double? = nil, distance: Double? = nil) {
         self.setId = id; self.reps = reps; self.weight = weight; setTime = time
         setTypeStr = type; self.isComplete = isComplete
         self.completedAt = completedAt; restTime = rest; actualRestTime = actualRest
+        self.historicalWeight = historicalWeight
+        self.historicalReps = historicalReps
+        self.isWeightInherited = isWeightInherited
+        self.isRepsInherited = isRepsInherited
+        self.isTimeInherited = isTimeInherited
+        self.rpe = rpe
+        self.storedBodyWeight = storedBodyWeight
+        self.distance = distance
     }
 }
 
@@ -63,13 +89,17 @@ public final class WorkoutExerciseM {
     public var restFailure: Int = 300
     public var note: String?
     public var supersetId: String?
+    // Bar/kettlebell weight
+    public var barWeight: Double
+    
     public init(id: String, exerciseId: String, restTime: RestTimes = RestTimes(),
-                note: String? = nil, supersetId: String? = nil) {
+                note: String? = nil, supersetId: String? = nil, barWeight: Double = 0) {
         self.weId = id; self.exerciseId = exerciseId
         restNormal = restTime.normal; restWarmup = restTime.warmup
         restDrop = restTime.drop; restTimed = restTime.timed
         restEffort = restTime.effort; restFailure = restTime.failure
         self.note = note; self.supersetId = supersetId
+        self.barWeight = barWeight
     }
 }
 
@@ -95,15 +125,20 @@ public final class WorkoutSessionM {
     public var startTime: Date
     public var endTime: Date
     public var prCount: Int
+    public var notes: String
+    public var prAnnounced: Bool
     @Relationship(deleteRule: .cascade)
     public var exercises: [WorkoutExerciseM] = []
     public var updatedAt: Date
     public var deletedAt: Date?
+    
     public init(id: String, routineId: String, routineName: String,
-                startTime: Date, endTime: Date, prCount: Int = 0) {
+                startTime: Date, endTime: Date, prCount: Int = 0,
+                notes: String = "", prAnnounced: Bool = false) {
         self.wsId = id; self.routineId = routineId; self.routineName = routineName
         self.startTime = startTime; self.endTime = endTime
-        self.prCount = prCount; self.updatedAt = Date()
+        self.prCount = prCount; self.notes = notes; self.prAnnounced = prAnnounced
+        self.updatedAt = Date()
     }
 }
 
@@ -155,7 +190,14 @@ extension PerformedSet {
                   type: SetType(rawValue: m.setTypeStr) ?? .normal,
                   isComplete: m.isComplete,
                   completedAt: m.completedAt?.timeIntervalSince1970,
-                  rest: m.restTime, actualRest: m.actualRestTime)
+                  rest: m.restTime,
+                  isWeightInherited: m.isWeightInherited,
+                  isRepsInherited: m.isRepsInherited,
+                  isTimeInherited: m.isTimeInherited,
+                  actualRest: m.actualRestTime,
+                  historicalWeight: m.historicalWeight,
+                  historicalReps: m.historicalReps,
+                  storedBodyWeight: m.storedBodyWeight)
     }
 }
 
@@ -166,7 +208,8 @@ extension WorkoutExercise {
                            drop: m.restDrop, timed: m.restTimed,
                            effort: m.restEffort, failure: m.restFailure)
         self.init(id: m.weId, exerciseId: m.exerciseId, sets: sets,
-                  restTime: rt, note: m.note, supersetId: m.supersetId)
+                  restTime: rt, note: m.note, barWeight: m.barWeight,
+                  supersetId: m.supersetId)
     }
 }
 
@@ -206,18 +249,68 @@ public final class UserPreferencesM {
     public var hasCompletedOnboarding: Bool
     public var lastCheckInDate: Date?
     public var lastCheckInReason: String?
+    // Profile fields
+    public var gender: String?
+    public var heightCm: Double?
+    // App behavior settings
+    public var fontSize: String = "normal"
+    public var smartGoalDetection: Bool = true
+    public var bioAdaptiveEngine: Bool = true
+    public var localizedExerciseNames: Bool = false
+    public var notificationsEnabled: Bool = false
+    public var selectedVoiceURI: String?
+    // Rest timer defaults
+    public var restNormal: Int = 90
+    public var restWarmup: Int = 60
+    public var restDrop: Int = 30
+    public var restTimed: Int = 10
+    public var restEffort: Int = 90
+    public var restFailure: Int = 300
+    // Audio coach
+    public var audioCoachEnabled: Bool = true
     @Relationship
     public var activeSupplements: [SupplementLogM] = []
     public init(id: UUID = UUID(), weightUnit: String = "kg", goal: String = "muscle",
                 hasCompletedOnboarding: Bool = false, lastCheckInDate: Date? = nil,
-                lastCheckInReason: String? = nil) {
+                lastCheckInReason: String? = nil, gender: String? = nil,
+                heightCm: Double? = nil, fontSize: String = "normal",
+                smartGoalDetection: Bool = true, bioAdaptiveEngine: Bool = true,
+                localizedExerciseNames: Bool = false, notificationsEnabled: Bool = false,
+                selectedVoiceURI: String? = nil, restNormal: Int = 90, restWarmup: Int = 60,
+                restDrop: Int = 30, restTimed: Int = 10, restEffort: Int = 90, restFailure: Int = 300,
+                audioCoachEnabled: Bool = true) {
         self.id = id; weightUnitStr = weightUnit; mainGoalStr = goal
         self.hasCompletedOnboarding = hasCompletedOnboarding
         self.lastCheckInDate = lastCheckInDate
         self.lastCheckInReason = lastCheckInReason
+        self.gender = gender; self.heightCm = heightCm
+        self.fontSize = fontSize; self.smartGoalDetection = smartGoalDetection
+        self.bioAdaptiveEngine = bioAdaptiveEngine
+        self.localizedExerciseNames = localizedExerciseNames
+        self.notificationsEnabled = notificationsEnabled
+        self.selectedVoiceURI = selectedVoiceURI
+        self.restNormal = restNormal; self.restWarmup = restWarmup
+        self.restDrop = restDrop; self.restTimed = restTimed
+        self.restEffort = restEffort; self.restFailure = restFailure
+        self.audioCoachEnabled = audioCoachEnabled
     }
     public var weightUnit: WeightUnit { WeightUnit(rawValue: weightUnitStr) ?? .kg }
     public var mainGoal: UserGoal { UserGoal(rawValue: mainGoalStr) ?? .muscle }
+}
+
+// MARK: - WeightEntry Model
+
+@Model
+public final class WeightEntryM {
+    public var id: UUID
+    public var weight: Double
+    public var date: Date
+    
+    public init(id: UUID = UUID(), weight: Double, date: Date = Date()) {
+        self.id = id
+        self.weight = weight
+        self.date = date
+    }
 }
 
 // MARK: - SupplementLog Model
@@ -228,14 +321,28 @@ public final class SupplementLogM {
     public var name: String
     public var dosage: String
     public var timingStr: String
+    public var notes: String
     public var isSnoozed: Bool
     public var snoozedUntil: Date?
     public var takenDate: Date?
+    public var stock: Int
+    public var isCustom: Bool
+    public var trainingDayOnly: Bool
+    public var restDayOnly: Bool
+    public var planId: String?
+    public var takenHistory: [Date]
+    
     public init(id: UUID = UUID(), name: String, dosage: String = "", timing: String = "daily",
-                isSnoozed: Bool = false, snoozedUntil: Date? = nil, takenDate: Date? = nil) {
+                notes: String = "", isSnoozed: Bool = false, snoozedUntil: Date? = nil,
+                takenDate: Date? = nil, stock: Int = 30, isCustom: Bool = true,
+                trainingDayOnly: Bool = false, restDayOnly: Bool = false,
+                planId: String? = nil, takenHistory: [Date] = []) {
         self.id = id; self.name = name; self.dosage = dosage
-        timingStr = timing; self.isSnoozed = isSnoozed
+        timingStr = timing; self.notes = notes; self.isSnoozed = isSnoozed
         self.snoozedUntil = snoozedUntil; self.takenDate = takenDate
+        self.stock = stock; self.isCustom = isCustom
+        self.trainingDayOnly = trainingDayOnly; self.restDayOnly = restDayOnly
+        self.planId = planId; self.takenHistory = takenHistory
     }
 }
 

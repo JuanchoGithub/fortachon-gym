@@ -1,89 +1,159 @@
 {
   "": {
-    "swift-dependencies": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/primary.swiftdeps"
+    "swift-dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/primary.swiftdeps"
   },
-  "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/Sources/FortachonCore/AnalyticsUtils.swift": {
-    "dependencies": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/AnalyticsUtils.d",
-    "object": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/AnalyticsUtils.swift.o",
-    "swiftmodule": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/AnalyticsUtils~partial.swiftmodule",
-    "swift-dependencies": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/AnalyticsUtils.swiftdeps",
-    "diagnostics": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/AnalyticsUtils.dia"
+  "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/AnalyticsUtils.swift": {
+    "dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/AnalyticsUtils.d",
+    "object": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/AnalyticsUtils.swift.o",
+    "swiftmodule": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/AnalyticsUtils~partial.swiftmodule",
+    "swift-dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/AnalyticsUtils.swiftdeps",
+    "diagnostics": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/AnalyticsUtils.dia"
   },
-  "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/Sources/FortachonCore/DomainTypes.swift": {
-    "dependencies": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/DomainTypes.d",
-    "object": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/DomainTypes.swift.o",
-    "swiftmodule": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/DomainTypes~partial.swiftmodule",
-    "swift-dependencies": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/DomainTypes.swiftdeps",
-    "diagnostics": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/DomainTypes.dia"
+  "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/CloudSyncService.swift": {
+    "dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/CloudSyncService.d",
+    "object": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/CloudSyncService.swift.o",
+    "swiftmodule": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/CloudSyncService~partial.swiftmodule",
+    "swift-dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/CloudSyncService.swiftdeps",
+    "diagnostics": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/CloudSyncService.dia"
   },
-  "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/Sources/FortachonCore/FortachonCore.swift": {
-    "dependencies": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/FortachonCore.d",
-    "object": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/FortachonCore.swift.o",
-    "swiftmodule": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/FortachonCore~partial.swiftmodule",
-    "swift-dependencies": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/FortachonCore.swiftdeps",
-    "diagnostics": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/FortachonCore.dia"
+  "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/DomainTypes.swift": {
+    "dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/DomainTypes.d",
+    "object": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/DomainTypes.swift.o",
+    "swiftmodule": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/DomainTypes~partial.swiftmodule",
+    "swift-dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/DomainTypes.swiftdeps",
+    "diagnostics": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/DomainTypes.dia"
   },
-  "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/Sources/FortachonCore/LifterProfile.swift": {
-    "dependencies": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/LifterProfile.d",
-    "object": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/LifterProfile.swift.o",
-    "swiftmodule": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/LifterProfile~partial.swiftmodule",
-    "swift-dependencies": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/LifterProfile.swiftdeps",
-    "diagnostics": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/LifterProfile.dia"
+  "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/ExerciseSeedData.swift": {
+    "dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/ExerciseSeedData.d",
+    "object": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/ExerciseSeedData.swift.o",
+    "swiftmodule": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/ExerciseSeedData~partial.swiftmodule",
+    "swift-dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/ExerciseSeedData.swiftdeps",
+    "diagnostics": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/ExerciseSeedData.dia"
   },
-  "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/Sources/FortachonCore/Models.swift": {
-    "dependencies": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/Models.d",
-    "object": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/Models.swift.o",
-    "swiftmodule": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/Models~partial.swiftmodule",
-    "swift-dependencies": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/Models.swiftdeps",
-    "diagnostics": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/Models.dia"
+  "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/ExerciseSeeder.swift": {
+    "dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/ExerciseSeeder.d",
+    "object": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/ExerciseSeeder.swift.o",
+    "swiftmodule": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/ExerciseSeeder~partial.swiftmodule",
+    "swift-dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/ExerciseSeeder.swiftdeps",
+    "diagnostics": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/ExerciseSeeder.dia"
   },
-  "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/Sources/FortachonCore/RecommendationEngine.swift": {
-    "dependencies": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/RecommendationEngine.d",
-    "object": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/RecommendationEngine.swift.o",
-    "swiftmodule": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/RecommendationEngine~partial.swiftmodule",
-    "swift-dependencies": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/RecommendationEngine.swiftdeps",
-    "diagnostics": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/RecommendationEngine.dia"
+  "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/FilterConstants.swift": {
+    "dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/FilterConstants.d",
+    "object": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/FilterConstants.swift.o",
+    "swiftmodule": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/FilterConstants~partial.swiftmodule",
+    "swift-dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/FilterConstants.swiftdeps",
+    "diagnostics": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/FilterConstants.dia"
   },
-  "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/Sources/FortachonCore/RoutineGenerator.swift": {
-    "dependencies": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/RoutineGenerator.d",
-    "object": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/RoutineGenerator.swift.o",
-    "swiftmodule": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/RoutineGenerator~partial.swiftmodule",
-    "swift-dependencies": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/RoutineGenerator.swiftdeps",
-    "diagnostics": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/RoutineGenerator.dia"
+  "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/FortachonCore.swift": {
+    "dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/FortachonCore.d",
+    "object": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/FortachonCore.swift.o",
+    "swiftmodule": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/FortachonCore~partial.swiftmodule",
+    "swift-dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/FortachonCore.swiftdeps",
+    "diagnostics": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/FortachonCore.dia"
   },
-  "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/Sources/FortachonCore/SessionTypes.swift": {
-    "dependencies": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/SessionTypes.d",
-    "object": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/SessionTypes.swift.o",
-    "swiftmodule": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/SessionTypes~partial.swiftmodule",
-    "swift-dependencies": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/SessionTypes.swiftdeps",
-    "diagnostics": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/SessionTypes.dia"
+  "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/LifterProfile.swift": {
+    "dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/LifterProfile.d",
+    "object": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/LifterProfile.swift.o",
+    "swiftmodule": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/LifterProfile~partial.swiftmodule",
+    "swift-dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/LifterProfile.swiftdeps",
+    "diagnostics": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/LifterProfile.dia"
   },
-  "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/Sources/FortachonCore/StrengthProfile.swift": {
-    "dependencies": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/StrengthProfile.d",
-    "object": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/StrengthProfile.swift.o",
-    "swiftmodule": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/StrengthProfile~partial.swiftmodule",
-    "swift-dependencies": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/StrengthProfile.swiftdeps",
-    "diagnostics": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/StrengthProfile.dia"
+  "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/Models.swift": {
+    "dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/Models.d",
+    "object": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/Models.swift.o",
+    "swiftmodule": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/Models~partial.swiftmodule",
+    "swift-dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/Models.swiftdeps",
+    "diagnostics": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/Models.dia"
   },
-  "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/Sources/FortachonCore/ValueTypes.swift": {
-    "dependencies": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/ValueTypes.d",
-    "object": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/ValueTypes.swift.o",
-    "swiftmodule": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/ValueTypes~partial.swiftmodule",
-    "swift-dependencies": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/ValueTypes.swiftdeps",
-    "diagnostics": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/ValueTypes.dia"
+  "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/MuscleConstants.swift": {
+    "dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/MuscleConstants.d",
+    "object": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/MuscleConstants.swift.o",
+    "swiftmodule": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/MuscleConstants~partial.swiftmodule",
+    "swift-dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/MuscleConstants.swiftdeps",
+    "diagnostics": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/MuscleConstants.dia"
   },
-  "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/Sources/FortachonCore/WeightUtils.swift": {
-    "dependencies": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/WeightUtils.d",
-    "object": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/WeightUtils.swift.o",
-    "swiftmodule": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/WeightUtils~partial.swiftmodule",
-    "swift-dependencies": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/WeightUtils.swiftdeps",
-    "diagnostics": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/WeightUtils.dia"
+  "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/ProgressionConstants.swift": {
+    "dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/ProgressionConstants.d",
+    "object": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/ProgressionConstants.swift.o",
+    "swiftmodule": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/ProgressionConstants~partial.swiftmodule",
+    "swift-dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/ProgressionConstants.swiftdeps",
+    "diagnostics": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/ProgressionConstants.dia"
   },
-  "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/Sources/FortachonCore/WorkoutTypes.swift": {
-    "dependencies": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/WorkoutTypes.d",
-    "object": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/WorkoutTypes.swift.o",
-    "swiftmodule": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/WorkoutTypes~partial.swiftmodule",
-    "swift-dependencies": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/WorkoutTypes.swiftdeps",
-    "diagnostics": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/WorkoutTypes.dia"
+  "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/RatioConstants.swift": {
+    "dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/RatioConstants.d",
+    "object": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/RatioConstants.swift.o",
+    "swiftmodule": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/RatioConstants~partial.swiftmodule",
+    "swift-dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/RatioConstants.swiftdeps",
+    "diagnostics": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/RatioConstants.dia"
+  },
+  "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/RecommendationEngine.swift": {
+    "dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/RecommendationEngine.d",
+    "object": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/RecommendationEngine.swift.o",
+    "swiftmodule": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/RecommendationEngine~partial.swiftmodule",
+    "swift-dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/RecommendationEngine.swiftdeps",
+    "diagnostics": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/RecommendationEngine.dia"
+  },
+  "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/RoutineGenerator.swift": {
+    "dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/RoutineGenerator.d",
+    "object": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/RoutineGenerator.swift.o",
+    "swiftmodule": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/RoutineGenerator~partial.swiftmodule",
+    "swift-dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/RoutineGenerator.swiftdeps",
+    "diagnostics": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/RoutineGenerator.dia"
+  },
+  "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/RoutineSeedData.swift": {
+    "dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/RoutineSeedData.d",
+    "object": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/RoutineSeedData.swift.o",
+    "swiftmodule": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/RoutineSeedData~partial.swiftmodule",
+    "swift-dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/RoutineSeedData.swiftdeps",
+    "diagnostics": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/RoutineSeedData.dia"
+  },
+  "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/SessionTypes.swift": {
+    "dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/SessionTypes.d",
+    "object": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/SessionTypes.swift.o",
+    "swiftmodule": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/SessionTypes~partial.swiftmodule",
+    "swift-dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/SessionTypes.swiftdeps",
+    "diagnostics": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/SessionTypes.dia"
+  },
+  "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/StrengthProfile.swift": {
+    "dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/StrengthProfile.d",
+    "object": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/StrengthProfile.swift.o",
+    "swiftmodule": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/StrengthProfile~partial.swiftmodule",
+    "swift-dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/StrengthProfile.swiftdeps",
+    "diagnostics": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/StrengthProfile.dia"
+  },
+  "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/SupplementService.swift": {
+    "dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/SupplementService.d",
+    "object": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/SupplementService.swift.o",
+    "swiftmodule": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/SupplementService~partial.swiftmodule",
+    "swift-dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/SupplementService.swiftdeps",
+    "diagnostics": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/SupplementService.dia"
+  },
+  "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/ValueTypes.swift": {
+    "dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/ValueTypes.d",
+    "object": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/ValueTypes.swift.o",
+    "swiftmodule": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/ValueTypes~partial.swiftmodule",
+    "swift-dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/ValueTypes.swiftdeps",
+    "diagnostics": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/ValueTypes.dia"
+  },
+  "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/WeightUtils.swift": {
+    "dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/WeightUtils.d",
+    "object": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/WeightUtils.swift.o",
+    "swiftmodule": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/WeightUtils~partial.swiftmodule",
+    "swift-dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/WeightUtils.swiftdeps",
+    "diagnostics": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/WeightUtils.dia"
+  },
+  "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/WorkoutAnalytics.swift": {
+    "dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/WorkoutAnalytics.d",
+    "object": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/WorkoutAnalytics.swift.o",
+    "swiftmodule": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/WorkoutAnalytics~partial.swiftmodule",
+    "swift-dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/WorkoutAnalytics.swiftdeps",
+    "diagnostics": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/WorkoutAnalytics.dia"
+  },
+  "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/WorkoutTypes.swift": {
+    "dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/WorkoutTypes.d",
+    "object": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/WorkoutTypes.swift.o",
+    "swiftmodule": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/WorkoutTypes~partial.swiftmodule",
+    "swift-dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/WorkoutTypes.swiftdeps",
+    "diagnostics": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/WorkoutTypes.dia"
   }
 }

@@ -1,40 +1,17 @@
 import Foundation
 
-// MARK: - LifterArchetype
+// MARK: - calculateLifterDNA (Deprecated - use WorkoutAnalytics version)
 
-public enum LifterArchetype: String, Codable, Sendable {
-    case powerbuilder, bodybuilder, endurance, hybrid, beginner
-}
+// This function is deprecated. Use calculateLifterDNA(history:currentBodyWeight:) from WorkoutAnalytics.swift instead.
+// The function signature below is kept for backward compatibility but redirects to the new implementation.
 
-// MARK: - LifterStats
-
-public struct LifterStats: Codable, Sendable {
-    public let consistencyScore: Double
-    public let volumeScore: Double
-    public let intensityScore: Double
-    public let experienceLevel: Int
-    public let archetype: LifterArchetype
-    public let favMuscle: String
-    public let efficiencyScore: Double
-    public let rawConsistency: Int
-    public let rawVolume: Double
-    public let rawIntensity: Double
-    public init(consistency: Double = 0, volume: Double = 0, intensity: Double = 0,
-                experience: Int = 0, archetype: LifterArchetype = .beginner,
-                favMuscle: String = "N/A", efficiency: Double = 0,
-                rawConsistency: Int = 0, rawVolume: Double = 0, rawIntensity: Double = 0) {
-        consistencyScore = consistency; volumeScore = volume; intensityScore = intensity
-        experienceLevel = experience; self.archetype = archetype; self.favMuscle = favMuscle
-        efficiencyScore = efficiency; self.rawConsistency = rawConsistency
-        self.rawVolume = rawVolume; self.rawIntensity = rawIntensity
-    }
-}
-
-// MARK: - calculateLifterDNA
-
+@available(*, deprecated, message: "Use calculateLifterDNA(history:currentBodyWeight:) from WorkoutAnalytics.swift")
 public func calculateLifterDNA(_ history: [WorkoutSession], allExercises: [Exercise] = []) -> LifterStats {
     if history.isEmpty {
-        return LifterStats(archetype: .beginner)
+        return LifterStats(
+            consistencyScore: 0, volumeScore: 0, intensityScore: 0,
+            experienceLevel: 0, archetype: .beginner, favMuscle: "N/A",
+            efficiencyScore: 0, rawConsistency: 0, rawVolume: 0, rawIntensity: 0)
     }
     if history.count < 5 {
         let totalVol = history.reduce(0) { acc, s in
@@ -46,7 +23,10 @@ public func calculateLifterDNA(_ history: [WorkoutSession], allExercises: [Exerc
             }
             return acc + Int(sVol)
         }
-        return LifterStats(consistency: 0, volume: 0, intensity: 0, experience: 0, archetype: .beginner, favMuscle: "N/A", efficiency: 0, rawConsistency: 0, rawVolume: Double(totalVol), rawIntensity: 0)
+        return LifterStats(
+            consistencyScore: 0, volumeScore: 0, intensityScore: 0,
+            experienceLevel: 0, archetype: .beginner, favMuscle: "N/A",
+            efficiencyScore: 0, rawConsistency: 0, rawVolume: Int(totalVol), rawIntensity: 0)
     }
 
     let now = Date().timeIntervalSince1970 * 1000
@@ -95,11 +75,17 @@ public func calculateLifterDNA(_ history: [WorkoutSession], allExercises: [Exerc
         if davg > 0 { eff = min(100, round(d0 / davg * 100)) }
     }
 
-    return LifterStats(consistency: consistency, volume: min(100, round(avgVol / 10000 * 100)),
-        intensity: avgRepsPerSet <= 5 ? 95 : avgRepsPerSet <= 8 ? 85 : avgRepsPerSet <= 12 ? 75 : avgRepsPerSet <= 15 ? 60 : 40,
-        experience: history.count, archetype: archetype, favMuscle: favMuscle,
-        efficiency: eff, rawConsistency: last30.count,
-        rawVolume: round(avgVol), rawIntensity: round(avgRepsPerSet * 10) / 10)
+    return LifterStats(
+        consistencyScore: Int(consistency),
+        volumeScore: min(100, Int(avgVol / 10000 * 100)),
+        intensityScore: avgRepsPerSet <= 5 ? 95 : avgRepsPerSet <= 8 ? 85 : avgRepsPerSet <= 12 ? 75 : avgRepsPerSet <= 15 ? 60 : 40,
+        experienceLevel: history.count,
+        archetype: archetype,
+        favMuscle: favMuscle,
+        efficiencyScore: Int(eff),
+        rawConsistency: last30.count,
+        rawVolume: Int(avgVol),
+        rawIntensity: round(avgRepsPerSet * 10) / 10)
 }
 
 // MARK: - inferUserProfile

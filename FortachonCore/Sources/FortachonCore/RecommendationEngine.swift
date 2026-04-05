@@ -260,13 +260,162 @@ public struct SupplementPlanItem: Identifiable, Codable, Sendable, Equatable {
     public let supplement: String
     public let dosage: String
     public let time: String
+    public let notes: String
+    public let isCustom: Bool
     public let trainingDayOnly: Bool
     public let restDayOnly: Bool
+    public let stock: Int?
 
     public init(id: String, supplement: String, dosage: String, time: String,
-                trainingDayOnly: Bool = false, restDayOnly: Bool = false) {
+                notes: String = "", isCustom: Bool = false,
+                trainingDayOnly: Bool = false, restDayOnly: Bool = false,
+                stock: Int? = nil) {
         self.id = id; self.supplement = supplement; self.dosage = dosage
-        self.time = time; self.trainingDayOnly = trainingDayOnly
-        self.restDayOnly = restDayOnly
+        self.time = time; self.notes = notes; self.isCustom = isCustom
+        self.trainingDayOnly = trainingDayOnly; self.restDayOnly = restDayOnly
+        self.stock = stock
+    }
+}
+
+// MARK: - SupplementInfo
+
+/// User profile data for supplement plan generation.
+public struct SupplementInfo: Codable, Sendable, Equatable {
+    public let dob: String
+    public let weight: Double
+    public let height: Double
+    public let gender: String
+    public let activityLevel: String
+    public let trainingDays: [String]
+    public let trainingTime: String
+    public let routineType: String
+    public let objective: String
+    public let proteinConsumption: Double?
+    public let proteinUnknown: Bool
+    public let deficiencies: [String]
+    public let desiredSupplements: [String]
+    public let allergies: [String]
+    public let medicalConditions: String
+    public let consumptionPreferences: String
+    public let hydration: Double
+
+    public init(dob: String, weight: Double, height: Double, gender: String,
+                activityLevel: String, trainingDays: [String], trainingTime: String,
+                routineType: String, objective: String, proteinConsumption: Double? = nil,
+                proteinUnknown: Bool = false, deficiencies: [String] = [],
+                desiredSupplements: [String] = [], allergies: [String] = [],
+                medicalConditions: String = "", consumptionPreferences: String = "",
+                hydration: Double = 2.0) {
+        self.dob = dob; self.weight = weight; self.height = height
+        self.gender = gender; self.activityLevel = activityLevel
+        self.trainingDays = trainingDays; self.trainingTime = trainingTime
+        self.routineType = routineType; self.objective = objective
+        self.proteinConsumption = proteinConsumption; self.proteinUnknown = proteinUnknown
+        self.deficiencies = deficiencies; self.desiredSupplements = desiredSupplements
+        self.allergies = allergies; self.medicalConditions = medicalConditions
+        self.consumptionPreferences = consumptionPreferences; self.hydration = hydration
+    }
+}
+
+// MARK: - SupplementPlan
+
+/// A complete supplement plan with user info and generated items.
+public struct SupplementPlan: Codable, Sendable, Equatable {
+    public let info: SupplementInfo
+    public var plan: [SupplementPlanItem]
+    public let warnings: [String]
+    public let generalTips: [String]
+    public let createdAt: TimeInterval
+
+    public init(info: SupplementInfo, plan: [SupplementPlanItem],
+                warnings: [String] = [], generalTips: [String] = [],
+                createdAt: TimeInterval = Date().timeIntervalSince1970) {
+        self.info = info; self.plan = plan; self.warnings = warnings
+        self.generalTips = generalTips; self.createdAt = createdAt
+    }
+}
+
+// MARK: - SupplementSuggestion
+
+/// A suggestion to modify the supplement plan.
+public struct SupplementSuggestion: Identifiable, Codable, Sendable, Equatable {
+    public let id: String
+    public let title: String
+    public let reason: String
+    public let action: SupplementSuggestionAction
+    public let identifier: String
+
+    public init(id: String, title: String, reason: String,
+                action: SupplementSuggestionAction, identifier: String) {
+        self.id = id; self.title = title; self.reason = reason
+        self.action = action; self.identifier = identifier
+    }
+}
+
+/// Action types for supplement suggestions.
+public enum SupplementSuggestionAction: Codable, Sendable, Equatable {
+    case add(item: SupplementPlanItem)
+    case update(itemId: String, updates: SupplementPlanUpdates)
+    case remove(itemId: String)
+}
+
+/// Updates to apply to an existing supplement item.
+public struct SupplementPlanUpdates: Codable, Sendable, Equatable {
+    public var time: String?
+    public var dosage: String?
+    public var notes: String?
+    public var trainingDayOnly: Bool?
+    public var restDayOnly: Bool?
+    public var stock: Int?
+
+    public init(time: String? = nil, dosage: String? = nil, notes: String? = nil,
+                trainingDayOnly: Bool? = nil, restDayOnly: Bool? = nil, stock: Int? = nil) {
+        self.time = time; self.dosage = dosage; self.notes = notes
+        self.trainingDayOnly = trainingDayOnly; self.restDayOnly = restDayOnly
+        self.stock = stock
+    }
+}
+
+// MARK: - SupplementExplanation
+
+/// Explanation for a supplement (what it does, why take it).
+public struct SupplementExplanation: Identifiable, Codable, Sendable, Equatable {
+    public let id: String
+    public let name: String
+    public let category: String
+    public let description: String
+    public let benefits: [String]
+    public let sideEffects: [String]
+    public let dosage: String
+    public let timing: String
+    public let stackWith: [String]
+
+    public init(id: String, name: String, category: String, description: String,
+                benefits: [String] = [], sideEffects: [String] = [],
+                dosage: String = "", timing: String = "", stackWith: [String] = []) {
+        self.id = id; self.name = name; self.category = category
+        self.description = description; self.benefits = benefits
+        self.sideEffects = sideEffects; self.dosage = dosage
+        self.timing = timing; self.stackWith = stackWith
+    }
+}
+
+// MARK: - SupplementLibraryItem
+
+/// A predefined supplement in the library.
+public struct SupplementLibraryItem: Identifiable, Codable, Sendable, Equatable {
+    public let id: String
+    public let key: String
+    public let category: String
+    public let descriptionKey: String
+    public let defaultDose: String
+    public let defaultTime: String
+    public let benefits: [String]
+
+    public init(id: String, key: String, category: String, descriptionKey: String,
+                defaultDose: String, defaultTime: String, benefits: [String] = []) {
+        self.id = id; self.key = key; self.category = category
+        self.descriptionKey = descriptionKey; self.defaultDose = defaultDose
+        self.defaultTime = defaultTime; self.benefits = benefits
     }
 }

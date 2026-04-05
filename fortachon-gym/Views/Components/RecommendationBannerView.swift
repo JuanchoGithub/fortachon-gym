@@ -4,8 +4,7 @@ import FortachonCore
 struct RecommendationBannerView: View {
     let recommendation: Recommendation
     let onRoutineSelect: () -> Void
-    
-    @Environment(\.dismiss) private var dismiss
+    var onDismiss: (() -> Void)? = nil
     
     private var gradient: LinearGradient {
         switch recommendation.type {
@@ -45,11 +44,13 @@ struct RecommendationBannerView: View {
                         .font(.headline)
                         .foregroundStyle(.white)
                     Spacer()
-                    Button {
-                        dismiss()
-                    } label: {
-                        Image(systemName: "xmark.circle.fill")
-                            .foregroundStyle(.white.opacity(0.7))
+                    if let onDismiss = onDismiss {
+                        Button {
+                            onDismiss()
+                        } label: {
+                            Image(systemName: "xmark.circle.fill")
+                                .foregroundStyle(.white.opacity(0.7))
+                        }
                     }
                 }
                 Text(recommendation.reason)

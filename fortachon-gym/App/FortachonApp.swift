@@ -4,7 +4,7 @@ import FortachonCore
 
 @main
 struct FortachonApp: App {
-    @ApplicationStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
+    @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
     
     @Environment(\.scenePhase) private var scenePhase
     
@@ -31,7 +31,8 @@ struct FortachonApp: App {
                 WorkoutSessionM.self,
                 RoutineM.self,
                 UserPreferencesM.self,
-                SupplementLogM.self
+                SupplementLogM.self,
+                WeightEntryM.self
             ])
             
             let config = ModelConfiguration(
@@ -47,8 +48,15 @@ struct FortachonApp: App {
             
             // Seed initial data if needed
             let context = ModelContext(container)
-            if try! context.fetch(FetchDescriptor<RoutineM>()).isEmpty {
-                ExerciseSeeder.shared.seed(context: context)
+            do {
+                let routines = try context.fetch(FetchDescriptor<RoutineM>())
+                if routines.isEmpty {
+                    insertExerciseModels(into: context)
+                    insertRoutineModels(into: context)
+                    try context.save()
+                }
+            } catch {
+                print("SwiftData warning during seeding: \(error)")
             }
             
             return container

@@ -29,12 +29,23 @@ public struct Recommendation: Sendable {
 // MARK: - CheckInReason
 
 public enum CheckInReason: String, Codable, CaseIterable, Sendable {
-    case busy, deload, injury
+    case busy, deload, injury, vacation, takingBreak
     public var label: String {
         switch self {
         case .busy: return "I'm busy this week"
         case .deload: return "I need a deload"
         case .injury: return "I'm injured"
+        case .vacation: return "On vacation"
+        case .takingBreak: return "Just needed a break"
+        }
+    }
+    public var emoji: String {
+        switch self {
+        case .busy: return "💼"
+        case .deload: return "🔄"
+        case .injury: return "🩹"
+        case .vacation: return "🏖️"
+        case .takingBreak: return "😌"
         }
     }
 }

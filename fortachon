@@ -1,0 +1,123 @@
+import Foundation
+import FortachonCore
+
+/// A suggestion for upgrading an exercise based on workout history.
+struct UpgradeSuggestion: Identifiable, Equatable {
+    let id = UUID()
+    let currentExerciseId: String
+    let targetExerciseId: String
+    let currentExerciseName: String
+    let targetExerciseName: String
+    let reason: String
+    
+    static func == (lhs: UpgradeSuggestion, rhs: UpgradeSuggestion) -> Bool {
+        lhs.currentExerciseId == rhs.currentExerciseId && lhs.targetExerciseId == rhs.targetExerciseId
+    }
+}
+
+/// Generates upgrade suggestions based on workout history and exercise progression patterns.
+@MainActor
+struct UpgradeSuggestions {
+    
+    /// Common exercise progressions - maps easier variations to harder ones
+    static let progressions: [(easy: String, hard: String)] = [
+        ("Wall Push", "Incline Push"),
+        ("Incline Push", "Push Up"),
+        ("Knee Push", "Push Up"),
+        ("Push Up", "Diamond Push"),
+        ("Lat Pulldown", "Pull Up"),
+        ("Assisted Pull", "Pull Up"),
+        ("Machine Chest", "Barbell Bench"),
+        ("Smith Bench", "Barbell Bench"),
+        ("Dumbbell Bench", "Barbell Bench"),
+        ("Incline Dumbbell", "Incline Barbell"),
+        ("Machine Shoulder", "Dumbbell Shoulder"),
+        ("Machine Row", "Barbell Row"),
+        ("Cable Row", "Barbell Row"),
+        ("Leg Press", "Squat"),
+        ("Machine Leg", "Leg Press"),
+        ("Seated Leg", "Leg Press"),
+        ("Dumbbell Squat", "Barbell Squat"),
+        ("Machine Curl", "Barbell Curl"),
+        ("Dumbbell Curl", "Barbell Curl"),
+        ("Cable Curl", "Barbell Curl"),
+        ("Machine Triceps", "Barbell Bench"),
+        ("Cable Triceps", "Skull Crusher"),
+        ("Leg Extension", "Barbell Squat"),
+        ("Leg Curl", "Romanian Deadlift"),
+        ("Smith Squat", "Barbell Squat"),
+        ("Smith Deadlift", "Barbell Deadlift"),
+    ]
+    
+    /// Generates upgrade suggestions for current workout exercises.
+    /// - Parameters:
+    ///   - currentExerciseIds: Exercise IDs currently in the workout
+    ///   - allExercises: All available exercises from database
+    ///   - frequency: Exercise frequency counts from history (from HistoricalLookup)
+    /// - Returns: Array of upgrade suggestions
+    static func generate(
+        currentExerciseIds: [String],
+        allExercises: [ExerciseM],
+        frequency: [String: Int]
+    ) -> [UpgradeSuggestion] {
+        var suggestions: [UpgradeSuggestion] = []
+        
+        // Create exercise name lookup
+        let exerciseByName = Dictionary(uniqueKeysWithValues: allExercises.map { ($0.name.lowercased(), $0) })
+        
+        for exerciseId in currentExerciseIds {
+            // Skip exercises done less than 2 times (not consistent enough)
+            guard let count = frequency[exerciseId], count >= 2 else { continue }
+            
+            // Find the exercise in our list
+            guard let currentExercise = allExercises.first(where: { $0.id == exerciseId }) else { continue }
+            
+            let currentName = currentExercise.name.lowercased()
+            let currentNameClean = currentName.lowercased()
+            
+            // Look for progression targets
+            for (easy, hard) in progressions {
+                if currentNameClean.contains(easy.lowercased()) || currentNameClean == easy.lowercased() {
+                    // Find the harder exercise
+                    guard let targetExercise = exerciseByName[hard.lowercased()] else { continue }
+                    
+                    // Make sure it's the same body part
+                    if targetExercise.bodyPartStr == currentExercise.bodyPartStr {
+                        let reason = generateReason(count: count)
+                        suggestions.append(UpgradeSuggestion(
+                            currentExerciseId: exerciseId,
+                            targetExerciseId: targetExercise.id,
+                            currentExerciseName: currentExercise.name,
+                            targetExerciseName: targetExercise.name,
+                            reason: reason
+                        ))
+                    }
+                }
+            }
+        }
+        
+        return suggestions
+    }
+    
+    /// Generates a human-readable reason for the suggestion.
+    private static func generateReason(count: Int) -> String {
+        if count >= 5 {
+            return "You've mastered this exercise! Time for a harder variation."
+        } else if count >= 3 {
+            return "You've been consistent with this exercise. Consider progressing."
+        } else {
+            return "Good form established. Ready for a challenge?"
+        }
+    }
+    
+    /// Finds exercises of the same body part that could be alternatives.
+    static func findAlternatives(for exerciseId: String, allExercises: [ExerciseM]) -> [ExerciseM] {
+        guard let current = allExercises.first(where: { $0.id == exerciseId }) else { return [] }
+        
+        return allExercises.filter { ex in
+            ex.id != exerciseId &&
+            ex.bodyPartStr == current.bodyPartStr &&
+            ex.categoryStr == current.categoryStr
+        }.sorted { $0.name < $1.name }
+    }
+}

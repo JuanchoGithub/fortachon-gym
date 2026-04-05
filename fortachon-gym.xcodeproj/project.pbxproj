@@ -3,48 +3,153 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 58;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A1B2C3D40001 /* FortachonApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D40001 /* FortachonApp.swift */; };
-		A1B2C3D40002 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D40002 /* ContentView.swift */; };
-		A1B2C3D40003 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1B2C3D40003 /* Assets.xcassets */; };
-		A1B2C3D40004 /* TabTrainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D40004 /* TabTrainView.swift */; };
-		A1B2C3D40005 /* TabHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D40005 /* TabHistoryView.swift */; };
-		A1B2C3D40006 /* TabExercisesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D40006 /* TabExercisesView.swift */; };
-		A1B2C3D40007 /* TabSupplementsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D40007 /* TabSupplementsView.swift */; };
-		A1B2C3D40008 /* TabProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D40008 /* TabProfileView.swift */; };
-		A1B2C3D40009 /* RecommendationBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D40009 /* RecommendationBannerView.swift */; };
-		A1B2C3D40010 /* OnboardingCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D40010 /* OnboardingCardView.swift */; };
-		A1B2C3D40011 /* QuickTrainingButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D40011 /* QuickTrainingButtonsView.swift */; };
-		A1B2C3D40012 /* LatestWorkoutsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D40012 /* LatestWorkoutsView.swift */; };
-		A1B2C3D40013 /* RoutinesSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D40013 /* RoutinesSectionView.swift */; };
-		A1B2C3D40014 /* SupplementPlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D40014 /* SupplementPlanView.swift */; };
-		A1B2C3D40015 /* RoutineDetailSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D40015 /* RoutineDetailSheetView.swift */; };
+		A1001001 /* FortachonApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001001 /* FortachonApp.swift */; };
+		A1001002 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001002 /* ContentView.swift */; };
+		A1001003 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A2001003 /* Assets.xcassets */; };
+		A1001004 /* TabTrainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001004 /* TabTrainView.swift */; };
+		A1001005 /* TabHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001005 /* TabHistoryView.swift */; };
+		A1001006 /* TabExercisesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001006 /* TabExercisesView.swift */; };
+		A1001007 /* TabSupplementsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001007 /* TabSupplementsView.swift */; };
+		A1001008 /* TabProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001008 /* TabProfileView.swift */; };
+		A1001009 /* TemplateEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001009 /* TemplateEditorView.swift */; };
+		A100100A /* RecommendationBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200100A /* RecommendationBannerView.swift */; };
+		A100100B /* OnboardingCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200100B /* OnboardingCardView.swift */; };
+		A100100C /* QuickTrainingButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200100C /* QuickTrainingButtonsView.swift */; };
+		A100100D /* LatestWorkoutsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200100D /* LatestWorkoutsView.swift */; };
+		A100100E /* RoutinesSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200100E /* RoutinesSectionView.swift */; };
+		A100100F /* SupplementPlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200100F /* SupplementPlanView.swift */; };
+		A1001010 /* RoutineDetailSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001010 /* RoutineDetailSheetView.swift */; };
+		A1001011 /* SupersetManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001011 /* SupersetManagerView.swift */; };
+		A1001012 /* ActiveWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001012 /* ActiveWorkoutView.swift */; };
+		A1001013 /* CardioExerciseCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001013 /* CardioExerciseCard.swift */; };
+		A1001014 /* CheckInCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001014 /* CheckInCardView.swift */; };
+		A1001015 /* CoachSuggestionsBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001015 /* CoachSuggestionsBanner.swift */; };
+		A1001016 /* DeleteSupplementOptionsModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001016 /* DeleteSupplementOptionsModal.swift */; };
+		A1001017 /* ExerciseFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001017 /* ExerciseFilterView.swift */; };
+		A1001018 /* ExerciseInstructionCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001018 /* ExerciseInstructionCard.swift */; };
+		A1001019 /* ICloudSyncStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001019 /* ICloudSyncStatusView.swift */; };
+		A100101A /* OneRepMaxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200101A /* OneRepMaxView.swift */; };
+		A100101B /* RestTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200101B /* RestTimerView.swift */; };
+		A100101C /* SetTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200101C /* SetTimerView.swift */; };
+		A100101D /* StreakCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200101D /* StreakCardView.swift */; };
+		A100101E /* SupersetExerciseCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200101E /* SupersetExerciseCard.swift */; };
+		A100101F /* SupplementHistoryModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200101F /* SupplementHistoryModal.swift */; };
+		A1001020 /* SupplementLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001020 /* SupplementLibraryView.swift */; };
+		A1001021 /* SupplementLogCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001021 /* SupplementLogCalendarView.swift */; };
+		A1001022 /* TimedExerciseCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001022 /* TimedExerciseCard.swift */; };
+		A1001023 /* WeightChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001023 /* WeightChartView.swift */; };
+		A1001024 /* WorkoutCompletionReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001024 /* WorkoutCompletionReportView.swift */; };
+		A1001025 /* AnalyticsDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001025 /* AnalyticsDashboardView.swift */; };
+		A1001026 /* ConsistencyCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001026 /* ConsistencyCalendarView.swift */; };
+		A1001027 /* MuscleBalanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001027 /* MuscleBalanceView.swift */; };
+		A1001028 /* PersonalRecordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001028 /* PersonalRecordsView.swift */; };
+		A1001029 /* ExerciseHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001029 /* ExerciseHistoryView.swift */; };
+		A100102A /* HistoryFilterSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200102A /* HistoryFilterSheet.swift */; };
+		A100102B /* VolumeChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200102B /* VolumeChartView.swift */; };
+		A100102C /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200102C /* AccountView.swift */; };
+		A100102D /* ExerciseEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200102D /* ExerciseEditorView.swift */; };
+		A100102E /* ExercisePreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200102E /* ExercisePreferences.swift */; };
+		A100102F /* FatigueMonitorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200102F /* FatigueMonitorView.swift */; };
+		A1001030 /* LifterDNAView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001030 /* LifterDNAView.swift */; };
+		A1001031 /* MuscleHeatmapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001031 /* MuscleHeatmapView.swift */; };
+		A1001032 /* UnlockHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001032 /* UnlockHistoryView.swift */; };
+		A1001033 /* AudioCoach.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001033 /* AudioCoach.swift */; };
+		A1001034 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001034 /* AuthService.swift */; };
+		A1001035 /* ICloudSyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001035 /* ICloudSyncService.swift */; };
+		A1001036 /* SoundEffectsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001036 /* SoundEffectsService.swift */; };
+		A1001037 /* AVSpeechSynthesisVoice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001037 /* AVSpeechSynthesisVoice+Extension.swift */; };
+		A1001038 /* ModelContext+Save.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001038 /* ModelContext+Save.swift */; };
+		A1001039 /* AppTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001039 /* AppTypes.swift */; };
+		A100103A /* 1RMTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200103A /* 1RMTracker.swift */; };
+		A100103B /* DataImportExportManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200103B /* DataImportExportManager.swift */; };
+		A100103C /* HistoricalLookup.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200103C /* HistoricalLookup.swift */; };
+		A100103D /* NotificationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200103D /* NotificationUtils.swift */; };
+		A100103E /* ScreenWakeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200103E /* ScreenWakeManager.swift */; };
+		A100103F /* WorkoutCompletionValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200103F /* WorkoutCompletionValidator.swift */; };
+		A1001040 /* EngagementManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001040 /* EngagementManager.swift */; };
+		A1001041 /* StreakCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001041 /* StreakCalculator.swift */; };
+		A1001042 /* TemplateEditorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001042 /* TemplateEditorViewModel.swift */; };
+		A1001043 /* WorkoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001043 /* WorkoutManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		A1B2C3D40001 /* FortachonApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FortachonApp.swift; sourceTree = "<group>"; };
-		A1B2C3D40002 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		A1B2C3D40003 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		A1B2C3D40004 /* TabTrainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabTrainView.swift; sourceTree = "<group>"; };
-		A1B2C3D40005 /* TabHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabHistoryView.swift; sourceTree = "<group>"; };
-		A1B2C3D40006 /* TabExercisesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabExercisesView.swift; sourceTree = "<group>"; };
-		A1B2C3D40007 /* TabSupplementsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabSupplementsView.swift; sourceTree = "<group>"; };
-		A1B2C3D40008 /* TabProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabProfileView.swift; sourceTree = "<group>"; };
-		A1B2C3D40009 /* RecommendationBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationBannerView.swift; sourceTree = "<group>"; };
-		A1B2C3D40010 /* OnboardingCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCardView.swift; sourceTree = "<group>"; };
-		A1B2C3D40011 /* QuickTrainingButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickTrainingButtonsView.swift; sourceTree = "<group>"; };
-		A1B2C3D40012 /* LatestWorkoutsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestWorkoutsView.swift; sourceTree = "<group>"; };
-		A1B2C3D40013 /* RoutinesSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinesSectionView.swift; sourceTree = "<group>"; };
-		A1B2C3D40014 /* SupplementPlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplementPlanView.swift; sourceTree = "<group>"; };
-		A1B2C3D40015 /* RoutineDetailSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineDetailSheetView.swift; sourceTree = "<group>"; };
-		A1B2C3D41001 /* fortachon-gym.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "fortachon-gym.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A2001001 /* FortachonApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FortachonApp.swift; sourceTree = "<group>"; };
+		A2001002 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		A2001003 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Assets.xcassets"; sourceTree = "<group>"; };
+		A2001004 /* TabTrainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabTrainView.swift; sourceTree = "<group>"; };
+		A2001005 /* TabHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabHistoryView.swift; sourceTree = "<group>"; };
+		A2001006 /* TabExercisesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabExercisesView.swift; sourceTree = "<group>"; };
+		A2001007 /* TabSupplementsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabSupplementsView.swift; sourceTree = "<group>"; };
+		A2001008 /* TabProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabProfileView.swift; sourceTree = "<group>"; };
+		A2001009 /* TemplateEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateEditorView.swift; sourceTree = "<group>"; };
+		A200100A /* RecommendationBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationBannerView.swift; sourceTree = "<group>"; };
+		A200100B /* OnboardingCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCardView.swift; sourceTree = "<group>"; };
+		A200100C /* QuickTrainingButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickTrainingButtonsView.swift; sourceTree = "<group>"; };
+		A200100D /* LatestWorkoutsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestWorkoutsView.swift; sourceTree = "<group>"; };
+		A200100E /* RoutinesSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinesSectionView.swift; sourceTree = "<group>"; };
+		A200100F /* SupplementPlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplementPlanView.swift; sourceTree = "<group>"; };
+		A2001010 /* RoutineDetailSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineDetailSheetView.swift; sourceTree = "<group>"; };
+		A2001011 /* SupersetManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupersetManagerView.swift; sourceTree = "<group>"; };
+		A2001012 /* ActiveWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveWorkoutView.swift; sourceTree = "<group>"; };
+		A2001013 /* CardioExerciseCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardioExerciseCard.swift; sourceTree = "<group>"; };
+		A2001014 /* CheckInCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInCardView.swift; sourceTree = "<group>"; };
+		A2001015 /* CoachSuggestionsBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachSuggestionsBanner.swift; sourceTree = "<group>"; };
+		A2001016 /* DeleteSupplementOptionsModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteSupplementOptionsModal.swift; sourceTree = "<group>"; };
+		A2001017 /* ExerciseFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseFilterView.swift; sourceTree = "<group>"; };
+		A2001018 /* ExerciseInstructionCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseInstructionCard.swift; sourceTree = "<group>"; };
+		A2001019 /* ICloudSyncStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudSyncStatusView.swift; sourceTree = "<group>"; };
+		A200101A /* OneRepMaxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneRepMaxView.swift; sourceTree = "<group>"; };
+		A200101B /* RestTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestTimerView.swift; sourceTree = "<group>"; };
+		A200101C /* SetTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetTimerView.swift; sourceTree = "<group>"; };
+		A200101D /* StreakCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakCardView.swift; sourceTree = "<group>"; };
+		A200101E /* SupersetExerciseCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupersetExerciseCard.swift; sourceTree = "<group>"; };
+		A200101F /* SupplementHistoryModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplementHistoryModal.swift; sourceTree = "<group>"; };
+		A2001020 /* SupplementLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplementLibraryView.swift; sourceTree = "<group>"; };
+		A2001021 /* SupplementLogCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplementLogCalendarView.swift; sourceTree = "<group>"; };
+		A2001022 /* TimedExerciseCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimedExerciseCard.swift; sourceTree = "<group>"; };
+		A2001023 /* WeightChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightChartView.swift; sourceTree = "<group>"; };
+		A2001024 /* WorkoutCompletionReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCompletionReportView.swift; sourceTree = "<group>"; };
+		A2001025 /* AnalyticsDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsDashboardView.swift; sourceTree = "<group>"; };
+		A2001026 /* ConsistencyCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsistencyCalendarView.swift; sourceTree = "<group>"; };
+		A2001027 /* MuscleBalanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuscleBalanceView.swift; sourceTree = "<group>"; };
+		A2001028 /* PersonalRecordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalRecordsView.swift; sourceTree = "<group>"; };
+		A2001029 /* ExerciseHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseHistoryView.swift; sourceTree = "<group>"; };
+		A200102A /* HistoryFilterSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryFilterSheet.swift; sourceTree = "<group>"; };
+		A200102B /* VolumeChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeChartView.swift; sourceTree = "<group>"; };
+		A200102C /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
+		A200102D /* ExerciseEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseEditorView.swift; sourceTree = "<group>"; };
+		A200102E /* ExercisePreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisePreferences.swift; sourceTree = "<group>"; };
+		A200102F /* FatigueMonitorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FatigueMonitorView.swift; sourceTree = "<group>"; };
+		A2001030 /* LifterDNAView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifterDNAView.swift; sourceTree = "<group>"; };
+		A2001031 /* MuscleHeatmapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuscleHeatmapView.swift; sourceTree = "<group>"; };
+		A2001032 /* UnlockHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockHistoryView.swift; sourceTree = "<group>"; };
+		A2001033 /* AudioCoach.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCoach.swift; sourceTree = "<group>"; };
+		A2001034 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		A2001035 /* ICloudSyncService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudSyncService.swift; sourceTree = "<group>"; };
+		A2001036 /* SoundEffectsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundEffectsService.swift; sourceTree = "<group>"; };
+		A2001037 /* AVSpeechSynthesisVoice+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVSpeechSynthesisVoice+Extension.swift"; sourceTree = "<group>"; };
+		A2001038 /* ModelContext+Save.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ModelContext+Save.swift"; sourceTree = "<group>"; };
+		A2001039 /* AppTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTypes.swift; sourceTree = "<group>"; };
+		A200103A /* 1RMTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "1RMTracker.swift"; sourceTree = "<group>"; };
+		A200103B /* DataImportExportManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataImportExportManager.swift; sourceTree = "<group>"; };
+		A200103C /* HistoricalLookup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoricalLookup.swift; sourceTree = "<group>"; };
+		A200103D /* NotificationUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationUtils.swift; sourceTree = "<group>"; };
+		A200103E /* ScreenWakeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenWakeManager.swift; sourceTree = "<group>"; };
+		A200103F /* WorkoutCompletionValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCompletionValidator.swift; sourceTree = "<group>"; };
+		A2001040 /* EngagementManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngagementManager.swift; sourceTree = "<group>"; };
+		A2001041 /* StreakCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakCalculator.swift; sourceTree = "<group>"; };
+		A2001042 /* TemplateEditorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateEditorViewModel.swift; sourceTree = "<group>"; };
+		A2001043 /* WorkoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutManager.swift; sourceTree = "<group>"; };
+		A2001100 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info.plist"; sourceTree = "<group>"; };
+		A2001200 /* fortachon-gym.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "fortachon-gym.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		A1B2C3D42001 /* Frameworks */ = {
+		A3001001 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -54,94 +159,235 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		A1B2C3D43001 = {
+		A4000001 = {
 			isa = PBXGroup;
 			children = (
-				A1B2C3D43002 /* fortachon-gym */,
-				A1B2C3D43003 /* Products */,
+				A4000002 /* fortachon-gym */,
+				A4000003 /* Products */,
+				A4000004 /* Frameworks */,
+				A4000005 /* Package Dependencies */,
 			);
 			sourceTree = "<group>";
 		};
-		A1B2C3D43002 /* fortachon-gym */ = {
+		A4000002 /* fortachon-gym */ = {
 			isa = PBXGroup;
 			children = (
-				A1B2C3D43004 /* App */,
-				A1B2C3D43005 /* Views */,
-				A1B2C3D40003 /* Assets.xcassets */,
+				A4000010 /* App */,
+				A4000020 /* Views */,
+				A4000030 /* ViewModels */,
+				A4000040 /* Services */,
+				A4000050 /* Utils */,
+				A4000060 /* Extensions */,
+				A4000070 /* Models */,
+				A4000080 /* Resources */,
 			);
 			path = "fortachon-gym";
 			sourceTree = "<group>";
 		};
-		A1B2C3D43003 /* Products */ = {
+		A4000003 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A1B2C3D41001 /* fortachon-gym.app */,
+				A2001200 /* fortachon-gym.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		A1B2C3D43004 /* App */ = {
+		A4000004 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				A1B2C3D40001 /* FortachonApp.swift */,
-				A1B2C3D40002 /* ContentView.swift */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A4000005 /* Package Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Package Dependencies";
+			sourceTree = "<group>";
+		};
+		A4000010 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				A2001001 /* FortachonApp.swift */,
+				A2001002 /* ContentView.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
 		};
-		A1B2C3D43005 /* Views */ = {
+		A4000020 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				A1B2C3D43006 /* Tabs */,
-				A1B2C3D43007 /* Components */,
-				A1B2C3D43008 /* Sheets */,
+				A4000021 /* Tabs */,
+				A4000022 /* Components */,
+				A4000023 /* Sheets */,
+				A2001009 /* TemplateEditorView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
 		};
-		A1B2C3D43006 /* Tabs */ = {
+		A4000021 /* Tabs */ = {
 			isa = PBXGroup;
 			children = (
-				A1B2C3D40004 /* TabTrainView.swift */,
-				A1B2C3D40005 /* TabHistoryView.swift */,
-				A1B2C3D40006 /* TabExercisesView.swift */,
-				A1B2C3D40007 /* TabSupplementsView.swift */,
-				A1B2C3D40008 /* TabProfileView.swift */,
+				A2001004 /* TabTrainView.swift */,
+				A2001005 /* TabHistoryView.swift */,
+				A2001006 /* TabExercisesView.swift */,
+				A2001007 /* TabSupplementsView.swift */,
+				A2001008 /* TabProfileView.swift */,
 			);
 			path = Tabs;
 			sourceTree = "<group>";
 		};
-		A1B2C3D43007 /* Components */ = {
+		A4000022 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				A1B2C3D40009 /* RecommendationBannerView.swift */,
-				A1B2C3D40010 /* OnboardingCardView.swift */,
-				A1B2C3D40011 /* QuickTrainingButtonsView.swift */,
-				A1B2C3D40012 /* LatestWorkoutsView.swift */,
-				A1B2C3D40013 /* RoutinesSectionView.swift */,
-				A1B2C3D40014 /* SupplementPlanView.swift */,
+				A4000024 /* Analytics */,
+				A4000025 /* History */,
+				A4000026 /* Profile */,
+				A200100A /* RecommendationBannerView.swift */,
+				A200100B /* OnboardingCardView.swift */,
+				A200100C /* QuickTrainingButtonsView.swift */,
+				A200100D /* LatestWorkoutsView.swift */,
+				A200100E /* RoutinesSectionView.swift */,
+				A200100F /* SupplementPlanView.swift */,
+				A2001012 /* ActiveWorkoutView.swift */,
+				A2001013 /* CardioExerciseCard.swift */,
+				A2001014 /* CheckInCardView.swift */,
+				A2001015 /* CoachSuggestionsBanner.swift */,
+				A2001016 /* DeleteSupplementOptionsModal.swift */,
+				A2001017 /* ExerciseFilterView.swift */,
+				A2001018 /* ExerciseInstructionCard.swift */,
+				A2001019 /* ICloudSyncStatusView.swift */,
+				A200101A /* OneRepMaxView.swift */,
+				A200101B /* RestTimerView.swift */,
+				A200101C /* SetTimerView.swift */,
+				A200101D /* StreakCardView.swift */,
+				A200101E /* SupersetExerciseCard.swift */,
+				A200101F /* SupplementHistoryModal.swift */,
+				A2001020 /* SupplementLibraryView.swift */,
+				A2001021 /* SupplementLogCalendarView.swift */,
+				A2001022 /* TimedExerciseCard.swift */,
+				A2001023 /* WeightChartView.swift */,
+				A2001024 /* WorkoutCompletionReportView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
 		};
-		A1B2C3D43008 /* Sheets */ = {
+		A4000023 /* Sheets */ = {
 			isa = PBXGroup;
 			children = (
-				A1B2C3D40015 /* RoutineDetailSheetView.swift */,
+				A2001010 /* RoutineDetailSheetView.swift */,
+				A2001011 /* SupersetManagerView.swift */,
 			);
 			path = Sheets;
+			sourceTree = "<group>";
+		};
+		A4000024 /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				A2001025 /* AnalyticsDashboardView.swift */,
+				A2001026 /* ConsistencyCalendarView.swift */,
+				A2001027 /* MuscleBalanceView.swift */,
+				A2001028 /* PersonalRecordsView.swift */,
+			);
+			path = Analytics;
+			sourceTree = "<group>";
+		};
+		A4000025 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				A2001029 /* ExerciseHistoryView.swift */,
+				A200102A /* HistoryFilterSheet.swift */,
+				A200102B /* VolumeChartView.swift */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		A4000026 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				A200102C /* AccountView.swift */,
+				A200102D /* ExerciseEditorView.swift */,
+				A200102E /* ExercisePreferences.swift */,
+				A200102F /* FatigueMonitorView.swift */,
+				A2001030 /* LifterDNAView.swift */,
+				A2001031 /* MuscleHeatmapView.swift */,
+				A2001032 /* UnlockHistoryView.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		A4000030 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				A2001040 /* EngagementManager.swift */,
+				A2001041 /* StreakCalculator.swift */,
+				A2001042 /* TemplateEditorViewModel.swift */,
+				A2001043 /* WorkoutManager.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		A4000040 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				A2001033 /* AudioCoach.swift */,
+				A2001034 /* AuthService.swift */,
+				A2001035 /* ICloudSyncService.swift */,
+				A2001036 /* SoundEffectsService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		A4000050 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				A200103A /* 1RMTracker.swift */,
+				A200103B /* DataImportExportManager.swift */,
+				A200103C /* HistoricalLookup.swift */,
+				A200103D /* NotificationUtils.swift */,
+				A200103E /* ScreenWakeManager.swift */,
+				A200103F /* WorkoutCompletionValidator.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		A4000060 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				A2001037 /* AVSpeechSynthesisVoice+Extension.swift */,
+				A2001038 /* ModelContext+Save.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		A4000070 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A2001039 /* AppTypes.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		A4000080 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A2001003 /* Assets.xcassets */,
+				A2001100 /* Info.plist */,
+			);
+			path = "";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A1B2C3D44001 /* fortachon-gym */ = {
+		A5001001 /* fortachon-gym */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A1B2C3D46002 /* Build configuration list for PBXNativeTarget "fortachon-gym" */;
+			buildConfigurationList = A7001001 /* Build configuration list for PBXNativeTarget "fortachon-gym" */;
 			buildPhases = (
-				A1B2C3D44002 /* Sources */,
-				A1B2C3D42001 /* Frameworks */,
-				A1B2C3D44003 /* Resources */,
+				A3001002 /* Sources */,
+				A3001001 /* Frameworks */,
+				A3001003 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -149,85 +395,153 @@
 			);
 			name = "fortachon-gym";
 			packageProductDependencies = (
-				A1B2C3D47001 /* FortachonCore */,
+				A6001001 /* FortachonCore */,
 			);
 			productName = "fortachon-gym";
-			productReference = A1B2C3D41001 /* fortachon-gym.app */;
+			productReference = A2001200 /* fortachon-gym.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		A1B2C3D45001 /* Project object */ = {
+		A4000000 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
-					A1B2C3D44001 = {
+					A5001001 = {
 						CreatedOnToolsVersion = 15.0;
 					};
 				};
 			};
-			buildConfigurationList = A1B2C3D46001 /* Build configuration list for PBXProject "fortachon-gym" */;
+			buildConfigurationList = A7001000 /* Build configuration list for PBXProject "fortachon-gym" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
+				es,
 			);
-			mainGroup = A1B2C3D43001;
+			mainGroup = A4000001;
 			packageReferences = (
-				A1B2C3D47002 /* XCLocalSwiftPackageReference "../FortachonCore" */,
+				A8001001 /* XCLocalSwiftPackageReference "FortachonCore" */,
 			);
-			productRefGroup = A1B2C3D43003 /* Products */;
+			productRefGroup = A4000003 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A1B2C3D44001 /* fortachon-gym */,
+				A5001001 /* fortachon-gym */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		A1B2C3D44003 /* Resources */ = {
+		A3001003 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1B2C3D40003 /* Assets.xcassets in Resources */,
+				A1001003 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		A1B2C3D44002 /* Sources */ = {
+		A3001002 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1B2C3D40001 /* FortachonApp.swift in Sources */,
-				A1B2C3D40002 /* ContentView.swift in Sources */,
-				A1B2C3D40004 /* TabTrainView.swift in Sources */,
-				A1B2C3D40005 /* TabHistoryView.swift in Sources */,
-				A1B2C3D40006 /* TabExercisesView.swift in Sources */,
-				A1B2C3D40007 /* TabSupplementsView.swift in Sources */,
-				A1B2C3D40008 /* TabProfileView.swift in Sources */,
-				A1B2C3D40009 /* RecommendationBannerView.swift in Sources */,
-				A1B2C3D40010 /* OnboardingCardView.swift in Sources */,
-				A1B2C3D40011 /* QuickTrainingButtonsView.swift in Sources */,
-				A1B2C3D40012 /* LatestWorkoutsView.swift in Sources */,
-				A1B2C3D40013 /* RoutinesSectionView.swift in Sources */,
-				A1B2C3D40014 /* SupplementPlanView.swift in Sources */,
-				A1B2C3D40015 /* RoutineDetailSheetView.swift in Sources */,
+				A1001001 /* FortachonApp.swift in Sources */,
+				A1001002 /* ContentView.swift in Sources */,
+				A1001004 /* TabTrainView.swift in Sources */,
+				A1001005 /* TabHistoryView.swift in Sources */,
+				A1001006 /* TabExercisesView.swift in Sources */,
+				A1001007 /* TabSupplementsView.swift in Sources */,
+				A1001008 /* TabProfileView.swift in Sources */,
+				A1001009 /* TemplateEditorView.swift in Sources */,
+				A100100A /* RecommendationBannerView.swift in Sources */,
+				A100100B /* OnboardingCardView.swift in Sources */,
+				A100100C /* QuickTrainingButtonsView.swift in Sources */,
+				A100100D /* LatestWorkoutsView.swift in Sources */,
+				A100100E /* RoutinesSectionView.swift in Sources */,
+				A100100F /* SupplementPlanView.swift in Sources */,
+				A1001010 /* RoutineDetailSheetView.swift in Sources */,
+				A1001011 /* SupersetManagerView.swift in Sources */,
+				A1001012 /* ActiveWorkoutView.swift in Sources */,
+				A1001013 /* CardioExerciseCard.swift in Sources */,
+				A1001014 /* CheckInCardView.swift in Sources */,
+				A1001015 /* CoachSuggestionsBanner.swift in Sources */,
+				A1001016 /* DeleteSupplementOptionsModal.swift in Sources */,
+				A1001017 /* ExerciseFilterView.swift in Sources */,
+				A1001018 /* ExerciseInstructionCard.swift in Sources */,
+				A1001019 /* ICloudSyncStatusView.swift in Sources */,
+				A100101A /* OneRepMaxView.swift in Sources */,
+				A100101B /* RestTimerView.swift in Sources */,
+				A100101C /* SetTimerView.swift in Sources */,
+				A100101D /* StreakCardView.swift in Sources */,
+				A100101E /* SupersetExerciseCard.swift in Sources */,
+				A100101F /* SupplementHistoryModal.swift in Sources */,
+				A1001020 /* SupplementLibraryView.swift in Sources */,
+				A1001021 /* SupplementLogCalendarView.swift in Sources */,
+				A1001022 /* TimedExerciseCard.swift in Sources */,
+				A1001023 /* WeightChartView.swift in Sources */,
+				A1001024 /* WorkoutCompletionReportView.swift in Sources */,
+				A1001025 /* AnalyticsDashboardView.swift in Sources */,
+				A1001026 /* ConsistencyCalendarView.swift in Sources */,
+				A1001027 /* MuscleBalanceView.swift in Sources */,
+				A1001028 /* PersonalRecordsView.swift in Sources */,
+				A1001029 /* ExerciseHistoryView.swift in Sources */,
+				A100102A /* HistoryFilterSheet.swift in Sources */,
+				A100102B /* VolumeChartView.swift in Sources */,
+				A100102C /* AccountView.swift in Sources */,
+				A100102D /* ExerciseEditorView.swift in Sources */,
+				A100102E /* ExercisePreferences.swift in Sources */,
+				A100102F /* FatigueMonitorView.swift in Sources */,
+				A1001030 /* LifterDNAView.swift in Sources */,
+				A1001031 /* MuscleHeatmapView.swift in Sources */,
+				A1001032 /* UnlockHistoryView.swift in Sources */,
+				A1001033 /* AudioCoach.swift in Sources */,
+				A1001034 /* AuthService.swift in Sources */,
+				A1001035 /* ICloudSyncService.swift in Sources */,
+				A1001036 /* SoundEffectsService.swift in Sources */,
+				A1001037 /* AVSpeechSynthesisVoice+Extension.swift in Sources */,
+				A1001038 /* ModelContext+Save.swift in Sources */,
+				A1001039 /* AppTypes.swift in Sources */,
+				A100103A /* 1RMTracker.swift in Sources */,
+				A100103B /* DataImportExportManager.swift in Sources */,
+				A100103C /* HistoricalLookup.swift in Sources */,
+				A100103D /* NotificationUtils.swift in Sources */,
+				A100103E /* ScreenWakeManager.swift in Sources */,
+				A100103F /* WorkoutCompletionValidator.swift in Sources */,
+				A1001040 /* EngagementManager.swift in Sources */,
+				A1001041 /* StreakCalculator.swift in Sources */,
+				A1001042 /* TemplateEditorViewModel.swift in Sources */,
+				A1001043 /* WorkoutManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		A8001001 /* XCLocalSwiftPackageReference "FortachonCore" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "FortachonCore";
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A6001001 /* FortachonCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FortachonCore;
+			package = A8001001 /* XCLocalSwiftPackageReference "FortachonCore" */;
+		};
+/* End XCSwiftPackageProductDependency section */
+
 /* Begin XCBuildConfiguration section */
-		A1B2C3D46003 /* Debug */ = {
+		A7001002 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -290,7 +604,7 @@
 			};
 			name = Debug;
 		};
-		A1B2C3D46004 /* Release */ = {
+		A7001003 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -346,7 +660,7 @@
 			};
 			name = Release;
 		};
-		A1B2C3D46005 /* Debug */ = {
+		A7001004 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -355,14 +669,15 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
 				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = "fortachon-gym/Info.plist";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/fortachon-gym/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Fortachon Gym";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -371,14 +686,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.fortachon.gym;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 6.0;
+				SWIFT_VERSION = 5.9;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		A1B2C3D46006 /* Release */ = {
+		A7001005 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -387,14 +702,15 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
 				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = "fortachon-gym/Info.plist";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/fortachon-gym/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Fortachon Gym";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -403,9 +719,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.fortachon.gym;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 6.0;
+				SWIFT_VERSION = 5.9;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -413,40 +729,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A1B2C3D46001 /* Build configuration list for PBXProject "fortachon-gym" */ = {
+		A7001000 /* Build configuration list for PBXProject "fortachon-gym" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A1B2C3D46003 /* Debug */,
-				A1B2C3D46004 /* Release */,
+				A7001002 /* Debug */,
+				A7001003 /* Release */,
 			);
-			defaultConfigurationIsName = Release;
+			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A1B2C3D46002 /* Build configuration list for PBXNativeTarget "fortachon-gym" */ = {
+		A7001001 /* Build configuration list for PBXNativeTarget "fortachon-gym" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A1B2C3D46005 /* Debug */,
-				A1B2C3D46006 /* Release */,
+				A7001004 /* Debug */,
+				A7001005 /* Release */,
 			);
-			defaultConfigurationIsName = Release;
+			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCLocalSwiftPackageReference section */
-		A1B2C3D47002 /* XCLocalSwiftPackageReference "../FortachonCore" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = "../FortachonCore";
-		};
-/* End XCLocalSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		A1B2C3D47001 /* FortachonCore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A1B2C3D47002 /* XCLocalSwiftPackageReference "../FortachonCore" */;
-			productName = FortachonCore;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
-	rootObject = A1B2C3D45001 /* Project object */;
+	rootObject = A4000000 /* Project object */;
 }

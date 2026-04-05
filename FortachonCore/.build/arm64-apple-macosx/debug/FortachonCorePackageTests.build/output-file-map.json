@@ -1,12 +1,12 @@
 {
   "": {
-    "swift-dependencies": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCorePackageTests.build/primary.swiftdeps"
+    "swift-dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCorePackageTests.build/primary.swiftdeps"
   },
-  "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCorePackageTests.derived/runner.swift": {
-    "dependencies": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCorePackageTests.build/runner.d",
-    "object": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCorePackageTests.build/runner.swift.o",
-    "swiftmodule": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCorePackageTests.build/runner~partial.swiftmodule",
-    "swift-dependencies": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCorePackageTests.build/runner.swiftdeps",
-    "diagnostics": "/Users/jayjay/.cline/worktrees/449f6/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCorePackageTests.build/runner.dia"
+  "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCorePackageTests.derived/runner.swift": {
+    "dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCorePackageTests.build/runner.d",
+    "object": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCorePackageTests.build/runner.swift.o",
+    "swiftmodule": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCorePackageTests.build/runner~partial.swiftmodule",
+    "swift-dependencies": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCorePackageTests.build/runner.swiftdeps",
+    "diagnostics": "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCorePackageTests.build/runner.dia"
   }
 }

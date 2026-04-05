@@ -11,6 +11,10 @@ struct TabTrainView: View {
     
     @State private var selectedRoutine: RoutineM?
     @State private var showEmptyWorkout = false
+    @State private var showTemplateEditor = false
+    @State private var editingRoutine: RoutineM?
+    @State private var showCheckIn = false
+    @State private var shouldShowCheckIn = false
     
     var prefs: UserPreferencesM? { preferences.first }
     
@@ -39,15 +43,56 @@ struct TabTrainView: View {
             )}
     }
     
+    // Engagement state
+    private var streakResult: StreakCalculator.StreakResult {
+        let calc = StreakCalculator()
+        return calc.calculate(from: sessions.map { $0.startTime })
+    }
+    
+    private var motivationalMessage: String {
+        let mgr = EngagementManager(modelContext: modelContext)
+        return mgr.getMotivationalMessage(
+            streak: streakResult.currentStreak,
+            weeklyProgress: 0,
+            weeklyGoal: 4
+        )
+    }
+    
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 16) {
+                    // Streak Card (if has workouts)
+                    if !sessions.isEmpty && streakResult.currentStreak > 0 {
+                        StreakCardView(
+                            currentStreak: streakResult.currentStreak,
+                            longestStreak: streakResult.longestStreak,
+                            weeklyProgress: 0,
+                            weeklyGoal: 4,
+                            motivationalMessage: motivationalMessage
+                        )
+                    }
+                    
+                    // Check-in Card (if inactive)
+                    if shouldShowCheckIn, let prefs = prefs {
+                        CheckInCardView(
+                            onSubmit: { reason in
+                                prefs.lastCheckInDate = Date()
+                                prefs.lastCheckInReason = reason.rawValue
+                                try? modelContext.save()
+                                showCheckIn = false
+                            },
+                            onSnooze: {
+                                showCheckIn = false
+                            }
+                        )
+                    }
+                    
                     // Recommendation Banner
                     if let rec = recommendation, !isNewUser {
                         RecommendationBannerView(
                             recommendation: rec,
-                            onRoutineSelect: { startRoutine(fromTemplate: routines.first { $0.rtId == $0 }) }
+                            onRoutineSelect: { startRoutine(fromTemplate: routines.first { $0.rtId.hasPrefix("rt-") }) }
                         )
                     }
                     
@@ -102,6 +147,26 @@ struct TabTrainView: View {
                         )
                     }
                     
+                    // Create Template Button
+                    Button {
+                        editingRoutine = nil
+                        showTemplateEditor = true
+                    } label: {
+                        HStack {
+                            Image(systemName: "plus.circle.fill")
+                                .foregroundStyle(.blue)
+                            Text("Create New Template")
+                                .font(.headline)
+                                .foregroundStyle(.blue)
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
+                        .padding()
+                        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12))
+                    }
+                    
                     // Sample Workouts
                     let sampleRoutines = routines.filter { $0.rtId.hasPrefix("rt-") && $0.routineTypeStr == "strength" }
                     if !sampleRoutines.isEmpty {
@@ -125,16 +190,38 @@ struct TabTrainView: View {
             .sheet(item: $selectedRoutine) { routine in
                 RoutineDetailSheetView(routine: routine)
             }
-            .sheet(isPresented: $showEmptyWorkout) {
-                Text("Empty Workout View - Coming Soon")
-                    .presentationDetents([.medium])
+            .fullScreenCover(isPresented: $showEmptyWorkout) {
+                ActiveWorkoutView(isActive: $showEmptyWorkout, routine: nil)
+            }
+            .sheet(isPresented: $showTemplateEditor) {
+                TemplateEditorView(routine: editingRoutine)
             }
         }
         .task {
             if routines.isEmpty {
                 seedSampleData()
             }
+            checkForInactiveUser()
         }
+    }
+    
+    private func checkForInactiveUser() {
+        guard !sessions.isEmpty else {
+            shouldShowCheckIn = false
+            return
+        }
+        guard let lastSession = sessions.sorted(by: { $0.startTime > $1.startTime }).first else {
+            shouldShowCheckIn = false
+            return
+        }
+        
+        let daysSinceLastWorkout = Calendar.current.dateComponents(
+            [.day],
+            from: lastSession.startTime,
+            to: Date()
+        ).day ?? 0
+        
+        shouldShowCheckIn = daysSinceLastWorkout >= 10
     }
     
     private func startRoutineSession(focus: RoutineFocus) {
@@ -174,7 +261,6 @@ struct TabTrainView: View {
     
     private func startRoutine(fromTemplate routine: RoutineM? = nil) {
         guard let routine = routine else { return }
-        // Implementation for starting from template
         selectedRoutine = routine
     }
     

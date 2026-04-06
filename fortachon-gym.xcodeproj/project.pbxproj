@@ -74,6 +74,31 @@
 		A1001041 /* StreakCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001041 /* StreakCalculator.swift */; };
 		A1001042 /* TemplateEditorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001042 /* TemplateEditorViewModel.swift */; };
 		A1001043 /* WorkoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001043 /* WorkoutManager.swift */; };
+		A1001044 /* CoachSuggestionModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001044 /* CoachSuggestionModalView.swift */; };
+		A1001045 /* CoachSuggestionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001201 /* CoachSuggestionEngine.swift */; };
+		A1001046 /* ActiveWorkoutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001202 /* ActiveWorkoutViewModel.swift */; };
+		A1001047 /* ExerciseImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001203 /* ExerciseImageView.swift */; };
+		A1001048 /* ExportDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001204 /* ExportDataView.swift */; };
+		A1001049 /* ImportExercisesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001205 /* ImportExercisesView.swift */; };
+		A100104A /* MuscleFreshnessIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001206 /* MuscleFreshnessIndicatorView.swift */; };
+		A100104B /* OnboardingWizardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001207 /* OnboardingWizardView.swift */; };
+		A100104C /* OneRMUpdateBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001208 /* OneRMUpdateBanner.swift */; };
+		A100104D /* OneRepMaxHubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001209 /* OneRepMaxHubView.swift */; };
+		A100104E /* PRCelebrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200120A /* PRCelebrationView.swift */; };
+		A100104F /* PlateCalculatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200120B /* PlateCalculatorView.swift */; };
+		A1001050 /* RPESelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200120C /* RPESelectorView.swift */; };
+		A1001051 /* SessionEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200120D /* SessionEditView.swift */; };
+		A1001052 /* SkeletonLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200120E /* SkeletonLoadingView.swift */; };
+		A1001053 /* SetEditSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200120F /* SetEditSheetView.swift */; };
+		A1001054 /* TabTimersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001210 /* TabTimersView.swift */; };
+		A1001055 /* SupersetEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001211 /* SupersetEditorView.swift */; };
+		A1001056 /* AutoUpdate1RMModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001212 /* AutoUpdate1RMModal.swift */; };
+		A1001057 /* PromotionReviewModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001213 /* PromotionReviewModal.swift */; };
+		A1001058 /* ConfirmNewWorkoutModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001214 /* ConfirmNewWorkoutModal.swift */; };
+		A1001059 /* HIITQuickStartSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001215 /* HIITQuickStartSheet.swift */; };
+		A100105A /* SetProgressionBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001216 /* SetProgressionBanner.swift */; };
+		A100105B /* StaleWorkoutModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001217 /* StaleWorkoutModal.swift */; };
+		A100105C /* SupersetManagerViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001218 /* SupersetManagerViewWrapper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -144,8 +169,33 @@
 		A2001041 /* StreakCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakCalculator.swift; sourceTree = "<group>"; };
 		A2001042 /* TemplateEditorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateEditorViewModel.swift; sourceTree = "<group>"; };
 		A2001043 /* WorkoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutManager.swift; sourceTree = "<group>"; };
+		A2001044 /* CoachSuggestionModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachSuggestionModalView.swift; sourceTree = "<group>"; };
 		A2001100 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info.plist"; sourceTree = "<group>"; };
 		A2001200 /* fortachon-gym.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "fortachon-gym.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A2001201 /* CoachSuggestionEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachSuggestionEngine.swift; sourceTree = "<group>"; };
+		A2001202 /* ActiveWorkoutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveWorkoutViewModel.swift; sourceTree = "<group>"; };
+		A2001203 /* ExerciseImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseImageView.swift; sourceTree = "<group>"; };
+		A2001204 /* ExportDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportDataView.swift; sourceTree = "<group>"; };
+		A2001205 /* ImportExercisesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportExercisesView.swift; sourceTree = "<group>"; };
+		A2001206 /* MuscleFreshnessIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuscleFreshnessIndicatorView.swift; sourceTree = "<group>"; };
+		A2001207 /* OnboardingWizardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingWizardView.swift; sourceTree = "<group>"; };
+		A2001208 /* OneRMUpdateBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneRMUpdateBanner.swift; sourceTree = "<group>"; };
+		A2001209 /* OneRepMaxHubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneRepMaxHubView.swift; sourceTree = "<group>"; };
+		A200120A /* PRCelebrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PRCelebrationView.swift; sourceTree = "<group>"; };
+		A200120B /* PlateCalculatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlateCalculatorView.swift; sourceTree = "<group>"; };
+		A200120C /* RPESelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPESelectorView.swift; sourceTree = "<group>"; };
+		A200120D /* SessionEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionEditView.swift; sourceTree = "<group>"; };
+		A200120E /* SkeletonLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonLoadingView.swift; sourceTree = "<group>"; };
+		A200120F /* SetEditSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetEditSheetView.swift; sourceTree = "<group>"; };
+		A2001210 /* TabTimersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabTimersView.swift; sourceTree = "<group>"; };
+		A2001211 /* SupersetEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupersetEditorView.swift; sourceTree = "<group>"; };
+		A2001212 /* AutoUpdate1RMModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoUpdate1RMModal.swift; sourceTree = "<group>"; };
+		A2001213 /* PromotionReviewModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionReviewModal.swift; sourceTree = "<group>"; };
+		A2001214 /* ConfirmNewWorkoutModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmNewWorkoutModal.swift; sourceTree = "<group>"; };
+		A2001215 /* HIITQuickStartSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HIITQuickStartSheet.swift; sourceTree = "<group>"; };
+		A2001216 /* SetProgressionBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetProgressionBanner.swift; sourceTree = "<group>"; };
+		A2001217 /* StaleWorkoutModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaleWorkoutModal.swift; sourceTree = "<group>"; };
+		A2001218 /* SupersetManagerViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupersetManagerViewWrapper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -229,7 +279,8 @@
 		A4000021 /* Tabs */ = {
 			isa = PBXGroup;
 			children = (
-				A2001004 /* TabTrainView.swift */,
+				
+				A2001210 /* TabTimersView.swift */,A2001004 /* TabTrainView.swift */,
 				A2001005 /* TabHistoryView.swift */,
 				A2001006 /* TabExercisesView.swift */,
 				A2001007 /* TabSupplementsView.swift */,
@@ -241,7 +292,15 @@
 		A4000022 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				A4000024 /* Analytics */,
+				A2001211 /* SupersetEditorView.swift */,
+				A2001212 /* AutoUpdate1RMModal.swift */,
+				A2001213 /* PromotionReviewModal.swift */,
+				A2001214 /* ConfirmNewWorkoutModal.swift */,
+				A2001215 /* HIITQuickStartSheet.swift */,
+				A2001216 /* SetProgressionBanner.swift */,
+				A2001217 /* StaleWorkoutModal.swift */,
+				A2001218 /* SupersetManagerViewWrapper.swift */,
+				A200120E /* SkeletonLoadingView.swift */,A200120D /* SessionEditView.swift */,A200120C /* RPESelectorView.swift */,A200120B /* PlateCalculatorView.swift */,A200120A /* PRCelebrationView.swift */,A2001209 /* OneRepMaxHubView.swift */,A2001208 /* OneRMUpdateBanner.swift */,A2001207 /* OnboardingWizardView.swift */,A2001206 /* MuscleFreshnessIndicatorView.swift */,A2001205 /* ImportExercisesView.swift */,A2001204 /* ExportDataView.swift */,A2001203 /* ExerciseImageView.swift */,A4000024 /* Analytics */,
 				A4000025 /* History */,
 				A4000026 /* Profile */,
 				A200100A /* RecommendationBannerView.swift */,
@@ -262,6 +321,7 @@
 				A200101B /* RestTimerView.swift */,
 				A200101C /* SetTimerView.swift */,
 				A200101D /* StreakCardView.swift */,
+				A2001044 /* CoachSuggestionModalView.swift */,
 				A200101E /* SupersetExerciseCard.swift */,
 				A200101F /* SupplementHistoryModal.swift */,
 				A2001020 /* SupplementLibraryView.swift */,
@@ -276,7 +336,8 @@
 		A4000023 /* Sheets */ = {
 			isa = PBXGroup;
 			children = (
-				A2001010 /* RoutineDetailSheetView.swift */,
+				
+				A200120F /* SetEditSheetView.swift */,A2001010 /* RoutineDetailSheetView.swift */,
 				A2001011 /* SupersetManagerView.swift */,
 			);
 			path = Sheets;
@@ -320,7 +381,8 @@
 		A4000030 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				A2001040 /* EngagementManager.swift */,
+				
+				A2001202 /* ActiveWorkoutViewModel.swift */,A2001040 /* EngagementManager.swift */,
 				A2001041 /* StreakCalculator.swift */,
 				A2001042 /* TemplateEditorViewModel.swift */,
 				A2001043 /* WorkoutManager.swift */,
@@ -342,7 +404,8 @@
 		A4000050 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				A200103A /* 1RMTracker.swift */,
+				
+				A2001201 /* CoachSuggestionEngine.swift */,A200103A /* 1RMTracker.swift */,
 				A200103B /* DataImportExportManager.swift */,
 				A200103C /* HistoricalLookup.swift */,
 				A200103D /* NotificationUtils.swift */,
@@ -520,6 +583,31 @@
 				A1001041 /* StreakCalculator.swift in Sources */,
 				A1001042 /* TemplateEditorViewModel.swift in Sources */,
 				A1001043 /* WorkoutManager.swift in Sources */,
+				A1001044 /* CoachSuggestionModalView.swift in Sources */,
+				A1001045 /* CoachSuggestionEngine.swift in Sources */,
+				A1001046 /* ActiveWorkoutViewModel.swift in Sources */,
+				A1001047 /* ExerciseImageView.swift in Sources */,
+				A1001048 /* ExportDataView.swift in Sources */,
+				A1001049 /* ImportExercisesView.swift in Sources */,
+				A100104A /* MuscleFreshnessIndicatorView.swift in Sources */,
+				A100104B /* OnboardingWizardView.swift in Sources */,
+				A100104C /* OneRMUpdateBanner.swift in Sources */,
+				A100104D /* OneRepMaxHubView.swift in Sources */,
+				A100104E /* PRCelebrationView.swift in Sources */,
+				A100104F /* PlateCalculatorView.swift in Sources */,
+				A1001050 /* RPESelectorView.swift in Sources */,
+				A1001051 /* SessionEditView.swift in Sources */,
+				A1001052 /* SkeletonLoadingView.swift in Sources */,
+				A1001053 /* SetEditSheetView.swift in Sources */,
+				A1001054 /* TabTimersView.swift in Sources */,
+				A1001055 /* SupersetEditorView.swift in Sources */,
+				A1001056 /* AutoUpdate1RMModal.swift in Sources */,
+				A1001057 /* PromotionReviewModal.swift in Sources */,
+				A1001058 /* ConfirmNewWorkoutModal.swift in Sources */,
+				A1001059 /* HIITQuickStartSheet.swift in Sources */,
+				A100105A /* SetProgressionBanner.swift in Sources */,
+				A100105B /* StaleWorkoutModal.swift in Sources */,
+				A100105C /* SupersetManagerViewWrapper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

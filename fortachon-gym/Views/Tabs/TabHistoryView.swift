@@ -5,6 +5,7 @@ import FortachonCore
 struct TabHistoryView: View {
     @Environment(\.modelContext) private var modelContext
     @Query(sort: \WorkoutSessionM.startTime, order: .reverse) private var sessions: [WorkoutSessionM]
+    @Query private var allExercises: [ExerciseM]
     @State private var selectedSession: WorkoutSessionM?
     @State private var searchQuery = ""
     @State private var showFilters = false
@@ -216,13 +217,14 @@ struct TabHistoryView: View {
             }
             .sheet(isPresented: $showFilters) {
                 HistoryFilterSheet(
-                    selectedMuscleGroup: $selectedMuscleGroup,
-                    isPresented: $showFilters
+                    filters: .constant(HistoryFilterOptions()),
+                    onApply: { _ in showFilters = false }
                 )
             }
             .sheet(isPresented: $showAnalytics) {
                 AnalyticsDashboardView(
-                    sessions: sessions
+                    sessions: sessions,
+                    exercises: allExercises
                 )
                 .presentationDetents([.large])
             }

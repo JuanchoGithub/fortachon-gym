@@ -4,7 +4,7 @@
 /// ported from the original React/TypeScript codebase. It has **no UIKit or
 /// SwiftUI dependencies** so it can be tested entirely from the command line
 /// with `swift test`.
-public enum FortachonCore {
+public enum FortachonCoreModule {
     public static func version() -> String {
         return "0.1.0"
     }

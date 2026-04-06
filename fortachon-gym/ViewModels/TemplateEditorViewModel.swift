@@ -20,6 +20,9 @@ class TemplateExerciseItem: Identifiable, Equatable {
     // Timed exercise flag
     var isTimed: Bool
     
+    // Superset grouping
+    var supersetId: String?
+    
     init(
         id: String = UUID().uuidString,
         exerciseId: String,
@@ -29,7 +32,8 @@ class TemplateExerciseItem: Identifiable, Equatable {
         defaultReps: Int = 10,
         setType: SetType = .normal,
         restTime: Int = 90,
-        isTimed: Bool = false
+        isTimed: Bool = false,
+        supersetId: String? = nil
     ) {
         self.id = id
         self.exerciseId = exerciseId
@@ -40,6 +44,7 @@ class TemplateExerciseItem: Identifiable, Equatable {
         self.setType = setType
         self.restTime = restTime
         self.isTimed = isTimed
+        self.supersetId = supersetId
     }
     
     static func == (lhs: TemplateExerciseItem, rhs: TemplateExerciseItem) -> Bool {
@@ -61,6 +66,16 @@ final class TemplateEditorViewModel {
     var hasChanges: Bool = false
     var validationErrors: [String] = []
     var showValidationErrors: Bool = false
+    
+    // HIIT configuration
+    var isHIIT: Bool = false
+    var hiitWork: Int = 30
+    var hiitRest: Int = 15
+    var hiitPrep: Int = 10
+    var hiitRounds: Int = 8
+    
+    // Superset management
+    var supersets: [SupersetM] = []
     
     // MARK: - Dependencies
     
@@ -231,5 +246,103 @@ final class TemplateEditorViewModel {
         }
         
         return newRoutine
+    }
+    
+    // MARK: - Superset Management
+    
+    func createSuperset() {
+        let ss = SupersetM(
+            id: "ss-\(UUID().uuidString)",
+            name: "Superset \(supersets.count + 1)",
+            color: ["#FF6B6B", "#4ECDC4", "#45B7D1", "#96CEB4", "#FFEAA7", "#DDA0DD"][supersets.count % 6]
+        )
+        supersets.append(ss)
+        hasChanges = true
+    }
+    
+    func deleteSuperset(at offsets: IndexSet) {
+        // Clear supersetId from exercises in deleted supersets
+        for index in offsets {
+            if index < supersets.count {
+                let ssId = supersets[index].ssId
+                for exercise in exercises where exercise.supersetId == ssId {
+                    exercise.supersetId = nil
+                }
+            }
+        }
+        supersets.remove(atOffsets: offsets)
+        hasChanges = true
+    }
+    
+    func updateSupersetColor(ssId: String, color: String) {
+        if let idx = supersets.firstIndex(where: { $0.ssId == ssId }) {
+            supersets[idx].color = color
+            hasChanges = true
+        }
+    }
+    
+    func updateSupersetName(ssId: String, name: String) {
+        if let idx = supersets.firstIndex(where: { $0.ssId == ssId }) {
+            supersets[idx].name = name
+            hasChanges = true
+        }
+    }
+    
+    func deleteSuperset(ssId: String) {
+        for exercise in exercises where exercise.supersetId == ssId {
+            exercise.supersetId = nil
+        }
+        supersets.removeAll { $0.ssId == ssId }
+        hasChanges = true
+    }
+    
+    func assignExerciseToSuperset(exerciseId: String, ssId: String?) {
+        if let exercise = exercises.first(where: { $0.exerciseId == exerciseId }) {
+            exercise.supersetId = ssId
+            hasChanges = true
+        }
+    }
+    
+    // MARK: - HIIT Template
+    
+    func createHIITTemplate() -> RoutineM? {
+        validationErrors = []
+        if templateName.trimmingCharacters(in: .whitespaces).isEmpty {
+            validationErrors.append("Template name is required.")
+        }
+        if hiitWork < 5 || hiitRest < 5 || hiitRounds < 1 {
+            validationErrors.append("HIIT values must be valid (work >= 5s, rest >= 5s, rounds >= 1).")
+        }
+        if !validationErrors.isEmpty {
+            showValidationErrors = true
+            return nil
+        }
+        
+        let routine = RoutineM(
+            id: "rt-hiit-\(UUID().uuidString)",
+            name: templateName,
+            desc: templateDescription,
+            isTemplate: true,
+            type: "hiit"
+        )
+        
+        // Configure HIIT parameters
+        routine.hiitWork = hiitWork
+        routine.hiitRest = hiitRest
+        routine.hiitPrep = hiitPrep
+        
+        // Add exercises to HIIT routine
+        for item in exercises {
+            let we = WorkoutExerciseM(
+                id: "we-\(UUID().uuidString)",
+                exerciseId: item.exerciseId
+            )
+            // HIIT exercises use timed sets
+            we.sets.append(PerformedSetM(id: "set-\(UUID().uuidString)", reps: hiitRounds, weight: 0, type: "timed"))
+            routine.exercises.append(we)
+        }
+        
+        hasChanges = false
+        return routine
     }
 }

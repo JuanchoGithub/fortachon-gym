@@ -31,7 +31,7 @@ struct RPESelectorView: View {
         case 6: return "Heavy"
         case 7: return "Very Heavy"
         case 8: return "Very Very Heavy"
-        case 9: "Max Effort"
+        case 9: return "Max Effort"
         case 10: return "Absolute Max"
         default: return ""
         }

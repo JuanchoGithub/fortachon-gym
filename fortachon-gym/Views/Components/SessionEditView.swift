@@ -95,7 +95,7 @@ struct SessionEditView: View {
                         exerciseName: exerciseName,
                         setNumber: key.setIndex + 1,
                         set: set
-                    ) { updatedSet in
+                    ) {
                         // Set is a reference type, changes are in place
                         try? modelContext.save()
                         editingSetKey = nil

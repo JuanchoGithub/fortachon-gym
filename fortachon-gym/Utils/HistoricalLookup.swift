@@ -99,7 +99,7 @@ struct HistoricalLookup {
     }
     
     /// Gets recent workout sessions for muscle freshness calculation.
-    func getRecentSessions(limit: Int = 10) -> [WorkoutSessionM] {
+    @MainActor func getRecentSessions(limit: Int = 10) -> [WorkoutSessionM] {
         let descriptor = FetchDescriptor<WorkoutSessionM>(
             sortBy: [SortDescriptor(\.startTime, order: .reverse)]
         )

@@ -65,23 +65,13 @@ public enum ExerciseDifficulty: String, Codable, CaseIterable, Sendable {
     case beginner = "beginner"
     case intermediate = "intermediate"
     case advanced = "advanced"
-    case expert = "expert"
-
-    public var label: String {
+    
+    /// Display name for the difficulty level
+    public var displayName: String {
         switch self {
         case .beginner: return "Beginner"
         case .intermediate: return "Intermediate"
         case .advanced: return "Advanced"
-        case .expert: return "Expert"
-        }
-    }
-
-    public var emoji: String {
-        switch self {
-        case .beginner: return "🟢"
-        case .intermediate: return "🟡"
-        case .advanced: return "🟠"
-        case .expert: return "🔴"
         }
     }
 }

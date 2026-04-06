@@ -190,12 +190,20 @@ struct ExerciseThumbnailView: View {
 
 struct DifficultyBadge: View {
     let difficulty: String
+    
+    // Simple emoji mapping for difficulty levels
+    private var emoji: String {
+        switch difficulty.lowercased() {
+        case "beginner": return "🟢"
+        case "intermediate": return "🟡"
+        case "advanced": return "🔴"
+        default: return "⚪"
+        }
+    }
 
     var body: some View {
-        if let diff = ExerciseDifficulty(rawValue: difficulty) {
-            Text(diff.emoji)
-                .font(.caption)
-        }
+        Text(emoji)
+            .font(.caption)
     }
 }
 
@@ -235,9 +243,8 @@ struct ExerciseImageDetailView: View {
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
 
-                    if let difficulty = exercise.difficultyStr,
-                       let diff = ExerciseDifficulty(rawValue: difficulty) {
-                        Label(diff.label, systemImage: diff.emoji)
+                    if let difficulty = exercise.difficultyStr {
+                        Text("Difficulty: \(difficulty.capitalized)")
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
                     }
@@ -255,14 +262,14 @@ struct ExerciseImageDetailView: View {
                         ForEach(Array(instructions.enumerated()), id: \.offset) { index, step in
                             HStack(alignment: .top, spacing: 12) {
                                 // Step number
-                                Circle()
-                                    .fill(.blue.opacity(0.15))
-                                    .frame(width: 24, height: 24)
-                                    .overlay {
-                                        Text("\(index + 1)")
-                                            .font(.caption.bold())
-                                            .foregroundStyle(.blue)
-                                    }
+                    Circle()
+                        .fill(Color.blue.opacity(0.15))
+                        .frame(width: 24, height: 24)
+                        .overlay {
+                            Text("\(index + 1)")
+                                .font(.caption.bold())
+                                .foregroundStyle(Color.blue)
+                        }
 
                                 // Step text
                                 Text(step)
@@ -274,28 +281,28 @@ struct ExerciseImageDetailView: View {
                 }
 
                 // Primary muscles
-                if let primary = exercise.primaryMuscles, !primary.isEmpty {
+                if !exercise.primaryMuscles.isEmpty {
                     Divider().padding(.vertical, 8)
 
                     Text("Primary Muscles")
                         .font(.headline)
 
                     FlowLayout(spacing: 8) {
-                        ForEach(primary, id: \.self) { muscle in
+                        ForEach(exercise.primaryMuscles, id: \.self) { muscle in
                             MuscleTag(muscle: muscle)
                         }
                     }
                 }
 
                 // Secondary muscles
-                if let secondary = exercise.secondaryMuscles, !secondary.isEmpty {
+                if !exercise.secondaryMuscles.isEmpty {
                     Divider().padding(.vertical, 8)
 
                     Text("Secondary Muscles")
                         .font(.headline)
 
                     FlowLayout(spacing: 8) {
-                        ForEach(secondary, id: \.self) { muscle in
+                        ForEach(exercise.secondaryMuscles, id: \.self) { muscle in
                             MuscleTag(muscle: muscle, isSecondary: true)
                         }
                     }
@@ -316,7 +323,7 @@ struct MuscleTag: View {
     var body: some View {
         Text(muscle.humanizedName)
             .font(.caption)
-            .foregroundStyle(isSecondary ? .secondary : .blue)
+            .foregroundStyle(isSecondary ? Color.secondary : Color.blue)
             .padding(.horizontal, 8)
             .padding(.vertical, 4)
             .background(

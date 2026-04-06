@@ -69,7 +69,7 @@ struct OnboardingWizardView: View {
                             savePreferences()
                         } else {
                             withAnimation { currentStep += 1 }
-                            HapticsManager.shared.play(.light)
+                            HapticsManager.shared.play()
                         }
                     }
                     .buttonStyle(.borderedProminent)
@@ -358,9 +358,9 @@ struct CompletionStep: View {
 class HapticsManager {
     static let shared = HapticsManager()
     
-    func play(_ style: UINotificationFeedbackGenerator.FeedbackType) {
+    func play() {
         let generator = UINotificationFeedbackGenerator()
-        generator.notificationOccurred(style)
+        generator.notificationOccurred(.success)
     }
 }
 

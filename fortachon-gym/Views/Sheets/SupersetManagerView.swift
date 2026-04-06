@@ -26,8 +26,7 @@ struct SupersetManagerView: View {
     @Query private var allExercises: [ExerciseM]
     @Query private var preferences: [UserPreferencesM]
     
-    @Binding var sessionExercises: [WorkoutExerciseM]
-    @Binding var sessionSupersets: [SupersetM]
+    let session: WorkoutSessionM
     
     var prefs: UserPreferencesM? { preferences.first }
     var useLocalizedNames: Bool { prefs?.localizedExerciseNames ?? false }
@@ -47,7 +46,7 @@ struct SupersetManagerView: View {
     
     // Create superset state
     @State private var newSupersetName = ""
-    @State private var newSupersetColor = SupersetColors.defaultColor
+    @State private var newSupersetColor = "blue"
     
     // Rename state
     @State private var renameText = ""
@@ -57,7 +56,7 @@ struct SupersetManagerView: View {
     
     var exercisesBySuperset: [String: [WorkoutExerciseM]] {
         var groups: [String: [WorkoutExerciseM]] = [:]
-        for ex in sessionExercises {
+        for ex in session.exercises {
             if let ssId = ex.supersetId {
                 if groups[ssId] == nil { groups[ssId] = [] }
                 groups[ssId]?.append(ex)
@@ -67,23 +66,23 @@ struct SupersetManagerView: View {
     }
     
     var ungroupedExercises: [WorkoutExerciseM] {
-        sessionExercises.filter { $0.supersetId == nil }
+        session.exercises.filter { $0.supersetId == nil }
     }
     
     var body: some View {
         NavigationStack {
             List {
                 // Existing supersets
-                if !sessionSupersets.isEmpty {
+                if !session.supersets.isEmpty {
                     Section("Supersets") {
-                        ForEach(sessionSupersets) { superset in
+                        ForEach(session.supersets, id: \.ssId) { superset in
                             supersetRow(superset)
                         }
                     }
                 }
                 
                 // Ungrouped exercises
-                if !ungroupedExercises.isEmpty {
+                if !session.exercises.filter({ $0.supersetId == nil }).isEmpty {
                     Section("Exercises") {
                         ForEach(Array(ungroupedExercises.enumerated()), id: \.element.weId) { idx, ex in
                             let exerciseDef = allExercises.first { $0.id == ex.exerciseId }
@@ -93,14 +92,14 @@ struct SupersetManagerView: View {
                                 Text(exerciseName(for: exerciseDef))
                                     .font(.headline)
                                 Spacer()
-                                if selectedExerciseIndices.contains(sessionExercises.firstIndex(where: { $0.weId == ex.weId }) ?? -1) {
+                                if selectedExerciseIndices.contains(session.exercises.firstIndex(where: { $0.weId == ex.weId }) ?? -1) {
                                     Image(systemName: "checkmark.circle.fill")
                                         .foregroundStyle(.blue)
                                 }
                             }
                             .contentShape(Rectangle())
                             .onTapGesture {
-                                if let globalIdx = sessionExercises.firstIndex(where: { $0.weId == ex.weId }) {
+                                if let globalIdx = session.exercises.firstIndex(where: { $0.weId == ex.weId }) {
                                     if selectedExerciseIndices.contains(globalIdx) {
                                         selectedExerciseIndices.remove(globalIdx)
                                     } else {
@@ -215,27 +214,27 @@ struct SupersetManagerView: View {
         let supersetId = "ss-\(UUID().uuidString)"
         let superset = SupersetM(
             id: supersetId,
-            name: newSupersetName.isEmpty ? "Superset \(sessionSupersets.count + 1)" : newSupersetName,
+            name: newSupersetName.isEmpty ? "Superset \(session.supersets.count + 1)" : newSupersetName,
             color: newSupersetColor
         )
         
         for idx in selectedExerciseIndices.sorted() {
-            sessionExercises[idx].supersetId = supersetId
+            session.exercises[idx].supersetId = supersetId
         }
         
-        sessionSupersets.append(superset)
+        session.supersets.append(superset)
         selectedExerciseIndices.removeAll()
         newSupersetName = ""
         newSupersetColor = SupersetColors.defaultColor
     }
     
     private func ungroupSuperset(_ superset: SupersetM) {
-        for idx in sessionExercises.indices {
-            if sessionExercises[idx].supersetId == superset.ssId {
-                sessionExercises[idx].supersetId = nil
+        for idx in session.exercises.indices {
+            if session.exercises[idx].supersetId == superset.ssId {
+                session.exercises[idx].supersetId = nil
             }
         }
-        sessionSupersets.removeAll { $0.ssId == superset.ssId }
+        session.supersets.removeAll { $0.ssId == superset.ssId }
     }
 }
 
@@ -284,17 +283,4 @@ struct SupersetColorPicker: View {
 
 // MARK: - Preview
 
-#Preview {
-    struct PreviewWrapper: View {
-        @State var exercises: [WorkoutExerciseM] = []
-        @State var supersets: [SupersetM] = []
-        
-        var body: some View {
-            SupersetManagerView(
-                sessionExercises: $exercises,
-                sessionSupersets: $supersets
-            )
-        }
-    }
-    return PreviewWrapper()
-}
+// Note: Preview requires an actual session to work properly

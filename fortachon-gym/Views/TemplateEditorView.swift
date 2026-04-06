@@ -13,6 +13,7 @@ struct TemplateEditorView: View {
     @State private var viewModel: TemplateEditorViewModel
     @State private var showExercisePicker = false
     @State private var showSaveConfirmation = false
+    @State private var showSupersetEditor = false
     
     init(routine: RoutineM? = nil) {
         self.routine = routine
@@ -33,6 +34,38 @@ struct TemplateEditorView: View {
                     TextField("Description (optional)", text: $viewModel.templateDescription)
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
+                    
+                    // Template type picker
+                    Picker("Type", selection: $viewModel.templateType) {
+                        Text("Strength").tag("strength")
+                        Text("HIIT").tag("hiit")
+                        Text("Mixed").tag("mixed")
+                    }
+                }
+                
+                // HIIT Configuration Section
+                if viewModel.templateType == "hiit" {
+                    Section("HIIT Configuration") {
+                        Stepper("Work: \(viewModel.hiitWork)s", value: $viewModel.hiitWork, in: 10...120, step: 5)
+                        Stepper("Rest: \(viewModel.hiitRest)s", value: $viewModel.hiitRest, in: 5...60, step: 5)
+                        Stepper("Prep: \(viewModel.hiitPrep)s", value: $viewModel.hiitPrep, in: 5...30, step: 5)
+                        Stepper("Rounds: \(viewModel.hiitRounds)", value: $viewModel.hiitRounds, in: 1...20)
+                    }
+                }
+                
+                // Superset Section
+                if viewModel.templateType == "strength" || viewModel.templateType == "mixed" {
+                    Section("Supersets") {
+                        HStack {
+                            Text("\(viewModel.supersets.count) supersets configured")
+                                .font(.subheadline)
+                                .foregroundStyle(.secondary)
+                            Spacer()
+                            Button("Manage") {
+                                showSupersetEditor = true
+                            }
+                        }
+                    }
                 }
                 
                 // Exercises Section
@@ -61,8 +94,15 @@ struct TemplateEditorView: View {
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Save") {
-                        if let saved = viewModel.saveTemplate() {
-                            modelContext.insert(saved)
+                        let saved: RoutineM?
+                        if viewModel.templateType == "hiit" {
+                            saved = viewModel.createHIITTemplate()
+                            if let s = saved { modelContext.insert(s) }
+                        } else {
+                            saved = viewModel.saveTemplate()
+                            if let s = saved { modelContext.insert(s) }
+                        }
+                        if saved != nil {
                             try? modelContext.save()
                             showSaveConfirmation = true
                         }
@@ -90,8 +130,16 @@ struct TemplateEditorView: View {
                 }
                 .presentationDetents([.large])
             }
+            .sheet(isPresented: $showSupersetEditor) {
+                SupersetEditorView(
+                    templateExercises: $viewModel.exercises,
+                    routineSupersets: $viewModel.supersets
+                )
+                .presentationDetents([.medium, .large])
+            }
             .onChange(of: viewModel.templateName) { _, _ in viewModel.hasChanges = true }
             .onChange(of: viewModel.exercises) { _, _ in viewModel.hasChanges = true }
+            .onChange(of: viewModel.templateType) { _, _ in viewModel.hasChanges = true }
         }
         .onAppear {
             // Update viewModel with actual exercises from query

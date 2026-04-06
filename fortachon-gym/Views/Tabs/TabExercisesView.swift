@@ -521,7 +521,7 @@ struct ExerciseRowView: View {
                         
                         // Difficulty Badge
                         if let difficulty = ExercisePreferences.shared.getDifficulty(exercise.id) {
-                            DifficultyBadge(difficulty: difficulty)
+                            DifficultyBadge(difficulty: difficulty.rawValue)
                         }
                     }
                     
@@ -602,31 +602,6 @@ struct ExerciseRowView: View {
                 }
             }
         }
-    }
-}
-
-// MARK: - Difficulty Badge
-
-struct DifficultyBadge: View {
-    let difficulty: ExerciseDifficulty
-    
-    var color: Color {
-        switch difficulty {
-        case .beginner: return .green
-        case .intermediate: return .orange
-        case .advanced: return .red
-        }
-    }
-    
-    var body: some View {
-        Text(difficulty.displayName.uppercased())
-            .font(.caption2)
-            .fontWeight(.bold)
-            .foregroundStyle(color)
-            .padding(.horizontal, 4)
-            .padding(.vertical, 1)
-            .background(color.opacity(0.15))
-            .clipShape(Capsule())
     }
 }
 
@@ -1232,49 +1207,6 @@ struct RecordCard: View {
         }
         .padding()
         .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12))
-    }
-}
-
-// MARK: - Flow Layout (for muscle tags)
-
-struct FlowLayout: Layout {
-    var spacing: CGFloat = 8
-    
-    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
-        let result = layout(proposal: proposal, subviews: subviews)
-        return result.size
-    }
-    
-    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
-        let result = layout(proposal: proposal, subviews: subviews)
-        for (index, position) in result.positions.enumerated() {
-            subviews[index].place(at: position, anchor: .topLeading, proposal: proposal)
-        }
-    }
-    
-    func layout(proposal: ProposedViewSize, subviews: Subviews) -> (size: CGSize, positions: [CGPoint]) {
-        let maxWidth = proposal.width ?? .infinity
-        var positions: [CGPoint] = []
-        var currentX: CGFloat = 0
-        var currentY: CGFloat = 0
-        var lineHeight: CGFloat = 0
-        
-        for subview in subviews {
-            let size = subview.sizeThatFits(.unspecified)
-            
-            if currentX + size.width > maxWidth && currentX > 0 {
-                currentX = 0
-                currentY += lineHeight + spacing
-                lineHeight = 0
-            }
-            
-            positions.append(CGPoint(x: currentX, y: currentY))
-            currentX += size.width + spacing
-            lineHeight = max(lineHeight, size.height)
-        }
-        
-        let height = currentY + lineHeight
-        return (CGSize(width: maxWidth, height: height), positions)
     }
 }
 

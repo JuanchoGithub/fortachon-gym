@@ -107,6 +107,10 @@ public final class WorkoutExerciseM {
     public var supersetId: String?
     // Bar/kettlebell weight
     public var barWeight: Double
+    // Previous version storage (for rollback after exercise upgrade)
+    public var prevExerciseId: String?
+    public var prevSetsJson: String?
+    public var prevNote: String?
     
     public init(id: String, exerciseId: String, restTime: RestTimes = RestTimes(),
                 note: String? = nil, supersetId: String? = nil, barWeight: Double = 0) {
@@ -145,6 +149,8 @@ public final class WorkoutSessionM {
     public var prAnnounced: Bool
     @Relationship(deleteRule: .cascade)
     public var exercises: [WorkoutExerciseM] = []
+    @Relationship(deleteRule: .cascade)
+    public var supersets: [SupersetM] = []
     public var updatedAt: Date
     public var deletedAt: Date?
     
@@ -311,6 +317,12 @@ public final class UserPreferencesM {
     public var restFailure: Int = 300
     // Audio coach
     public var audioCoachEnabled: Bool = true
+    // Promotion snoozes
+    public var promotionSnoozes: String = "{}"
+    // Auto-updated 1RMs
+    public var autoUpdated1RMs: String = "{}"
+    // History chart configs (JSON)
+    public var historyChartConfigs: String = "[]"
     @Relationship
     public var activeSupplements: [SupplementLogM] = []
     public init(id: UUID = UUID(), weightUnit: String = "kg", goal: String = "muscle",
@@ -321,7 +333,8 @@ public final class UserPreferencesM {
                 localizedExerciseNames: Bool = false, notificationsEnabled: Bool = false,
                 selectedVoiceURI: String? = nil, restNormal: Int = 90, restWarmup: Int = 60,
                 restDrop: Int = 30, restTimed: Int = 10, restEffort: Int = 90, restFailure: Int = 300,
-                audioCoachEnabled: Bool = true) {
+                audioCoachEnabled: Bool = true, promotionSnoozes: String = "{}",
+                autoUpdated1RMs: String = "{}", historyChartConfigs: String = "[]") {
         self.id = id; weightUnitStr = weightUnit; mainGoalStr = goal
         self.hasCompletedOnboarding = hasCompletedOnboarding
         self.lastCheckInDate = lastCheckInDate
@@ -400,6 +413,16 @@ extension ExerciseM {
             return localizedExerciseName(for: id, locale: "es", defaultName: name)
         }
         return name
+    }
+    
+    /// Parses instructions from JSON string array
+    public var instructionsAsSteps: [String]? {
+        guard !instructions.isEmpty else { return nil }
+        if let data = instructions.data(using: .utf8),
+           let parsed = try? JSONDecoder().decode([String].self, from: data) {
+            return parsed
+        }
+        return [instructions]
     }
 }
 

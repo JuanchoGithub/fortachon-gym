@@ -37,22 +37,7 @@ struct ImportExercisesView: View {
                 if !previewExercises.isEmpty {
                     Section("Preview (\(previewExercises.count) exercises)") {
                         ForEach(previewExercises) { exercise in
-                            HStack {
-                                VStack(alignment: .leading) {
-                                    Text(exercise.name)
-                                        .font(.subheadline)
-                                    Text("\(exercise.bodyPartStr) • \(exercise.categoryStr)")
-                                        .font(.caption)
-                                        .foregroundStyle(.secondary)
-                                }
-                                Spacer()
-                                if let difficulty = exercise.difficultyStr,
-                                   let diff = ExerciseDifficulty(rawValue: difficulty) {
-                                    Text(diff.emoji)
-                                }
-                                Image(systemName: "checkmark.circle.fill")
-                                    .foregroundStyle(.green)
-                            }
+                            exercisePreviewRow(exercise)
                         }
                     }
                     
@@ -100,6 +85,25 @@ struct ImportExercisesView: View {
             } message: {
                 Text("Successfully imported \(importCount) new exercises.")
             }
+        }
+    }
+    
+    @ViewBuilder
+    private func exercisePreviewRow(_ exercise: ExerciseM) -> some View {
+        HStack {
+            VStack(alignment: .leading) {
+                Text(exercise.name)
+                    .font(.subheadline)
+                Text("\(exercise.bodyPartStr) • \(exercise.categoryStr)")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+            Spacer()
+            if let difficulty = exercise.difficultyStr {
+                Text(difficultyEmoji(for: difficulty))
+            }
+            Image(systemName: "checkmark.circle.fill")
+                .foregroundStyle(.green)
         }
     }
     
@@ -157,6 +161,15 @@ struct ImportExercisesView: View {
         } catch {
             errorMessage = "Failed to save exercises: \(error.localizedDescription)"
             showError = true
+        }
+    }
+    
+    private func difficultyEmoji(for difficulty: String) -> String {
+        switch difficulty.lowercased() {
+        case "beginner": return "🟢"
+        case "intermediate": return "🟡"
+        case "advanced": return "🔴"
+        default: return "⚪"
         }
     }
 }

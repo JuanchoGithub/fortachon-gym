@@ -8,6 +8,7 @@ struct TabTrainView: View {
     @Query private var routines: [RoutineM]
     @Query private var preferences: [UserPreferencesM]
     @Query private var supplements: [SupplementLogM]
+    @Query private var allExercises: [ExerciseM]
     
     @State private var selectedRoutine: RoutineM?
     @State private var showEmptyWorkout = false
@@ -15,6 +16,12 @@ struct TabTrainView: View {
     @State private var editingRoutine: RoutineM?
     @State private var showCheckIn = false
     @State private var shouldShowCheckIn = false
+    @State private var showHIITQuickStart = false
+    @State private var hiitWork: Int = 30
+    @State private var hiitRest: Int = 15
+    @State private var hiitPrep: Int = 10
+    @State private var hiitRounds: Int = 8
+    @State private var showActiveWorkout = false
     
     var prefs: UserPreferencesM? { preferences.first }
     
@@ -105,6 +112,50 @@ struct TabTrainView: View {
                     QuickTrainingButtonsView(
                         onStartSession: { startRoutineSession(focus: $0) }
                     )
+                    
+                    // HIIT Quick Start
+                    Button {
+                        showHIITQuickStart = true
+                    } label: {
+                        HStack {
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text("Quick HIIT").font(.title3.bold())
+                                Text("High-intensity interval training")
+                                    .font(.subheadline)
+                                    .foregroundStyle(.white.opacity(0.85))
+                            }
+                            Spacer()
+                            Image(systemName: "bolt.fill").font(.title)
+                        }
+                        .foregroundStyle(.white)
+                        .padding(16)
+                        .background(
+                            LinearGradient(
+                                colors: [.orange, .red],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            ),
+                            in: RoundedRectangle(cornerRadius: 16)
+                        )
+                    }
+                    .fullScreenCover(isPresented: $showHIITQuickStart) {
+                        HIITQuickStartSheet(
+                            work: $hiitWork,
+                            rest: $hiitRest,
+                            prep: $hiitPrep,
+                            rounds: $hiitRounds
+                        ) {
+                            startHIITSession(
+                                work: hiitWork,
+                                rest: hiitRest,
+                                prep: hiitPrep,
+                                rounds: hiitRounds
+                            )
+                        }
+                    }
+                    .fullScreenCover(isPresented: $showActiveWorkout) {
+                        ActiveWorkoutView(isActive: $showActiveWorkout, routine: nil)
+                    }
                     
                     // Start Empty Workout Button
                     Button {
@@ -262,6 +313,51 @@ struct TabTrainView: View {
     private func startRoutine(fromTemplate routine: RoutineM? = nil) {
         guard let routine = routine else { return }
         selectedRoutine = routine
+    }
+    
+    private func startHIITSession(work: Int, rest: Int, prep: Int, rounds: Int) {
+        // Get cardio exercises for HIIT
+        let cardioExercises = allExercises.filter { $0.categoryStr == "Cardio" || $0.categoryStr == "Duration" }
+        // Create a basic HIIT session
+        let session = WorkoutSessionM(
+            id: "ws-hiit-\(UUID().uuidString)",
+            routineId: "hiit-quick-\(UUID().uuidString)",
+            routineName: "Quick HIIT",
+            startTime: Date(), endTime: Date()
+        )
+        
+        // Add first cardio exercise if available, or use generic HIIT
+        if !cardioExercises.isEmpty {
+            let ex = cardioExercises[0]
+            let we = WorkoutExerciseM(id: "we-\(UUID())", exerciseId: ex.id)
+            for i in 0..<rounds {
+                we.sets.append(PerformedSetM(
+                    id: "set-\(UUID())",
+                    reps: i + 1,
+                    weight: 0,
+                    type: "normal"
+                ))
+            }
+            session.exercises.append(we)
+        } else {
+            // Use a generic HIIT exercise
+            let we = WorkoutExerciseM(id: "we-\(UUID())", exerciseId: "hiit-generic")
+            for i in 0..<rounds {
+                we.sets.append(PerformedSetM(
+                    id: "set-\(UUID())",
+                    reps: i + 1,
+                    weight: 0,
+                    type: "normal"
+                ))
+            }
+            session.exercises.append(we)
+        }
+        
+        modelContext.insert(session)
+        try? modelContext.save()
+        
+        showActiveWorkout = true
+        showHIITQuickStart = false
     }
     
     private func seedSampleData() {

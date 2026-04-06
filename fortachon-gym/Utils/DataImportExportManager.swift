@@ -341,24 +341,31 @@ struct JSONValue: Codable {
 }
 
 struct ExportData: Codable {
+    // Export version for backward compatibility
+    var exportVersion: String?
+    var exportDate: String?
     var history: [JSONValue]?
     var routines: [JSONValue]?
     var exercises: [JSONValue]?
     var profile: JSONValue?
     var settings: JSONValue?
     var weightHistory: [JSONValue]?
+    var supersets: [JSONValue]?
     
     enum CodingKeys: String, CodingKey {
-        case history, routines, exercises, profile, settings, weightHistory
+        case exportVersion, exportDate, history, routines, exercises, profile, settings, weightHistory, supersets
     }
     
-    init(history: [[String: Any]]? = nil, routines: [[String: Any]]? = nil, exercises: [[String: Any]]? = nil, profile: [String: Any]? = nil, settings: [String: Any]? = nil, weightHistory: [[String: Any]]? = nil) {
+    init(history: [[String: Any]]? = nil, routines: [[String: Any]]? = nil, exercises: [[String: Any]]? = nil, profile: [String: Any]? = nil, settings: [String: Any]? = nil, weightHistory: [[String: Any]]? = nil, supersets: [[String: Any]]? = nil) {
+        self.exportVersion = "2.0"
+        self.exportDate = ISO8601DateFormatter().string(from: Date())
         self.history = history?.map { JSONValue($0) }
         self.routines = routines?.map { JSONValue($0) }
         self.exercises = exercises?.map { JSONValue($0) }
         self.profile = profile.map { JSONValue($0) }
         self.settings = settings.map { JSONValue($0) }
         self.weightHistory = weightHistory?.map { JSONValue($0) }
+        self.supersets = supersets?.map { JSONValue($0) }
     }
     
     init(from decoder: Decoder) throws {

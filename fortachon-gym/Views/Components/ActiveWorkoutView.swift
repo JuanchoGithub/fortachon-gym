@@ -47,8 +47,21 @@ struct ActiveWorkoutView: View {
     @State private var coachSuggestions: [UpgradeSuggestion] = []
     @State private var historicalData: [String: (avgWeight: Double, avgReps: Int)] = [:]
     @State private var showNotesEditor = false
-    @State private var validationErrors: [String] = []
+    @State private var validationIssues: [ValidationIssue] = []
     @State private var showValidationErrors = false
+
+    // Coach suggestion system (Item 1 & 2)
+    @State private var showCoachSuggestion = false
+    @State private var coachSuggestionResult: CoachSuggestionResult?
+
+    // Exercise upgrade/rollback (Item 3 & 4)
+    @State private var showingUpgradeAlert: (exerciseWeId: String, targetExerciseId: String, targetName: String)? = nil
+    @State private var exerciseUpgrades: [String: String] = [:] // exerciseWeId -> targetExerciseId
+    @State private var showExercisePicker = false
+    @State private var upgradePickerExerciseIndex: Int?
+
+    // Query for routines (needed for coach suggestion)
+    @Query private var allRoutines: [RoutineM]
     
     // RPE editing state
     @State private var showRPEEditor = false
@@ -180,6 +193,12 @@ struct ActiveWorkoutView: View {
                             .font(.title3)
                             .foregroundStyle(.secondary)
                     }
+                    // Coach suggest button (Item 2)
+                    Button(action: { showCoachSuggestionSheet() }) {
+                        Image(systemName: "brain.head.profile")
+                            .font(.title3)
+                            .foregroundStyle(.purple)
+                    }
                     // Finish button
                     Button("Finish") { validateAndFinish() }
                         .font(.headline).padding(.horizontal, 20).padding(.vertical, 10)
@@ -254,20 +273,30 @@ struct ActiveWorkoutView: View {
             }
             .presentationDetents([.medium])
         }
-        .alert("Validation Errors", isPresented: $showValidationErrors) {
-            Button("OK", role: .cancel) {}
-        } message: {
-            Text(validationErrors.joined(separator: "\n"))
+        // Validation errors modal (Item 5)
+        .sheet(isPresented: $showValidationErrors) {
+            ValidationErrorsModalView(
+                issues: validationIssues,
+                onContinueAnyway: { endWorkout() }
+            )
+        }
+
+        // Coach suggestion modal (Item 2)
+        .sheet(isPresented: $showCoachSuggestion) {
+            if let result = coachSuggestionResult {
+                CoachSuggestionModalView(
+                    suggestion: result,
+                    onAccept: { acceptCoachSuggestion(result) },
+                    onAggressive: { acceptAggressiveSuggestion() }
+                )
+            }
         }
         .fullScreenCover(isPresented: $showRestTimer) {
             RestTimerOverlay(timeRemaining: $restRemaining, totalTime: restTotal)
         }
         .sheet(isPresented: $showSupersetManager) {
-            SupersetManagerView(
-                sessionExercises: $session.exercises,
-                sessionSupersets: $session.supersets
-            )
-            .presentationDetents([.large])
+            SupersetManagerViewWrapper(session: session)
+                .presentationDetents([.large])
         }
         .sheet(isPresented: $showPlateCalculator) {
             PlateCalculatorView(
@@ -326,6 +355,7 @@ struct ActiveWorkoutView: View {
                 .animation(.spring(), value: show1RMBanner)
             }
         }
+        // Validation errors alert removed - now uses ValidationErrorsModalView sheet
         .alert("Finish?", isPresented: $showFinishConfirmation) {
             Button("Cancel", role: .cancel) {}
             Button("Finish", role: .destructive) { endWorkout() }
@@ -501,29 +531,201 @@ struct ActiveWorkoutView: View {
         generateSuggestions()
     }
     
+    // MARK: - Validation (Item 5)
+
     private func validateAndFinish() {
-        let errors = validateWorkout()
-        if errors.isEmpty {
+        let issues = detailedValidateWorkout()
+        if issues.isEmpty {
             showFinishConfirmation = true
         } else {
-            validationErrors = errors
+            validationIssues = issues
             showValidationErrors = true
         }
     }
-    
-    private func validateWorkout() -> [String] {
-        var errors: [String] = []
+
+    /// Detailed validation returning structured issues (Item 5)
+    private func detailedValidateWorkout() -> [ValidationIssue] {
+        var issues: [ValidationIssue] = []
         if session.exercises.isEmpty {
-            errors.append("No exercises added. Add at least one exercise to finish.")
+            issues.append(ValidationIssue(exerciseName: "Workout", issue: "No exercises added"))
         }
         for ex in session.exercises {
+            let exerciseDef = allExercises.first { $0.id == ex.exerciseId }
+            let name = exerciseDef?.name ?? ex.exerciseId
             let hasCompletedSets = ex.sets.contains { $0.isComplete }
             if !hasCompletedSets {
-                let name = allExercises.first { $0.id == ex.exerciseId }?.name ?? ex.exerciseId
-                errors.append("\"\(name)\" has no completed sets.")
+                issues.append(ValidationIssue(exerciseName: name, issue: "No completed sets"))
             }
         }
-        return errors
+        return issues
+    }
+
+    // MARK: - Coach Suggestion (Items 1 & 2)
+
+    private func showCoachSuggestionSheet() {
+        let suggestion = CoachSuggestionEngine.generateSuggestion(
+            sessions: [],
+            allExercises: allExercises,
+            routines: allRoutines,
+            prefs: prefs
+        )
+
+        guard let s = suggestion else { return }
+
+        // Build a RoutineM from the suggestion
+        let tempRoutine = RoutineM(id: "coach-\(UUID())", name: s.focusLabel, desc: s.description, isTemplate: false, type: "strength")
+        for exData in s.exercises {
+            let we = WorkoutExerciseM(id: "we-\(UUID())", exerciseId: exData.exerciseId)
+            for setData in exData.sets {
+                we.sets.append(PerformedSetM(id: "set-\(UUID())", reps: setData.reps, weight: setData.weight, type: setData.type))
+            }
+            tempRoutine.exercises.append(we)
+        }
+
+        coachSuggestionResult = CoachSuggestionResult(
+            routine: Routine(from: tempRoutine),
+            focusLabel: s.focusLabel,
+            description: s.description,
+            isFallback: s.isFallback
+        )
+        showCoachSuggestion = true
+    }
+
+    private func acceptCoachSuggestion(_ result: CoachSuggestionResult) {
+        // Replace exercises with the suggested routine
+        session.exercises.removeAll()
+        // We need to rebuild from the Routine (FortachonCore) back to WorkoutExerciseM
+        // Store original routine's sets
+        for coreEx in result.routine.exercises {
+            let we = WorkoutExerciseM(id: "we-\(UUID())", exerciseId: coreEx.exerciseId)
+            for coreSet in coreEx.sets {
+                we.sets.append(PerformedSetM(
+                    id: "set-\(UUID())",
+                    reps: coreSet.reps,
+                    weight: coreSet.weight,
+                    type: coreSet.type.rawValue
+                ))
+            }
+            session.exercises.append(we)
+        }
+        // Reset expansion
+        expandedIds.removeAll()
+        if let first = session.exercises.first {
+            expandedIds.insert(first.weId)
+        }
+        audioCoach.announceWorkoutStart(routineName: result.focusLabel)
+    }
+
+    private func acceptAggressiveSuggestion() {
+        let suggestion = CoachSuggestionEngine.generateAggressiveSuggestion(
+            sessions: [],
+            allExercises: allExercises,
+            routines: allRoutines,
+            prefs: prefs
+        )
+
+        session.exercises.removeAll()
+        for exData in suggestion.exercises {
+            let we = WorkoutExerciseM(id: "we-\(UUID())", exerciseId: exData.exerciseId)
+            for setData in exData.sets {
+                we.sets.append(PerformedSetM(id: "set-\(UUID())", reps: setData.reps, weight: setData.weight, type: setData.type))
+            }
+            session.exercises.append(we)
+        }
+        expandedIds.removeAll()
+        if let first = session.exercises.first {
+            expandedIds.insert(first.weId)
+        }
+        audioCoach.announceWorkoutStart(routineName: "\(suggestion.focusLabel) (Aggressive)")
+    }
+
+    // MARK: - Exercise Upgrade & Rollback (Items 3 & 4)
+
+    /// Check if an exercise has available upgrades
+    private func availableUpgrade(for exerciseId: String) -> (targetId: String, targetName: String)? {
+        let upgradePaths: [String: (String, String)] = [
+            "ex-1": ("ex-2", "Dumbbell Bench Press"),  // Bench -> harder variant
+            "ex-4": ("ex-26", "Incline Bench Press"),   // OHP -> Incline
+            "ex-5": ("ex-10", "Weighted Pull-ups"),     // Rows -> Pull-ups
+        ]
+        return upgradePaths[exerciseId]
+    }
+
+    /// Upgrade an exercise to a harder variant (stores previous for rollback)
+    private func upgradeExercise(at index: Int, to targetId: String) {
+        guard index < session.exercises.count else { return }
+        let ex = session.exercises[index]
+
+        // Store current state for rollback
+        ex.prevExerciseId = ex.exerciseId
+        ex.prevNote = ex.note
+
+        // Encode current sets as JSON for restoration
+        let setsData = ex.sets.map { set in
+            [
+                "id": set.setId,
+                "reps": "\(set.reps)",
+                "weight": "\(set.weight)",
+                "type": set.setTypeStr
+            ]
+        }
+        if let json = try? JSONSerialization.data(withJSONObject: setsData),
+           let jsonStr = String(data: json, encoding: .utf8) {
+            ex.prevSetsJson = jsonStr
+        }
+
+        // Perform the upgrade
+        ex.exerciseId = targetId
+
+        // Reset sets with empty defaults
+        ex.sets.removeAll()
+        ex.sets.append(PerformedSetM(id: "set-\(UUID())", reps: 0, weight: 0, type: "warmup"))
+        for _ in 0..<3 {
+            ex.sets.append(PerformedSetM(id: "set-\(UUID())", reps: 8, weight: 0, type: "normal"))
+        }
+
+        expandedIds.insert(ex.weId)
+    }
+
+    /// Rollback an exercise to its previous version
+    private func rollbackExercise(at index: Int) {
+        guard index < session.exercises.count else { return }
+        let ex = session.exercises[index]
+
+        guard let prevId = ex.prevExerciseId else { return }
+
+        // Restore exercise ID
+        ex.exerciseId = prevId
+        ex.note = ex.prevNote
+
+        // Restore sets from JSON
+        if let prevJson = ex.prevSetsJson,
+           let data = prevJson.data(using: .utf8),
+           let setsArray = try? JSONSerialization.jsonObject(with: data) as? [[String: String]] {
+            ex.sets.removeAll()
+            for setDict in setsArray {
+                let reps = Int(setDict["reps"] ?? "0") ?? 0
+                let weight = Double(setDict["weight"] ?? "0") ?? 0
+                let type = setDict["type"] ?? "normal"
+                ex.sets.append(PerformedSetM(
+                    id: "set-\(UUID())",
+                    reps: reps,
+                    weight: weight,
+                    type: type
+                ))
+            }
+        }
+
+        // Clear previous state
+        ex.prevExerciseId = nil
+        ex.prevSetsJson = nil
+        ex.prevNote = nil
+    }
+
+    /// Check if an exercise can be rolled back
+    private func canRollback(at index: Int) -> Bool {
+        guard index < session.exercises.count else { return false }
+        return session.exercises[index].prevExerciseId != nil
     }
     
     private func endWorkout() {

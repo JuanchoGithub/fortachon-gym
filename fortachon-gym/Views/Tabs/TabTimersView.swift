@@ -183,12 +183,16 @@ struct RecentTimersSection: View {
 
 struct EMOMTimerView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var minutes: Int = 10
     @State private var isRunning = false
     @State private var timeRemaining: TimeInterval = 0
     @State private var currentMinute: Int = 0
     @State private var timerTask: Task<Void, Never>?
     @State private var soundEffects = SoundEffectsService()
+    @State private var countdownHapticPhase = 0
+    @State private var minuteEndHapticPhase = 0
+    @State private var completionHapticPhase = 0
     
     var body: some View {
         NavigationStack {
@@ -285,6 +289,9 @@ struct EMOMTimerView: View {
                 }
             }
             .onDisappear { timerTask?.cancel() }
+            .sensoryFeedback(.impact(flexibility: .soft), trigger: countdownHapticPhase)
+            .sensoryFeedback(.impact(flexibility: .rigid), trigger: minuteEndHapticPhase)
+            .sensoryFeedback(.success, trigger: completionHapticPhase)
         }
     }
     
@@ -305,13 +312,13 @@ struct EMOMTimerView: View {
                     
                     if timeRemaining <= 3 && timeRemaining > 0 && Int(timeRemaining) != Int(timeRemaining + 0.1) {
                         soundEffects.playCountdownBeep()
-                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                        if !reduceMotion { countdownHapticPhase += 1 }
                     }
                 }
                 
                 if !Task.isCancelled && currentMinute < minutes - 1 {
                     soundEffects.playRestTimerEnd()
-                    UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                    if !reduceMotion { minuteEndHapticPhase += 1 }
                     currentMinute += 1
                     timeRemaining = 60
                 } else {
@@ -321,6 +328,7 @@ struct EMOMTimerView: View {
             
             if !Task.isCancelled {
                 soundEffects.playPRCelebration()
+                if !reduceMotion { completionHapticPhase += 1 }
                 isRunning = false
             }
         }
@@ -347,12 +355,16 @@ struct EMOMTimerView: View {
 
 struct AMRAPTimerView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var durationMinutes: Int = 10
     @State private var isRunning = false
     @State private var timeRemaining: TimeInterval = 0
     @State private var rounds: Int = 0
     @State private var timerTask: Task<Void, Never>?
     @State private var soundEffects = SoundEffectsService()
+    @State private var countdownHapticPhase = 0
+    @State private var roundLogHapticPhase = 0
+    @State private var completionHapticPhase = 0
     
     var body: some View {
         NavigationStack {
@@ -375,7 +387,7 @@ struct AMRAPTimerView: View {
                     Button {
                         rounds += 1
                         soundEffects.playBlip()
-                        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                        if !reduceMotion { roundLogHapticPhase += 1 }
                     } label: {
                         Label("Log Round", systemImage: "plus.circle.fill")
                             .font(.headline)
@@ -445,6 +457,9 @@ struct AMRAPTimerView: View {
                 }
             }
             .onDisappear { timerTask?.cancel() }
+            .sensoryFeedback(.impact(flexibility: .soft), trigger: countdownHapticPhase)
+            .sensoryFeedback(.impact(flexibility: .rigid), trigger: roundLogHapticPhase)
+            .sensoryFeedback(.success, trigger: completionHapticPhase)
         }
     }
     
@@ -464,12 +479,13 @@ struct AMRAPTimerView: View {
                 
                 if timeRemaining <= 3 && timeRemaining > 0 && Int(timeRemaining) != Int(timeRemaining + 0.1) {
                     soundEffects.playCountdownBeep()
-                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                    if !reduceMotion { countdownHapticPhase += 1 }
                 }
             }
             
             if !Task.isCancelled {
                 soundEffects.playPRCelebration()
+                if !reduceMotion { completionHapticPhase += 1 }
                 isRunning = false
             }
         }
@@ -480,6 +496,7 @@ struct AMRAPTimerView: View {
 
 struct TabataTimerView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var rounds: Int = 8
     @State private var workTime: Int = 20
     @State private var restTime: Int = 10
@@ -489,6 +506,9 @@ struct TabataTimerView: View {
     @State private var isWorkPhase: Bool = true
     @State private var timerTask: Task<Void, Never>?
     @State private var soundEffects = SoundEffectsService()
+    @State private var countdownHapticPhase = 0
+    @State private var phaseChangeHapticPhase = 0
+    @State private var completionHapticPhase = 0
     
     var body: some View {
         NavigationStack {
@@ -575,6 +595,9 @@ struct TabataTimerView: View {
                 }
             }
             .onDisappear { timerTask?.cancel() }
+            .sensoryFeedback(.impact(flexibility: .soft), trigger: countdownHapticPhase)
+            .sensoryFeedback(.impact(flexibility: .rigid), trigger: phaseChangeHapticPhase)
+            .sensoryFeedback(.success, trigger: completionHapticPhase)
         }
     }
     
@@ -598,7 +621,7 @@ struct TabataTimerView: View {
                     
                     if timeRemaining <= 3 && timeRemaining > 0 && Int(timeRemaining) != Int(timeRemaining + 0.1) {
                         soundEffects.playCountdownBeep()
-                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                        if !reduceMotion { countdownHapticPhase += 1 }
                     }
                 }
                 
@@ -608,6 +631,7 @@ struct TabataTimerView: View {
                         isWorkPhase = false
                         timeRemaining = TimeInterval(restTime)
                         soundEffects.playRestTimerEnd()
+                        if !reduceMotion { phaseChangeHapticPhase += 1 }
                     } else {
                         // Next round
                         currentRound += 1
@@ -615,6 +639,7 @@ struct TabataTimerView: View {
                             isWorkPhase = true
                             timeRemaining = TimeInterval(workTime)
                             soundEffects.playRestTimerEnd()
+                            if !reduceMotion { phaseChangeHapticPhase += 1 }
                         }
                     }
                 }
@@ -622,6 +647,7 @@ struct TabataTimerView: View {
             
             if !Task.isCancelled {
                 soundEffects.playPRCelebration()
+                if !reduceMotion { completionHapticPhase += 1 }
                 isRunning = false
             }
         }
@@ -632,6 +658,7 @@ struct TabataTimerView: View {
 
 struct HIITTimerView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var workTime: Int = 30
     @State private var restTime: Int = 15
     @State private var prepTime: Int = 5
@@ -642,6 +669,9 @@ struct HIITTimerView: View {
     @State private var phase: HIITPhase = .prep
     @State private var timerTask: Task<Void, Never>?
     @State private var soundEffects = SoundEffectsService()
+    @State private var countdownHapticPhase = 0
+    @State private var phaseChangeHapticPhase = 0
+    @State private var completionHapticPhase = 0
     
     enum HIITPhase {
         case prep, work, rest, done
@@ -745,6 +775,9 @@ struct HIITTimerView: View {
                 }
             }
             .onDisappear { timerTask?.cancel() }
+            .sensoryFeedback(.impact(flexibility: .soft), trigger: countdownHapticPhase)
+            .sensoryFeedback(.impact(flexibility: .rigid), trigger: phaseChangeHapticPhase)
+            .sensoryFeedback(.success, trigger: completionHapticPhase)
         }
     }
     
@@ -801,7 +834,7 @@ struct HIITTimerView: View {
             
             if timeRemaining <= 3 && timeRemaining > 0 && Int(timeRemaining) != Int(timeRemaining + 0.1) {
                 soundEffects.playCountdownBeep()
-                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                if !reduceMotion { countdownHapticPhase += 1 }
             }
         }
     }
@@ -811,6 +844,7 @@ struct HIITTimerView: View {
 
 struct CustomTimerView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var hours: Int = 0
     @State private var minutes: Int = 5
     @State private var seconds: Int = 0
@@ -818,6 +852,8 @@ struct CustomTimerView: View {
     @State private var timeRemaining: TimeInterval = 0
     @State private var timerTask: Task<Void, Never>?
     @State private var soundEffects = SoundEffectsService()
+    @State private var countdownHapticPhase = 0
+    @State private var completionHapticPhase = 0
     
     var totalTime: TimeInterval {
         TimeInterval(hours * 3600 + minutes * 60 + seconds)
@@ -907,6 +943,8 @@ struct CustomTimerView: View {
                 }
             }
             .onDisappear { timerTask?.cancel() }
+            .sensoryFeedback(.impact(flexibility: .soft), trigger: countdownHapticPhase)
+            .sensoryFeedback(.success, trigger: completionHapticPhase)
         }
     }
     
@@ -927,13 +965,13 @@ struct CustomTimerView: View {
                 
                 if timeRemaining <= 3 && timeRemaining > 0 && Int(timeRemaining) != Int(timeRemaining + 0.1) {
                     soundEffects.playCountdownBeep()
-                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                    if !reduceMotion { countdownHapticPhase += 1 }
                 }
             }
             
             if !Task.isCancelled {
                 soundEffects.playRestTimerEnd()
-                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                if !reduceMotion { completionHapticPhase += 1 }
                 isRunning = false
             }
         }

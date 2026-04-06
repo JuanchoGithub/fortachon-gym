@@ -104,8 +104,6 @@
 		A100105F /* InlineRestTimerOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200121B /* InlineRestTimerOverlay.swift */; };
 		A1001060 /* BodyweightInputSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200121C /* BodyweightInputSheet.swift */; };
 		A1001061 /* ActiveWorkoutUIState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200121D /* ActiveWorkoutUIState.swift */; };
-		A1001062 /* AudioCoachManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200121E /* AudioCoachManager.swift */; };
-		A1001063 /* ExercisePickerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200121F /* ExercisePickerWrapper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -208,8 +206,6 @@
 		A200121B /* InlineRestTimerOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineRestTimerOverlay.swift; sourceTree = "<group>"; };
 		A200121C /* BodyweightInputSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyweightInputSheet.swift; sourceTree = "<group>"; };
 		A200121D /* ActiveWorkoutUIState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveWorkoutUIState.swift; sourceTree = "<group>"; };
-		A200121E /* AudioCoachManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCoachManager.swift; sourceTree = "<group>"; };
-		A200121F /* ExercisePickerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisePickerWrapper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -306,7 +302,6 @@
 		A4000022 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				A200121F /* ExercisePickerWrapper.swift */,
 				A200121A /* GlobalMinimizedWorkoutBar.swift */,
 				A200121B /* InlineRestTimerOverlay.swift */,
 				A200121C /* BodyweightInputSheet.swift */,
@@ -413,7 +408,6 @@
 		A4000040 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				A200121E /* AudioCoachManager.swift */,
 				A2001033 /* AudioCoach.swift */,
 				A2001034 /* AuthService.swift */,
 				A2001035 /* ICloudSyncService.swift */,
@@ -634,8 +628,6 @@
 				A100105F /* InlineRestTimerOverlay.swift in Sources */,
 				A1001060 /* BodyweightInputSheet.swift in Sources */,
 				A1001061 /* ActiveWorkoutUIState.swift in Sources */,
-				A1001062 /* AudioCoachManager.swift in Sources */,
-				A1001063 /* ExercisePickerWrapper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

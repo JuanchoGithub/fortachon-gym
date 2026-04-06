@@ -91,31 +91,15 @@ struct TabProfileView: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
-                // Tab bar
-                HStack {
+                // Segmented tab picker
+                Picker("Section", selection: $activeTab) {
                     ForEach(ProfileTab.allCases) { tab in
-                        Button {
-                            withAnimation(.easeInOut(duration: 0.2)) {
-                                activeTab = tab
-                            }
-                        } label: {
-                            VStack(spacing: 4) {
-                                Text(tab.title)
-                                    .font(.subheadline.weight(.medium))
-                                    .foregroundStyle(activeTab == tab ? .primary : .secondary)
-                                Rectangle()
-                                    .fill(activeTab == tab ? Color.blue : Color.clear)
-                                    .frame(height: 2)
-                            }
-                        }
-                        .frame(maxWidth: .infinity)
+                        Text(tab.title).tag(tab)
                     }
                 }
+                .pickerStyle(.segmented)
                 .padding(.horizontal)
-                .padding(.bottom, 0)
                 .background(Color(.systemBackground))
-                
-                Divider()
                 
                 // Content
                 ScrollView {
@@ -455,7 +439,7 @@ struct TabProfileView: View {
                     if isImperial {
                         imperialHeightInputs
                     } else {
-                        TextField("cm", text: $bodyWeight)
+                        TextField("cm", text: $heightCm)
                             .keyboardType(.numberPad)
                             .multilineTextAlignment(.trailing)
                             .frame(width: 80)

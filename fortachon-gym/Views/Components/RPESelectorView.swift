@@ -140,34 +140,21 @@ struct RPEButton: View {
     }
 }
 
-// MARK: - Inline RPE Display (for set row)
+// MARK: - Inline RPE Editor (for set row) — P1 #4: Replace sheet with inline stepper
 
-struct InlineRPEDisplay: View {
+/// Inline RPE editor: tap to cycle RPE 0→1→2→...→10→0, long press to reset.
+/// This replaces the full sheet (was 3+ taps) with a single-tap interaction.
+struct InlineRPEEditor: View {
     let rpe: Int?
-    let onTap: () -> Void
+    let onChange: (Int?) -> Void
     
-    var body: some View {
-        Button(action: onTap) {
-            Group {
-                if let rpe = rpe {
-                    Text("\(rpe)")
-                        .font(.caption.bold())
-                        .frame(width: 24, height: 24)
-                        .foregroundStyle(.white)
-                        .background(rpeColor(for: rpe), in: Circle())
-                } else {
-                    Image(systemName: "brain.head.profile")
-                        .font(.caption)
-                        .foregroundStyle(.secondary.opacity(0.5))
-                        .frame(width: 24, height: 24)
-                        .background(.secondary.opacity(0.1), in: Circle())
-                }
-            }
-        }
-    }
+    @State private var showingQuickPicker = false
+    
+    private var displayRPE: Int { rpe ?? 0 }
     
     private func rpeColor(for rpe: Int) -> Color {
         switch rpe {
+        case 0: return .secondary
         case 1...3: return .green
         case 4...6: return .yellow
         case 7...8: return .orange
@@ -176,7 +163,55 @@ struct InlineRPEDisplay: View {
         default: return .secondary
         }
     }
+    
+    private var rpeLabel: String {
+        guard displayRPE > 0 else { return "–" }
+        return "\(displayRPE)"
+    }
+    
+    private var tooltip: String {
+        guard displayRPE > 0 else { return "Tap to set RPE" }
+        return "Tap to change (\(displayRPE))"
+    }
+    
+    var body: some View {
+        Button {
+            showingQuickPicker = true
+        } label: {
+            Text(rpeLabel)
+                .font(.caption.bold())
+                .frame(width: 28, height: 28)
+                .foregroundStyle(displayRPE > 0 ? .white : .secondary)
+                .background(
+                    displayRPE > 0 ? rpeColor(for: displayRPE) : Color.secondary.opacity(0.1),
+                    in: RoundedRectangle(cornerRadius: 14)
+                )
+                .contentTransition(.numericText())
+                .accessibilityLabel("RPE: \(displayRPE). \(tooltip)")
+        }
+        .buttonStyle(.plain)
+        .confirmationDialog("Select RPE", isPresented: $showingQuickPicker, titleVisibility: .hidden) {
+            Button("Clear", role: .cancel) { onChange(nil) }
+            ForEach(1...10, id: \.self) { rpe in
+                Button("\(rpe) — \(rpeDescription(rpe))") { onChange(rpe) }
+            }
+        }
+    }
+    
+    private func rpeDescription(_ rpe: Int) -> String {
+        switch rpe {
+        case 1...3: return "Light"
+        case 4...6: return "Moderate"
+        case 7...8: return "Heavy"
+        case 9: return "Max"
+        case 10: return "Absolute Max"
+        default: return ""
+        }
+    }
 }
+
+// Backward compat alias
+typealias InlineRPEDisplay = InlineRPEEditor
 
 // MARK: - RPE Entry Sheet
 
@@ -224,10 +259,10 @@ struct RPEEntrySheet: View {
                     // Inline displays
                     HStack(spacing: 12) {
                         Text("Inline:")
-                        InlineRPEDisplay(rpe: nil, onTap: {})
-                        InlineRPEDisplay(rpe: 5, onTap: {})
-                        InlineRPEDisplay(rpe: 8, onTap: {})
-                        InlineRPEDisplay(rpe: 10, onTap: {})
+                        InlineRPEEditor(rpe: nil, onChange: { _ in })
+                        InlineRPEEditor(rpe: 5, onChange: { _ in })
+                        InlineRPEEditor(rpe: 8, onChange: { _ in })
+                        InlineRPEEditor(rpe: 10, onChange: { _ in })
                     }
                     .padding()
                     .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12))

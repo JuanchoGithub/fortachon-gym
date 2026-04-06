@@ -1,0 +1,43 @@
+import SwiftUI
+import FortachonCore
+
+// MARK: - Shared Type Definitions
+
+// MARK: - SnapshotState
+
+struct SnapshotState {
+    let exerciseOrder: [String]
+    let exercises: [(weId: String, exerciseId: String, supersetId: String?, sets: [(id: String, reps: Int, weight: Double, type: String)])]
+}
+
+extension SnapshotState {
+    init(from session: WorkoutSessionM) {
+        exerciseOrder = session.exercises.map { $0.weId }
+        exercises = session.exercises.map { ex in
+            (
+                weId: ex.weId,
+                exerciseId: ex.exerciseId,
+                supersetId: ex.supersetId,
+                sets: ex.sets.map { (id: $0.setId, reps: $0.reps, weight: $0.weight, type: $0.setTypeStr) }
+            )
+        }
+    }
+}
+
+// MARK: - PromotionBannerState
+
+struct PromotionBannerState: Identifiable {
+    let id = UUID()
+    let exerciseIndex: Int
+    let targetExerciseId: String
+    let targetExerciseName: String
+}
+
+// MARK: - StaleWorkoutInfo
+
+struct StaleWorkoutInfo {
+    let lastActivity: Date
+    let hoursInactive: Int
+    let completedSets: Int
+    let totalSets: Int
+}

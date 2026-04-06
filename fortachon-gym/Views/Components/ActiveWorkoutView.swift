@@ -2,23 +2,35 @@ import SwiftUI
 import SwiftData
 import FortachonCore
 
-// MARK: - Snapshot State for Reorder Save/Cancel
+// MARK: - Timer Display View (isolated to prevent full view rebuild on timer tick)
+// This prevents the entire body from recomputing when elapsed changes,
+// which was closing sheets/popups during active workout.
 
-/// Captures the state of exercises for reorder undo.
-struct SnapshotState {
-    let exerciseOrder: [String]  // weId array in order
-    let exercises: [(weId: String, exerciseId: String, supersetId: String?, sets: [(id: String, reps: Int, weight: Double, type: String)])]
+struct WorkoutTimerDisplay: View {
+    let startTime: Date
+    @State private var elapsed: TimeInterval = 0
+    @State private var timerTask: Task<Void, Never>?
     
-    init(from session: WorkoutSessionM) {
-        exerciseOrder = session.exercises.map { $0.weId }
-        exercises = session.exercises.map { ex in
-            (
-                weId: ex.weId,
-                exerciseId: ex.exerciseId,
-                supersetId: ex.supersetId,
-                sets: ex.sets.map { (id: $0.setId, reps: $0.reps, weight: $0.weight, type: $0.setTypeStr) }
-            )
-        }
+    var body: some View {
+        Text(elapsed.formattedAsWorkout)
+            .font(.title.monospacedDigit())
+            .fontWeight(.medium)
+            .foregroundStyle(.orange)
+            .onAppear {
+                timerTask = Task { [start = startTime] in
+                    while !Task.isCancelled {
+                        do { try await Task.sleep(for: .seconds(1)) } catch { break }
+                        if !Task.isCancelled {
+                            await MainActor.run {
+                                elapsed = Date().timeIntervalSince(start)
+                            }
+                        }
+                    }
+                }
+            }
+            .onDisappear {
+                timerTask?.cancel()
+            }
     }
 }
 
@@ -64,7 +76,7 @@ struct MinimizedWorkoutView: View {
 struct ActiveWorkoutView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
-    @Environment(ActiveWorkoutSession.self) private var globalSession
+    @Environment(ActiveWorkoutSession.self) private var globalSession: ActiveWorkoutSession?
     @Query private var allExercises: [ExerciseM]
     let routine: RoutineM?
     
@@ -325,94 +337,88 @@ struct ActiveWorkoutView: View {
     @ViewBuilder
     private var mainWorkoutView: some View {
         VStack(spacing: 0) {
-            // MARK: - Header
-            HStack {
-                VStack(alignment: .leading) {
-                    Text(session.routineName).font(.title3.bold())
-                    HStack(spacing: 8) {
-                        Text(elapsed.formattedAsWorkout)
-                            .font(.title2.monospacedDigit())
+            // MARK: - Header (Fixed: Clean 2-row layout matching reference design)
+            VStack(spacing: 0) {
+                // Row 1: Minimize | Timer | Terminar
+                HStack(alignment: .center) {
+                    // Minimize button (left)
+                    Button(action: minimizeWorkout) {
+                        Image(systemName: "chevron.down")
+                            .font(.title2)
                             .foregroundStyle(.secondary)
-                        if totalCount > 0 {
-                            Text("\u{2022} \(completedCount)/\(totalCount) sets")
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
-                        }
+                            .frame(width: 44, height: 44)
+                            .background(Color(.systemGray6), in: Circle())
                     }
-                    // Progress percentage
-                    if totalCount > 0 {
-                        let pct = progress * 100
-                        Text("\(Int(pct))% complete")
-                            .font(.caption)
-                            .foregroundStyle(pct >= 100 ? .green : .blue)
-                    }
+                    
+                    Spacer()
+                    
+                    // Timer (center) — isolated view to prevent full-body recomputation on timer tick
+                    WorkoutTimerDisplay(startTime: session.startTime)
+                    
+                    Spacer()
+                    
+                    // Terminar button (right)
+                    Button("Terminar", action: validateAndFinish)
+                        .font(.headline)
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 10)
+                        .background(Color.green, in: Capsule(style: .continuous))
+                        .foregroundStyle(.white)
                 }
-                Spacer()
+                .padding(.horizontal, 20)
+                .padding(.top, 16)
+                .padding(.bottom, 8)
+                
+                // Row 2: Workout title | More options
                 HStack(spacing: 8) {
-                    // Minimize button
-                    Button("Minimize", systemImage: "arrow.down.left.and.arrow.up.right") {
-                        minimizeWorkout()
-                    }
-                    // Reorder mode toggle with save/cancel
-                    if !isReorderMode {
-                        Button("Reorder", systemImage: "arrow.up.arrow.down") {
-                            startReorderMode()
-                        }
-                    } else {
-                        Button("Cancel", systemImage: "xmark") {
-                            cancelReorder()
-                        }
-                        .tint(.red)
-                        Button("Save", systemImage: "checkmark") {
-                            saveReorder()
-                        }
-                        .tint(.green)
-                    }
-                    // Superset manager
-                    Button(action: { showSupersetManager = true }) {
-                        Image(systemName: "rectangle.3.group.fill")
-                            .font(.title3)
+                    Text(session.routineName)
+                        .font(.title.bold())
+                        .lineLimit(1)
+                    
+                    if session.routineName.count > 12 {
+                        Text("...")
+                            .font(.title.bold())
                             .foregroundStyle(.secondary)
                     }
-                    // Plate calculator
-                    Button(action: { showPlateCalculator = true }) {
-                        Image(systemName: "scalemass.fill")
-                            .font(.title3)
-                            .foregroundStyle(.secondary)
-                    }
-                    // Audio coach toggle
-                    Button(action: { audioCoach.isEnabled.toggle() }) {
-                        Image(systemName: audioCoach.isEnabled ? "speaker.wave.2.fill" : "speaker.slash.fill")
-                            .font(.title3)
-                            .foregroundStyle(audioCoach.isEnabled ? .blue : .secondary)
-                    }
-                    // Notes button
-                    Button(action: { showNotesEditor = true }) {
-                        Image(systemName: session.notes.isEmpty ? "note.text.badge.plus" : "note.text")
-                            .font(.title3)
-                            .foregroundColor(session.notes.isEmpty ? .secondary : .blue)
-                    }
-                    // Coach suggest button (Item 2)
+                    
+                    Spacer()
+                    
+                    // Coach suggest button
                     Button(action: { showCoachSuggestionSheet() }) {
                         Image(systemName: "brain.head.profile")
                             .font(.title3)
                             .foregroundStyle(.purple)
                     }
-                    // Finish button
-                    Button("Finish") { validateAndFinish() }
-                        .font(.headline).padding(.horizontal, 20).padding(.vertical, 10)
-                        .background(Color.green).foregroundStyle(.white).clipShape(Capsule())
+                    
+                    // More options button
+                    Button(action: { 
+                        showSupersetManager = true
+                    }) {
+                        Image(systemName: "ellipsis")
+                            .font(.title3)
+                            .foregroundStyle(.secondary)
+                    }
                 }
+                .padding(.horizontal, 20)
+                .padding(.bottom, 16)
             }
-            .padding(.horizontal)
-            .padding(.vertical)
+            .background(Color(.systemBackground))
             
-            // Progress bar
+            // Progress bar with set count
             if totalCount > 0 {
-                ProgressView(value: progress)
-                    .progressViewStyle(.linear)
-                    .tint(progress >= 1.0 ? .green : .blue)
-                    .padding(.horizontal)
+                HStack(spacing: 12) {
+                    ProgressView(value: progress)
+                        .progressViewStyle(.linear)
+                        .tint(.blue)
+                        .frame(maxWidth: .infinity)
+                    
+                    Text("\(completedCount)/\(totalCount)")
+                        .font(.caption.monospacedDigit())
+                        .foregroundStyle(.secondary)
+                }
+                .padding(.horizontal, 20)
+                .padding(.vertical, 10)
+                .background(Color(.systemBackground))
             }
             
             Divider()
@@ -502,7 +508,7 @@ struct ActiveWorkoutView: View {
             if showRestTimer {
                 InlineRestTimerOverlay(
                     timeRemaining: $restRemaining,
-                    totalTime: restTotal,
+                    totalTime: $restTotal,
                     exerciseName: activeRestExerciseName,
                     onSkip: { showRestTimer = false; activeRestExerciseIndex = nil },
                     onDismiss: { showRestTimer = false; activeRestExerciseIndex = nil }
@@ -684,17 +690,22 @@ struct ActiveWorkoutView: View {
         }
         .onAppear {
             // P0 #1: Notify global session that a workout is active
-            globalSession.start(routineName: session.routineName)
+            globalSession?.start(routineName: session.routineName)
             
-            // Start workout timer
+            // Start timer ONLY for minimized view display (elapsed is used by MinimizedWorkoutView)
+            // The main view timer is handled by the isolated WorkoutTimerDisplay component
+            // which prevents full-body recomputation that was closing sheets/popups.
             timerTask = Task { [start = session.startTime] in
                 while !Task.isCancelled {
                     do { try await Task.sleep(for: .seconds(1)) } catch { break }
                     if !Task.isCancelled {
                         await MainActor.run {
-                            elapsed = Date().timeIntervalSince(start)
+                            // Only update elapsed for minimized view (used when isMinimized is true)
+                            if isMinimized {
+                                elapsed = Date().timeIntervalSince(start)
+                            }
                             // Update global session for minimized bar display across tabs
-                            globalSession.updateProgress(
+                            globalSession?.updateProgress(
                                 completed: completedCount,
                                 total: totalCount
                             )
@@ -722,7 +733,7 @@ struct ActiveWorkoutView: View {
                 queue: .main
             ) { _ in
                 withAnimation(.spring()) {
-                    globalSession.expand()
+                    globalSession?.expand()
                     isMinimized = false
                 }
             }
@@ -834,7 +845,7 @@ struct ActiveWorkoutView: View {
                             set.actualRestTime = Int(Date().timeIntervalSince(prevCompleted.completedAt ?? Date()))
                         }
                         let t = SetType(rawValue: set.setTypeStr) ?? .normal
-                        restRemaining = TimeInterval(restFor(t))
+                        restRemaining = TimeInterval(restFor(t, exercise: ex))
                         restTotal = restRemaining
                         // P0: Track exercise name for inline overlay
                         activeRestExerciseIndex = idx
@@ -1240,7 +1251,7 @@ struct ActiveWorkoutView: View {
     private func minimizeWorkout() {
         withAnimation(.spring()) {
             isMinimized = true
-            globalSession.minimize()
+            globalSession?.minimize()
         }
     }
     
@@ -1248,7 +1259,7 @@ struct ActiveWorkoutView: View {
     private func expandWorkout() {
         withAnimation(.spring()) {
             isMinimized = false
-            globalSession.expand()
+            globalSession?.expand()
         }
     }
     
@@ -1370,11 +1381,24 @@ struct ActiveWorkoutView: View {
         isActive = false
         
         // P0 #1: End the global session (removes minimized bar)
-        globalSession.end()
+        globalSession?.end()
     }
     
-    private func restFor(_ t: SetType) -> Int {
-        switch t { case .warmup: 60; case .drop: 30; case .failure: 300; case .timed: 10; default: 90 }
+    /// Get rest time for a set type, using per-exercise config with global defaults as fallback
+    private func restFor(_ t: SetType, exercise: WorkoutExerciseM? = nil) -> Int {
+        let prefs = self.prefs
+        switch t {
+        case .warmup:
+            return exercise?.restWarmup ?? prefs?.restWarmup ?? 60
+        case .drop:
+            return exercise?.restDrop ?? prefs?.restDrop ?? 30
+        case .failure:
+            return exercise?.restFailure ?? prefs?.restFailure ?? 300
+        case .timed:
+            return exercise?.restTimed ?? prefs?.restTimed ?? 10
+        default:
+            return exercise?.restNormal ?? prefs?.restNormal ?? 90
+        }
     }
     
     // MARK: - Helpers
@@ -2243,7 +2267,7 @@ struct SetRow: View {
             
             // RPE indicator
             if let onRPETap = onRPETap {
-                InlineRPEDisplay(rpe: set.rpe, onTap: onRPETap)
+                InlineRPEDisplay(rpe: set.rpe, onChange: { _ in onRPETap() })
             }
             
             // Complete button

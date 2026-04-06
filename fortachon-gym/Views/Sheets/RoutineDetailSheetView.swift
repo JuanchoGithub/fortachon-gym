@@ -7,6 +7,7 @@ struct RoutineDetailSheetView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var exercises: [ExerciseM]
     let routine: RoutineM
+    let onStartWorkout: (() -> Void)?
     
     @State private var isStartingWorkout = false
     
@@ -38,7 +39,7 @@ struct RoutineDetailSheetView: View {
                     Button {
                         dismiss()
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                            startWorkout()
+                            onStartWorkout?()
                         }
                     } label: {
                         Label("Start Workout", systemImage: "play.fill")
@@ -67,9 +68,6 @@ struct RoutineDetailSheetView: View {
         }
     }
     
-    private func startWorkout() {
-        // The workout will be started from TabTrainView via a callback
-    }
 }
 
 // MARK: - Exercise Detail Row
@@ -102,5 +100,5 @@ struct ExerciseDetailRow: View {
         desc: "Sample routine",
         isTemplate: true,
         type: "strength"
-    ))
+    ), onStartWorkout: nil)
 }

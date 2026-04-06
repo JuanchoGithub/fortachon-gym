@@ -22,6 +22,7 @@ struct BodyweightInputSheet: View {
         isAssisted: Bool = false,
         onSave: @escaping (Double) -> Void
     ) {
+        self._bodyweightText = State(initialValue: "")
         self.exerciseName = exerciseName
         self.isAssisted = isAssisted
         self.onSave = onSave

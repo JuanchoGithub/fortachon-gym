@@ -5,6 +5,7 @@ struct ContentView: View {
     @State private var selectedTab: AppTab = .train
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
     @State private var activeWorkoutSession = ActiveWorkoutSession()
+    @State private var audioCoachManager = AudioCoachManager()
     
     enum AppTab: Int, CaseIterable {
         case train, history, exercises, timers, supplements, profile
@@ -41,43 +42,27 @@ struct ContentView: View {
                     OnboardingView(completedOnboarding: $hasCompletedOnboarding)
                 } else {
                     TabView(selection: $selectedTab) {
-                        TabTrainView()
-                            .tabItem {
-                                Label(AppTab.train.title, systemImage: AppTab.train.icon)
-                            }
-                            .tag(AppTab.train.tag)
-                        
-                        TabHistoryView()
-                            .tabItem {
-                                Label(AppTab.history.title, systemImage: AppTab.history.icon)
-                            }
-                            .tag(AppTab.history.tag)
-                        
-                        TabExercisesView()
-                            .tabItem {
-                                Label(AppTab.exercises.title, systemImage: AppTab.exercises.icon)
-                            }
-                            .tag(AppTab.exercises.tag)
-                        
-                        TabTimersView()
-                            .tabItem {
-                                Label(AppTab.timers.title, systemImage: AppTab.timers.icon)
-                            }
-                            .tag(AppTab.timers.tag)
-                        
-                        TabSupplementsView()
-                            .tabItem {
-                                Label(AppTab.supplements.title, systemImage: AppTab.supplements.icon)
-                            }
-                            .tag(AppTab.supplements.tag)
-                        
-                        TabProfileView()
-                            .tabItem {
-                                Label(AppTab.profile.title, systemImage: AppTab.profile.icon)
-                            }
-                            .tag(AppTab.profile.tag)
+                        Tab("Train", systemImage: AppTab.train.icon, value: .train) {
+                            TabTrainView()
+                        }
+                        Tab("History", systemImage: AppTab.history.icon, value: .history) {
+                            TabHistoryView()
+                        }
+                        Tab("Exercises", systemImage: AppTab.exercises.icon, value: .exercises) {
+                            TabExercisesView()
+                        }
+                        Tab("Timers", systemImage: AppTab.timers.icon, value: .timers) {
+                            TabTimersView()
+                        }
+                        Tab("Supplements", systemImage: AppTab.supplements.icon, value: .supplements) {
+                            TabSupplementsView()
+                        }
+                        Tab("Profile", systemImage: AppTab.profile.icon, value: .profile) {
+                            TabProfileView()
+                        }
                     }
                     .environment(activeWorkoutSession)
+                    .environment(audioCoachManager)
                     .tint(.blue)
                 }
             }

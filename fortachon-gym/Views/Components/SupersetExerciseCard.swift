@@ -95,7 +95,10 @@ struct SupersetExerciseCard: View {
                         onDeleteSet: {},
                         isWeightOptional: false,
                         exerciseCategory: "",
-                        previousSetData: prevData
+                        previousSetData: prevData,
+                        actualRestSeconds: nil,
+                        isWeightInherited: false,
+                        isRepsInherited: false
                     )
                 }
                 

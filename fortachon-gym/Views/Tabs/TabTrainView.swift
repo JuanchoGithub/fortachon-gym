@@ -22,6 +22,7 @@ struct TabTrainView: View {
     @State private var hiitPrep: Int = 10
     @State private var hiitRounds: Int = 8
     @State private var showActiveWorkout = false
+    @State private var routineToStart: RoutineM?
     
     var prefs: UserPreferencesM? { preferences.first }
     
@@ -153,8 +154,8 @@ struct TabTrainView: View {
                             )
                         }
                     }
-                    .fullScreenCover(isPresented: $showActiveWorkout) {
-                        ActiveWorkoutView(isActive: $showActiveWorkout, routine: nil)
+                    .fullScreenCover(item: $routineToStart) { routine in
+                        ActiveWorkoutView(isActive: $showActiveWorkout, routine: routine)
                     }
                     
                     // Start Empty Workout Button
@@ -239,7 +240,9 @@ struct TabTrainView: View {
             .navigationTitle("Train")
             .navigationBarTitleDisplayMode(.inline)
             .sheet(item: $selectedRoutine) { routine in
-                RoutineDetailSheetView(routine: routine)
+                RoutineDetailSheetView(routine: routine) {
+                    startRoutine(fromTemplate: routine)
+                }
             }
             .fullScreenCover(isPresented: $showEmptyWorkout) {
                 ActiveWorkoutView(isActive: $showEmptyWorkout, routine: nil)
@@ -307,12 +310,15 @@ struct TabTrainView: View {
         
         modelContext.insert(routineM)
         selectedRoutine = routineM
+        routineToStart = routineM
+        showActiveWorkout = true
         try? modelContext.save()
     }
     
     private func startRoutine(fromTemplate routine: RoutineM? = nil) {
         guard let routine = routine else { return }
-        selectedRoutine = routine
+        routineToStart = routine
+        showActiveWorkout = true
     }
     
     private func startHIITSession(work: Int, rest: Int, prep: Int, rounds: Int) {

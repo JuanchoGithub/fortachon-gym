@@ -103,3 +103,12 @@ public enum SetType: String, Codable, CaseIterable, Sendable, Equatable {
 public enum WeightUnit: String, Codable, CaseIterable, Sendable {
     case kg, lbs
 }
+
+// MARK: - Plate Calculator Constants
+
+public enum PlateCalculatorConstants {
+    public static let standardBarWeightKg: Double = 20
+    public static let standardBarWeightLbs: Double = 45
+    public static let standardPlateSizesKg: [Double] = [25, 20, 15, 10, 5, 2.5, 1.25]
+    public static let standardPlateSizesLbs: [Double] = [45, 35, 25, 10, 5, 2.5, 1.25]
+}

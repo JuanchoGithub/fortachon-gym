@@ -57,14 +57,17 @@ struct TabHistoryView: View {
     }
     
     // Group by date
+    private static let historyDateFormatter: DateFormatter = {
+        let f = DateFormatter()
+        f.dateStyle = .medium
+        f.timeStyle = .none
+        return f
+    }()
+    
     var groupedSessions: [String: [WorkoutSessionM]] {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .none
-        
         var grouped: [String: [WorkoutSessionM]] = [:]
         for session in filteredSessions {
-            let key = formatter.string(from: session.startTime)
+            let key = Self.historyDateFormatter.string(from: session.startTime)
             if grouped[key] == nil {
                 grouped[key] = []
             }
@@ -88,82 +91,57 @@ struct TabHistoryView: View {
                         .padding(.bottom, 16)
                 }
                 
-                // Search and Filters
-                VStack(spacing: 8) {
-                    HStack {
-                        Image(systemName: "magnifyingglass")
-                            .foregroundStyle(.secondary)
-                        TextField("Search workouts...", text: $searchQuery)
-                        if !searchQuery.isEmpty {
+                // Filter buttons
+                HStack(spacing: 8) {
+                    Menu {
+                        ForEach(DateRange.allCases, id: \.self) { range in
                             Button {
-                                searchQuery = ""
+                                selectedDateRange = range
                             } label: {
-                                Image(systemName: "xmark.circle.fill")
-                                    .foregroundStyle(.secondary)
-                            }
-                        }
-                    }
-                    .padding()
-                    .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12))
-                    
-                    // Filter buttons
-                    HStack(spacing: 8) {
-                        Menu {
-                            Picker("Date Range", selection: $selectedDateRange) {
-                                ForEach(DateRange.allCases, id: \.self) { range in
-                                    Text(range.rawValue).tag(range)
+                                HStack {
+                                    Text(range.rawValue)
+                                    if selectedDateRange == range {
+                                        Spacer()
+                                        Image(systemName: "checkmark")
+                                    }
                                 }
                             }
-                        } label: {
-                            HStack(spacing: 4) {
-                                Image(systemName: "calendar")
-                                    .font(.caption)
-                                Text(selectedDateRange.rawValue)
-                                    .font(.caption)
-                                Image(systemName: "chevron.down")
-                                    .font(.caption2)
-                            }
+                        }
+                    } label: {
+                        Label(selectedDateRange.rawValue, systemImage: "calendar")
+                            .font(.caption)
                             .padding(.horizontal, 12)
                             .padding(.vertical, 8)
                             .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 8))
-                        }
-                        
-                        Button {
-                            showFilters = true
-                        } label: {
-                            HStack(spacing: 4) {
-                                Image(systemName: "line.3.horizontal.decrease.circle")
-                                    .font(.caption)
-                                Text("Filters")
-                                    .font(.caption)
-                            }
-                            .padding(.horizontal, 12)
-                            .padding(.vertical, 8)
-                            .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 8))
-                        }
-                        
-                        Spacer()
-                        
-                        // Analytics button
-                        Button {
-                            showAnalytics = true
-                        } label: {
-                            Image(systemName: "chart.bar.fill")
-                                .font(.caption)
-                                .padding(8)
-                                .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 8))
-                        }
-                        
-                        // Export button
-                        Button {
-                            showExportSheet = true
-                        } label: {
-                            Image(systemName: "square.and.arrow.up")
-                                .font(.caption)
-                                .padding(8)
-                                .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 8))
-                        }
                     }
+                    
+                    Button {
+                        showFilters = true
+                    } label: {
+                        Label("Filters", systemImage: "line.3.horizontal.decrease.circle")
+                            .font(.caption)
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 8)
+                            .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 8))
+                    }
+                    
+                    Spacer()
+                    
+                    // Analytics button
+                    Button("Show Analytics", systemImage: "chart.bar.fill") {
+                        showAnalytics = true
+                    }
+                    .labelStyle(.iconOnly)
+                    .padding(8)
+                    .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 8))
+                    
+                    // Export button
+                    Button("Export Data", systemImage: "square.and.arrow.up") {
+                        showExportSheet = true
+                    }
+                    .labelStyle(.iconOnly)
+                    .padding(8)
+                    .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 8))
                 }
                 .padding(.horizontal)
                 .padding(.bottom, 8)
@@ -173,6 +151,7 @@ struct TabHistoryView: View {
                     HStack {
                         Label("Filters Active", systemImage: "line.3.horizontal.decrease.circle.fill")
                             .font(.caption)
+                            .fontWeight(.medium)
                             .foregroundStyle(.blue)
                         Spacer()
                         Button("Clear") {
@@ -210,6 +189,7 @@ struct TabHistoryView: View {
                 }
                 .listStyle(.insetGrouped)
             }
+            .searchable(text: $searchQuery, prompt: "Search workouts...")
             .navigationTitle("History")
             .navigationBarTitleDisplayMode(.inline)
             .sheet(item: $selectedSession) { session in
@@ -329,7 +309,7 @@ struct HistorySessionRow: View {
                     Label(duration, systemImage: "clock")
                         .font(.caption)
                         .foregroundStyle(.secondary)
-                    Label(exerciseCount + " exercises", systemImage: "list.bullet")
+                    Label("\(exerciseCount) exercises", systemImage: "list.bullet")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
@@ -359,18 +339,18 @@ struct SessionDetailView: View {
         return "\(minutes) min"
     }
     
-    private var dateFormatter: DateFormatter {
+    private static let detailDateFormatter: DateFormatter = {
         let f = DateFormatter()
         f.dateStyle = .long
         f.timeStyle = .short
         return f
-    }
+    }()
     
     var body: some View {
         NavigationStack {
             List {
                 Section("Session Info") {
-                    LabeledContent("Date", value: dateFormatter.string(from: session.startTime))
+                    LabeledContent("Date", value: Self.detailDateFormatter.string(from: session.startTime))
                     LabeledContent("Duration", value: duration)
                     LabeledContent("Routine", value: session.routineName)
                     if session.prCount > 0 {

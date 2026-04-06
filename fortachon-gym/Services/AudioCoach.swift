@@ -9,7 +9,7 @@ import Observation
 final class AudioCoach {
     // MARK: - State
     
-    var isEnabled: Bool = true
+    var isEnabled: Bool = false
     
     // MARK: - Dependencies
     

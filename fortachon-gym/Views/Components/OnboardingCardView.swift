@@ -5,7 +5,7 @@ struct OnboardingCardView: View {
         VStack(alignment: .leading, spacing: 12) {
             Image(systemName: "sparkles")
                 .font(.largeTitle)
-                .foregroundColor(.white)
+                .foregroundStyle(.white)
             Text("Welcome to Fortachon")
                 .font(.title2.bold())
                 .foregroundStyle(.white)

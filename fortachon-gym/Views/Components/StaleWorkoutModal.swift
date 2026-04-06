@@ -1,6 +1,16 @@
 import SwiftUI
 import FortachonCore
 
+// MARK: - Shared Type - StaleWorkoutInfo
+
+struct StaleWorkoutInfo: Codable, Identifiable {
+    var id: String { lastActivity.description }
+    let lastActivity: Date
+    let hoursInactive: Int
+    let completedSets: Int
+    let totalSets: Int
+}
+
 // MARK: - Stale Workout Modal
 
 /// A full-screen overlay/modal for detecting stale/inactive workouts.

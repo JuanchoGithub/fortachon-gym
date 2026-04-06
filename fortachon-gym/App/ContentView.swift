@@ -4,6 +4,7 @@ import FortachonCore
 struct ContentView: View {
     @State private var selectedTab: AppTab = .train
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
+    @State private var activeWorkoutSession = ActiveWorkoutSession()
     
     enum AppTab: Int, CaseIterable {
         case train, history, exercises, timers, supplements, profile
@@ -34,48 +35,63 @@ struct ContentView: View {
     }
     
     var body: some View {
-        Group {
-            if !hasCompletedOnboarding {
-                OnboardingView(completedOnboarding: $hasCompletedOnboarding)
-            } else {
-                TabView(selection: $selectedTab) {
-                    TabTrainView()
-                        .tabItem {
-                            Label(AppTab.train.title, systemImage: AppTab.train.icon)
-                        }
-                        .tag(AppTab.train.tag)
-                    
-                    TabHistoryView()
-                        .tabItem {
-                            Label(AppTab.history.title, systemImage: AppTab.history.icon)
-                        }
-                        .tag(AppTab.history.tag)
-                    
-                    TabExercisesView()
-                        .tabItem {
-                            Label(AppTab.exercises.title, systemImage: AppTab.exercises.icon)
-                        }
-                        .tag(AppTab.exercises.tag)
-                    
-                    TabTimersView()
-                        .tabItem {
-                            Label(AppTab.timers.title, systemImage: AppTab.timers.icon)
-                        }
-                        .tag(AppTab.timers.tag)
-                    
-                    TabSupplementsView()
-                        .tabItem {
-                            Label(AppTab.supplements.title, systemImage: AppTab.supplements.icon)
-                        }
-                        .tag(AppTab.supplements.tag)
-                    
-                    TabProfileView()
-                        .tabItem {
-                            Label(AppTab.profile.title, systemImage: AppTab.profile.icon)
-                        }
-                        .tag(AppTab.profile.tag)
+        ZStack {
+            Group {
+                if !hasCompletedOnboarding {
+                    OnboardingView(completedOnboarding: $hasCompletedOnboarding)
+                } else {
+                    TabView(selection: $selectedTab) {
+                        TabTrainView()
+                            .tabItem {
+                                Label(AppTab.train.title, systemImage: AppTab.train.icon)
+                            }
+                            .tag(AppTab.train.tag)
+                        
+                        TabHistoryView()
+                            .tabItem {
+                                Label(AppTab.history.title, systemImage: AppTab.history.icon)
+                            }
+                            .tag(AppTab.history.tag)
+                        
+                        TabExercisesView()
+                            .tabItem {
+                                Label(AppTab.exercises.title, systemImage: AppTab.exercises.icon)
+                            }
+                            .tag(AppTab.exercises.tag)
+                        
+                        TabTimersView()
+                            .tabItem {
+                                Label(AppTab.timers.title, systemImage: AppTab.timers.icon)
+                            }
+                            .tag(AppTab.timers.tag)
+                        
+                        TabSupplementsView()
+                            .tabItem {
+                                Label(AppTab.supplements.title, systemImage: AppTab.supplements.icon)
+                            }
+                            .tag(AppTab.supplements.tag)
+                        
+                        TabProfileView()
+                            .tabItem {
+                                Label(AppTab.profile.title, systemImage: AppTab.profile.icon)
+                            }
+                            .tag(AppTab.profile.tag)
+                    }
+                    .environment(activeWorkoutSession)
+                    .tint(.blue)
                 }
-                .tint(.blue)
+            }
+            
+            // P0 #1: Global minimized workout bar — persists across all tabs
+            if activeWorkoutSession.isActive && activeWorkoutSession.isMinimized {
+                VStack {
+                    Spacer()
+                    GlobalMinimizedWorkoutBar()
+                        .padding(.horizontal)
+                        .padding(.bottom, 8)
+                        .transition(.move(edge: .bottom).combined(with: .opacity))
+                }
+                .animation(.spring(), value: activeWorkoutSession.isMinimized)
             }
         }
     }

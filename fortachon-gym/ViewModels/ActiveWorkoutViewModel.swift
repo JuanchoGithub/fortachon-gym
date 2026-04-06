@@ -31,6 +31,9 @@ class ActiveWorkoutViewModel: ObservableObject {
     @Published var showRestTimer = false
     @Published var restRemaining: TimeInterval = 0
     @Published var restTotal: TimeInterval = 0
+    @Published var isMinimized = false
+    @Published var isReorderMode = false
+    @Published var pendingReorderState: SnapshotState?
     @Published var pending1RMUpdates: [(exerciseName: String, oldMax: Double, newMax: Double)] = []
     @Published var progressionResults: [ProgressionResult] = []
     @Published var showStaleModal = false

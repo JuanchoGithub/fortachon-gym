@@ -99,6 +99,10 @@
 		A100105A /* SetProgressionBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001216 /* SetProgressionBanner.swift */; };
 		A100105B /* StaleWorkoutModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001217 /* StaleWorkoutModal.swift */; };
 		A100105C /* SupersetManagerViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001218 /* SupersetManagerViewWrapper.swift */; };
+		A100105D /* ActiveWorkoutSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2001219 /* ActiveWorkoutSession.swift */; };
+		A100105E /* GlobalMinimizedWorkoutBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200121A /* GlobalMinimizedWorkoutBar.swift */; };
+		A100105F /* InlineRestTimerOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200121B /* InlineRestTimerOverlay.swift */; };
+		A1001060 /* BodyweightInputSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200121C /* BodyweightInputSheet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -196,6 +200,10 @@
 		A2001216 /* SetProgressionBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetProgressionBanner.swift; sourceTree = "<group>"; };
 		A2001217 /* StaleWorkoutModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaleWorkoutModal.swift; sourceTree = "<group>"; };
 		A2001218 /* SupersetManagerViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupersetManagerViewWrapper.swift; sourceTree = "<group>"; };
+		A2001219 /* ActiveWorkoutSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveWorkoutSession.swift; sourceTree = "<group>"; };
+		A200121A /* GlobalMinimizedWorkoutBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalMinimizedWorkoutBar.swift; sourceTree = "<group>"; };
+		A200121B /* InlineRestTimerOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineRestTimerOverlay.swift; sourceTree = "<group>"; };
+		A200121C /* BodyweightInputSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyweightInputSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -292,6 +300,9 @@
 		A4000022 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				A200121A /* GlobalMinimizedWorkoutBar.swift */,
+				A200121B /* InlineRestTimerOverlay.swift */,
+				A200121C /* BodyweightInputSheet.swift */,
 				A2001211 /* SupersetEditorView.swift */,
 				A2001212 /* AutoUpdate1RMModal.swift */,
 				A2001213 /* PromotionReviewModal.swift */,
@@ -381,8 +392,9 @@
 		A4000030 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				
-				A2001202 /* ActiveWorkoutViewModel.swift */,A2001040 /* EngagementManager.swift */,
+				A2001219 /* ActiveWorkoutSession.swift */,
+				A2001202 /* ActiveWorkoutViewModel.swift */,
+				A2001040 /* EngagementManager.swift */,
 				A2001041 /* StreakCalculator.swift */,
 				A2001042 /* TemplateEditorViewModel.swift */,
 				A2001043 /* WorkoutManager.swift */,
@@ -608,6 +620,10 @@
 				A100105A /* SetProgressionBanner.swift in Sources */,
 				A100105B /* StaleWorkoutModal.swift in Sources */,
 				A100105C /* SupersetManagerViewWrapper.swift in Sources */,
+				A100105D /* ActiveWorkoutSession.swift in Sources */,
+				A100105E /* GlobalMinimizedWorkoutBar.swift in Sources */,
+				A100105F /* InlineRestTimerOverlay.swift in Sources */,
+				A1001060 /* BodyweightInputSheet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

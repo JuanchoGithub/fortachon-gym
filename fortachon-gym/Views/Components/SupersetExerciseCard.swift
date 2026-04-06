@@ -81,12 +81,21 @@ struct SupersetExerciseCard: View {
             if isExpanded {
                 // Sets
                 ForEach(Array(ex.sets.enumerated()), id: \.offset) { i, set in
+                    let prevData: (weight: Double, reps: Int)? = i > 0 ? (ex.sets[i-1].weight, ex.sets[i-1].reps) : nil
                     SetRow(
                         set: set,
                         i: i,
                         historicalWeight: set.setTypeStr != "warmup" ? nil : nil,
                         onToggle: { onToggleSet(set, ex.weId, SetType(rawValue: set.setTypeStr) ?? .normal) },
-                        onRPETap: nil
+                        onRPETap: nil,
+                        onUpdateWeight: { _ in },
+                        onUpdateReps: { _ in },
+                        updateTime: { _ in },
+                        onShowTypePicker: {},
+                        onDeleteSet: {},
+                        isWeightOptional: false,
+                        exerciseCategory: "",
+                        previousSetData: prevData
                     )
                 }
                 

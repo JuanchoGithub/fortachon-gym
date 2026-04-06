@@ -10,6 +10,9 @@ struct RestTimerOverlay: View {
     @State private var timerTask: Task<Void, Never>?
     @State private var internalTimeRemaining: TimeInterval
     @State private var soundEffects = SoundEffectsService()
+    // Phase 4: Pause/resume support
+    @State private var isPaused: Bool = false
+    @State private var pausedAt: TimeInterval = 0
     
     // Rest time presets
     let presets: [(label: String, seconds: Int)] = [
@@ -89,6 +92,25 @@ struct RestTimerOverlay: View {
                             .font(.title2)
                             .foregroundStyle(.secondary)
                     }
+                    .disabled(isPaused)
+                    
+                    // Phase 4: Pause/Resume button
+                    Button {
+                        if isPaused {
+                            // Resume: restart timer with remaining time
+                            isPaused = false
+                            startInternalTimerFromRemaining()
+                        } else {
+                            // Pause: cancel timer, save current time
+                            timerTask?.cancel()
+                            pausedAt = internalTimeRemaining
+                            isPaused = true
+                        }
+                    } label: {
+                        Image(systemName: isPaused ? "play.circle.fill" : "pause.circle.fill")
+                            .font(.title2)
+                            .foregroundStyle(isPaused ? .orange : .secondary)
+                    }
                     
                     Button {
                         dismiss()
@@ -97,6 +119,7 @@ struct RestTimerOverlay: View {
                             .font(.title2)
                             .foregroundStyle(.green)
                     }
+                    .disabled(isPaused)
                     
                     Button {
                         internalTimeRemaining += 10
@@ -106,6 +129,14 @@ struct RestTimerOverlay: View {
                             .font(.title2)
                             .foregroundStyle(.secondary)
                     }
+                    .disabled(isPaused)
+                }
+                
+                // Phase 4: Show paused indicator
+                if isPaused {
+                    Text("Timer Paused")
+                        .font(.headline)
+                        .foregroundStyle(.orange)
                 }
                 
                 Button("Skip Rest") {
@@ -125,10 +156,11 @@ struct RestTimerOverlay: View {
     private func startInternalTimer() {
         let end = Date().addingTimeInterval(internalTimeRemaining)
         timerTask = Task {
-            while !Task.isCancelled && internalTimeRemaining > 0 {
+            while !Task.isCancelled && internalTimeRemaining > 0 && !isPaused {
                 do {
                     try await Task.sleep(for: .milliseconds(100))
                 } catch { break }
+                if isPaused { break }
                 let remaining = max(0, end.timeIntervalSinceNow)
                 internalTimeRemaining = remaining
                 timeRemaining = remaining
@@ -143,7 +175,39 @@ struct RestTimerOverlay: View {
                     }
                 }
             }
-            if internalTimeRemaining <= 0 {
+            if internalTimeRemaining <= 0 && !isPaused {
+                soundEffects.playRestTimerEnd()
+                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                try? await Task.sleep(for: .milliseconds(500))
+                dismiss()
+            }
+        }
+    }
+    
+    // Phase 4: Resume timer from paused state
+    private func startInternalTimerFromRemaining() {
+        let end = Date().addingTimeInterval(internalTimeRemaining)
+        timerTask = Task {
+            while !Task.isCancelled && internalTimeRemaining > 0 && !isPaused {
+                do {
+                    try await Task.sleep(for: .milliseconds(100))
+                } catch { break }
+                if isPaused { break }
+                let remaining = max(0, end.timeIntervalSinceNow)
+                internalTimeRemaining = remaining
+                timeRemaining = remaining
+                
+                // Countdown beeps at 3, 2, 1
+                if remaining <= 3 && remaining > 0 {
+                    let wholeSeconds = Int(remaining)
+                    let prevWholeSeconds = Int(remaining + 0.1)
+                    if wholeSeconds != prevWholeSeconds && wholeSeconds <= 3 && wholeSeconds > 0 {
+                        soundEffects.playCountdownBeep()
+                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                    }
+                }
+            }
+            if internalTimeRemaining <= 0 && !isPaused {
                 soundEffects.playRestTimerEnd()
                 UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                 try? await Task.sleep(for: .milliseconds(500))

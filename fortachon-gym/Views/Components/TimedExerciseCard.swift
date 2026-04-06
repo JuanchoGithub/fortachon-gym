@@ -13,11 +13,20 @@ struct TimedExerciseCard: View {
     @State private var isRunning = false
     @State private var timerCancellable: AnyCancellable?
     
+    // P2: Timed set start countdown (3-2-1)
+    @State private var isCountingDown = false
+    @State private var countdownValue = 3
+    @State private var countdownTask: Task<Void, Never>?
+    
+    // Sound effects
+    @State private var soundEffects = SoundEffectsService()
+    
     enum TimerState {
-        case idle, running, completed
+        case idle, countdown, running, completed
     }
     
     private var timerState: TimerState {
+        if isCountingDown { return .countdown }
         if isRunning { return .running }
         if elapsed > 0 { return .completed }
         return .idle
@@ -30,6 +39,7 @@ struct TimedExerciseCard: View {
     private var stateColor: Color {
         switch timerState {
         case .idle: return .secondary
+        case .countdown: return .orange
         case .running: return .green
         case .completed: return .blue
         }
@@ -38,9 +48,57 @@ struct TimedExerciseCard: View {
     private var stateIcon: String {
         switch timerState {
         case .idle: return "timer"
+        case .countdown: return "timer.circle"
         case .running: return "timer.circle.fill"
         case .completed: return "checkmark.circle.fill"
         }
+    }
+    
+    // Countdown animation scale
+    private var countdownScale: Double {
+        switch countdownValue {
+        case 3: return 1.0
+        case 2: return 0.9
+        case 1: return 0.8
+        default: return 1.0
+        }
+    }
+    
+    // MARK: - Countdown Functions
+    
+    /// Begin 3-2-1 countdown before starting the exercise timer
+    private func beginCountdown() {
+        isCountingDown = true
+        countdownValue = 3
+        soundEffects.playCountdownBeep()
+        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+        
+        countdownTask = Task {
+            while countdownValue > 0 && !Task.isCancelled {
+                try? await Task.sleep(for: .seconds(1))
+                await MainActor.run {
+                    countdownValue -= 1
+                    if countdownValue > 0 {
+                        soundEffects.playCountdownBeep()
+                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                    } else {
+                        // Countdown complete — start the exercise timer
+                        isCountingDown = false
+                        soundEffects.playTimedSetStart()
+                        UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                        startTimer()
+                    }
+                }
+            }
+        }
+    }
+    
+    /// Cancel the countdown and return to idle state
+    private func cancelCountdown() {
+        countdownTask?.cancel()
+        countdownTask = nil
+        isCountingDown = false
+        countdownValue = 3
     }
     
     var body: some View {
@@ -64,26 +122,42 @@ struct TimedExerciseCard: View {
                     }
                 }
                 Spacer()
-                // Timer display
-                Text(formatTime(elapsed))
-                    .font(.system(size: 32, weight: .bold, design: .monospaced))
-                    .foregroundStyle(stateColor)
-                    .monospacedDigit()
+                // Timer display — show countdown overlay or elapsed time
+                if timerState == .countdown {
+                    Text("\(countdownValue)")
+                        .font(.system(size: 48, weight: .bold, design: .monospaced))
+                        .foregroundStyle(.orange)
+                        .scaleEffect(countdownScale + 0.2)
+                        .animation(.easeOut(duration: 0.3), value: countdownValue)
+                } else {
+                    Text(formatTime(elapsed))
+                        .font(.system(size: 32, weight: .bold, design: .monospaced))
+                        .foregroundStyle(stateColor)
+                        .monospacedDigit()
+                }
             }
             
             // Controls
             HStack(spacing: 16) {
-                if !isRunning {
-                    Button(action: startTimer) {
-                        Label(isRunning ? "Pause" : "Start", systemImage: "play.fill")
+                if timerState == .idle {
+                    Button(action: beginCountdown) {
+                        Label("Start", systemImage: "play.fill")
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 10)
                             .foregroundStyle(.white)
                             .background(Color.green)
                             .clipShape(Capsule())
                     }
-                    .disabled(isRunning)
-                } else {
+                } else if timerState == .countdown {
+                    Button(action: cancelCountdown) {
+                        Label("Cancel", systemImage: "xmark")
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 10)
+                            .foregroundStyle(.white)
+                            .background(Color.orange)
+                            .clipShape(Capsule())
+                    }
+                } else if isRunning {
                     Button(action: stopTimer) {
                         Label("Stop", systemImage: "stop.fill")
                             .frame(maxWidth: .infinity)
@@ -94,7 +168,7 @@ struct TimedExerciseCard: View {
                     }
                 }
                 
-                if elapsed > 0 && !isRunning {
+                if elapsed > 0 && !isRunning && timerState != .countdown {
                     Button(action: resetTimer) {
                         Label("Reset", systemImage: "arrow.counterclockwise")
                             .frame(maxWidth: .infinity)

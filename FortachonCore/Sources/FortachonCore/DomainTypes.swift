@@ -88,6 +88,16 @@ public enum BodyPart: String, Codable, CaseIterable, Sendable {
 
 public enum SetType: String, Codable, CaseIterable, Sendable, Equatable {
     case normal = "normal", warmup = "warmup", drop = "drop", failure = "failure", timed = "timed"
+    
+    public var displayName: String {
+        switch self {
+        case .normal: return "Normal"
+        case .warmup: return "Warmup"
+        case .drop: return "Drop Set"
+        case .failure: return "Failure"
+        case .timed: return "Timed"
+        }
+    }
 }
 
 public enum WeightUnit: String, Codable, CaseIterable, Sendable {

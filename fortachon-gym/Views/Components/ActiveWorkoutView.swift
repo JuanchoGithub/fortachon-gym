@@ -20,6 +20,28 @@ struct ActiveWorkoutView: View {
     @State private var restRemaining: TimeInterval = 0
     @State private var restTotal: TimeInterval = 0
     
+    // Superset management
+    @State private var showSupersetManager = false
+    
+    // Drag and drop
+    @State private var isReorderMode = false
+    @State private var draggedExerciseIndex: Int? = nil
+    
+    // Auto 1RM updates
+    @State private var pending1RMUpdates: [(exerciseName: String, oldMax: Double, newMax: Double)] = []
+    @State private var show1RMBanner = false
+    
+    // Plate calculator
+    @State private var showPlateCalculator = false
+    
+    // Set timer for timed sets
+    @State private var showSetTimer = false
+    @State private var setTimerRemaining: TimeInterval = 0
+    @State private var setTimerTotal: TimeInterval = 0
+    
+    // Sound effects
+    @State private var soundEffects = SoundEffectsService()
+    
     // New features
     @State private var audioCoach = AudioCoach()
     @State private var coachSuggestions: [UpgradeSuggestion] = []
@@ -27,6 +49,28 @@ struct ActiveWorkoutView: View {
     @State private var showNotesEditor = false
     @State private var validationErrors: [String] = []
     @State private var showValidationErrors = false
+    
+    // RPE editing state
+    @State private var showRPEEditor = false
+    @State private var rpeEditingExerciseIndex: Int? = nil
+    @State private var rpeEditingSetIndex: Int? = nil
+    
+    // Muscle freshness
+    @State private var muscleFreshness: [MuscleFreshness] = []
+    @State private var exerciseFreshness: [String: Double] = [:]  // exerciseId -> freshness %
+    @State private var showFreshnessDetail = false
+    @State private var freshnessDetailExerciseId: String = ""
+    
+    // Preference
+    @Query private var preferences: [UserPreferencesM]
+    var prefs: UserPreferencesM? { preferences.first }
+    var useLocalizedNames: Bool { prefs?.localizedExerciseNames ?? false }
+    
+    /// Get localized exercise name
+    private func exerciseName(for exerciseDef: ExerciseM?) -> String {
+        guard let ex = exerciseDef else { return "Unknown Exercise" }
+        return ex.displayName(useSpanish: useLocalizedNames)
+    }
     
     struct ExerciseSetKey: Identifiable {
         let id = UUID()
@@ -96,9 +140,34 @@ struct ActiveWorkoutView: View {
                                 .foregroundStyle(.secondary)
                         }
                     }
+                    // Progress percentage
+                    if totalCount > 0 {
+                        let pct = progress * 100
+                        Text("\(Int(pct))% complete")
+                            .font(.caption)
+                            .foregroundStyle(pct >= 100 ? .green : .blue)
+                    }
                 }
                 Spacer()
                 HStack(spacing: 8) {
+                    // Reorder mode toggle
+                    Button(action: { isReorderMode.toggle() }) {
+                        Image(systemName: isReorderMode ? "checkmark.square.fill" : "arrow.up.arrow.down")
+                            .font(.title3)
+                            .foregroundStyle(isReorderMode ? .orange : .secondary)
+                    }
+                    // Superset manager
+                    Button(action: { showSupersetManager = true }) {
+                        Image(systemName: "rectangle.3.group.fill")
+                            .font(.title3)
+                            .foregroundStyle(.secondary)
+                    }
+                    // Plate calculator
+                    Button(action: { showPlateCalculator = true }) {
+                        Image(systemName: "scalemass.fill")
+                            .font(.title3)
+                            .foregroundStyle(.secondary)
+                    }
                     // Audio coach toggle
                     Button(action: { audioCoach.isEnabled.toggle() }) {
                         Image(systemName: audioCoach.isEnabled ? "speaker.wave.2.fill" : "speaker.slash.fill")
@@ -130,26 +199,39 @@ struct ActiveWorkoutView: View {
             Divider()
             
             // MARK: - Exercise List
-            ScrollView {
-                VStack(spacing: 12) {
+            if isReorderMode {
+                // Reorder mode with drag & drop using List
+                List {
                     ForEach(Array(session.exercises.enumerated()), id: \.element.weId) { idx, ex in
-                        exerciseCard(for: ex, at: idx)
+                        exerciseCardReorderable(for: ex, at: idx)
                     }
-                    
-                    // Coach Suggestions Banner
-                    CoachSuggestionsBanner(
-                        suggestions: coachSuggestions,
-                        onUpgrade: handleUpgrade
-                    )
-                    
-                    // Add Exercise button
-                    Button { showAddExercise = true } label: {
-                        Label("Add Exercise", systemImage: "plus.circle").frame(maxWidth: .infinity).padding()
-                    }.background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12))
-                    
-                    Spacer(minLength: 80)
+                    .onMove { source, destination in
+                        session.exercises.move(fromOffsets: source, toOffset: destination)
+                    }
                 }
-                .padding(.horizontal).padding(.top, 12)
+                .listStyle(.plain)
+            } else {
+                ScrollView {
+                    VStack(spacing: 12) {
+                        ForEach(Array(session.exercises.enumerated()), id: \.element.weId) { idx, ex in
+                            exerciseCard(for: ex, at: idx)
+                        }
+                        
+                        // Coach Suggestions Banner
+                        CoachSuggestionsBanner(
+                            suggestions: coachSuggestions,
+                            onUpgrade: handleUpgrade
+                        )
+                        
+                        // Add Exercise button
+                        Button { showAddExercise = true } label: {
+                            Label("Add Exercise", systemImage: "plus.circle").frame(maxWidth: .infinity).padding()
+                        }.background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12))
+                        
+                        Spacer(minLength: 80)
+                    }
+                    .padding(.horizontal).padding(.top, 12)
+                }
             }
         }
         .navigationBarHidden(true)
@@ -180,6 +262,70 @@ struct ActiveWorkoutView: View {
         .fullScreenCover(isPresented: $showRestTimer) {
             RestTimerOverlay(timeRemaining: $restRemaining, totalTime: restTotal)
         }
+        .sheet(isPresented: $showSupersetManager) {
+            SupersetManagerView(
+                sessionExercises: $session.exercises,
+                sessionSupersets: $session.supersets
+            )
+            .presentationDetents([.large])
+        }
+        .sheet(isPresented: $showPlateCalculator) {
+            PlateCalculatorView(
+                barWeight: 20,
+                plateSizes: [25, 20, 15, 10, 5, 2.5, 1.25]
+            )
+            .presentationDetents([.medium])
+        }
+        .fullScreenCover(isPresented: $showSetTimer) {
+            SetTimerOverlay(
+                timeRemaining: $setTimerRemaining,
+                totalTime: setTimerTotal
+            )
+        }
+        // RPE Editor Sheet
+        .sheet(isPresented: $showRPEEditor) {
+            if let exIdx = rpeEditingExerciseIndex,
+               let setIdx = rpeEditingSetIndex,
+               exIdx < session.exercises.count,
+               setIdx < session.exercises[exIdx].sets.count {
+                let ex = session.exercises[exIdx]
+                let set = ex.sets[setIdx]
+                let exerciseDef = allExercises.first { $0.id == ex.exerciseId }
+                let exerciseName = exerciseDef?.name ?? ex.exerciseId
+                let setNumber = setIdx + 1
+                let setInfo = "\(exerciseName) — Set \(setNumber)"
+                RPEEntrySheet(
+                    rpe: Binding(
+                        get: { set.rpe },
+                        set: { newValue in set.rpe = newValue }
+                    ),
+                    setInfo: setInfo
+                ) {
+                    showRPEEditor = false
+                    rpeEditingExerciseIndex = nil
+                    rpeEditingSetIndex = nil
+                }
+            }
+        }
+        // Auto 1RM Update Banner
+        .overlay {
+            if show1RMBanner && !pending1RMUpdates.isEmpty {
+                VStack {
+                    OneRMUpdateBanner(
+                        updates: pending1RMUpdates,
+                        onDismiss: {
+                            pending1RMUpdates.removeAll()
+                            show1RMBanner = false
+                        }
+                    )
+                    .padding(.horizontal)
+                    .padding(.top, 8)
+                    Spacer()
+                }
+                .transition(.move(edge: .top).combined(with: .opacity))
+                .animation(.spring(), value: show1RMBanner)
+            }
+        }
         .alert("Finish?", isPresented: $showFinishConfirmation) {
             Button("Cancel", role: .cancel) {}
             Button("Finish", role: .destructive) { endWorkout() }
@@ -198,6 +344,8 @@ struct ActiveWorkoutView: View {
             audioCoach.announceWorkoutStart(routineName: session.routineName)
             // Load historical data
             loadHistoricalData()
+            // Load muscle freshness
+            loadMuscleFreshness()
             // Generate coach suggestions
             generateSuggestions()
             // Expand first exercise
@@ -206,6 +354,22 @@ struct ActiveWorkoutView: View {
             }
         }
         .onDisappear { timerTask?.cancel() }
+    }
+    
+    // MARK: - Reorderable Exercise Card Builder
+    
+    @ViewBuilder
+    private func exerciseCardReorderable(for ex: WorkoutExerciseM, at idx: Int) -> some View {
+        HStack(spacing: 8) {
+            // Drag handle
+            Image(systemName: "line.3.horizontal")
+                .font(.title3)
+                .foregroundStyle(.secondary)
+                .padding(.leading, 4)
+            
+            exerciseCard(for: ex, at: idx)
+        }
+        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12))
     }
     
     // MARK: - Exercise Card Builder
@@ -259,7 +423,7 @@ struct ActiveWorkoutView: View {
             ExCard(
                 ex: ex,
                 idx: idx,
-                exerciseName: exerciseDef?.name ?? ex.exerciseId,
+                exerciseName: exerciseName(for: exerciseDef),
                 expanded: expandedIds.contains(ex.weId),
                 onToggleExpand: {
                     if expandedIds.contains(ex.weId) { expandedIds.remove(ex.weId) }
@@ -274,7 +438,7 @@ struct ActiveWorkoutView: View {
                         restTotal = restRemaining
                         showRestTimer = true
                         // Audio announcement
-                        let exerciseName = exerciseDef?.name ?? ex.exerciseId
+                        let exerciseName = exerciseName(for: exerciseDef)
                         let setNum = ex.sets.filter { $0.setTypeStr == set.setTypeStr }.firstIndex(where: { $0.setId == set.setId }) ?? 0
                         audioCoach.announceSetComplete(
                             exerciseName: exerciseName,
@@ -291,7 +455,12 @@ struct ActiveWorkoutView: View {
                         set.completedAt = nil
                     }
                 },
-                historicalData: historicalData[ex.exerciseId]
+                historicalData: historicalData[ex.exerciseId],
+                onRPETap: { setIndex in
+                    rpeEditingExerciseIndex = idx
+                    rpeEditingSetIndex = setIndex
+                    showRPEEditor = true
+                }
             )
             
             if expandedIds.contains(ex.weId) {
@@ -392,6 +561,38 @@ struct ActiveWorkoutView: View {
         )
     }
     
+    private func loadMuscleFreshness() {
+        let historyLookup = HistoricalLookup(modelContext: modelContext)
+        let latestSessions = historyLookup.getRecentSessions(limit: 10)
+        
+        // Convert to freshness calculation format
+        let sessions = latestSessions.map { session -> (exercises: [WorkoutExercise], startTime: Date, endTime: Date) in
+            let exercises = session.exercises.map { WorkoutExercise(from: $0) }
+            return (exercises: exercises, startTime: session.startTime, endTime: session.endTime)
+        }
+        let exercises = allExercises.map { Exercise(from: $0) }
+        
+        // Use bio-adaptive if enabled
+        let bioAdaptive = prefs?.bioAdaptiveEngine ?? false
+        let baseline = prefs?.mainGoal == .strength ? 10.0 : (prefs?.mainGoal == .endurance ? 20.0 : 15.0)
+        
+        muscleFreshness = calculateMuscleFreshnessAdvanced(
+            sessions: sessions,
+            exercises: exercises,
+            capacityBaseline: baseline,
+            bioAdaptiveEnabled: bioAdaptive
+        )
+        
+        // Calculate per-exercise freshness
+        var freshnessMap: [String: Double] = [:]
+        for ex in exercises {
+            if let freshness = getExerciseFreshness(exerciseId: ex.id, freshnessData: muscleFreshness, exercises: exercises) {
+                freshnessMap[ex.id] = freshness
+            }
+        }
+        exerciseFreshness = freshnessMap
+    }
+    
     private func unknownExerciseModel() -> ExerciseM {
         ExerciseM(id: "unknown", name: "Unknown Exercise", bodyPart: "Full Body", category: "Bodyweight")
     }
@@ -407,6 +608,7 @@ struct ExCard: View {
     let onToggleExpand: () -> Void
     let onToggleSet: (PerformedSetM, SetType) -> Void
     let historicalData: (avgWeight: Double, avgReps: Int)?
+    let onRPETap: ((Int) -> Void)?  // Pass set index for RPE editing
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -425,7 +627,8 @@ struct ExCard: View {
                     SetRow(
                         set: set, i: i,
                         historicalWeight: set.setTypeStr != "warmup" ? historicalData?.avgWeight : nil,
-                        onToggle: { onToggleSet(set, SetType(rawValue: set.setTypeStr) ?? .normal) }
+                        onToggle: { onToggleSet(set, SetType(rawValue: set.setTypeStr) ?? .normal) },
+                        onRPETap: { onRPETap?(i) }
                     )
                     .onTapGesture { /* open detail */ }
                 }
@@ -442,6 +645,7 @@ struct SetRow: View {
     let i: Int
     let historicalWeight: Double?
     let onToggle: () -> Void
+    let onRPETap: (() -> Void)?
     
     private var historicalIndicator: some View {
         Group {
@@ -494,6 +698,12 @@ struct SetRow: View {
             }
             
             Spacer()
+            
+            // RPE indicator
+            if let onRPETap = onRPETap {
+                InlineRPEDisplay(rpe: set.rpe, onTap: onRPETap)
+            }
+            
             Button(action: onToggle) {
                 Image(systemName: set.isComplete ? "checkmark.circle.fill" : "circle")
                     .font(.title2).foregroundStyle(set.isComplete ? .green : .secondary)

@@ -1,8 +1,10 @@
 /Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/AnalyticsUtils.swift
 /Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/CloudSyncService.swift
 /Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/DomainTypes.swift
+/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/ExerciseLocalizedNames.swift
 /Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/ExerciseSeedData.swift
 /Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/ExerciseSeeder.swift
+/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/FatigueUtils.swift
 /Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/FilterConstants.swift
 /Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/FortachonCore.swift
 /Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/LifterProfile.swift
@@ -13,6 +15,7 @@
 /Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/RecommendationEngine.swift
 /Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/RoutineGenerator.swift
 /Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/RoutineSeedData.swift
+/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/SearchUtils.swift
 /Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/SessionTypes.swift
 /Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/StrengthProfile.swift
 /Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/SupplementService.swift

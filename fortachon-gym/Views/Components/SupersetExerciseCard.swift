@@ -10,9 +10,16 @@ struct SupersetExerciseCard: View {
     @Binding var expandedIds: Set<String>
     let onToggleSet: (PerformedSetM, String, SetType) -> Void
     let onAddSet: (String) -> Void
+    let useLocalizedNames: Bool
     
     private var supersetColor: Color {
         SupersetColors.allColors[superset.color ?? SupersetColors.defaultColor] ?? .blue
+    }
+    
+    /// Get localized exercise name
+    private func exerciseName(for exerciseDef: ExerciseM?) -> String {
+        guard let ex = exerciseDef else { return "Unknown" }
+        return ex.displayName(useSpanish: useLocalizedNames)
     }
     
     var body: some View {
@@ -57,7 +64,7 @@ struct SupersetExerciseCard: View {
                 }
             } label: {
                 HStack {
-                    Text("\(idx + 1). \(exerciseDef?.name ?? ex.exerciseId)")
+                    Text("\(idx + 1). \(exerciseName(for: exerciseDef))")
                         .font(.subheadline.bold())
                         .lineLimit(1)
                     Spacer()
@@ -78,7 +85,8 @@ struct SupersetExerciseCard: View {
                         set: set,
                         i: i,
                         historicalWeight: set.setTypeStr != "warmup" ? nil : nil,
-                        onToggle: { onToggleSet(set, ex.weId, SetType(rawValue: set.setTypeStr) ?? .normal) }
+                        onToggle: { onToggleSet(set, ex.weId, SetType(rawValue: set.setTypeStr) ?? .normal) },
+                        onRPETap: nil
                     )
                 }
                 
@@ -125,7 +133,8 @@ struct SupersetExerciseCard: View {
                 allExercises: [],
                 expandedIds: $expandedIds,
                 onToggleSet: { _, _, _ in },
-                onAddSet: { _ in }
+                onAddSet: { _ in },
+                useLocalizedNames: false
             )
             .padding()
         }

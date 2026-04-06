@@ -332,11 +332,46 @@ public let allSeedExercises: [_Ex] = [
 ]
 
 /// Converts all seed exercise tuples to ExerciseM models for SwiftData seeding.
+/// Populates instructions from the ExerciseInstructions database and localized names.
 public func makeExerciseModels() -> [ExerciseM] {
-    allSeedExercises.map {
-        ExerciseM(id: $0.0, name: $0.1, bodyPart: $0.2, category: $0.3,
-                  isTimed: $0.4, isUnilateral: $0.5,
-                  primaryMuscles: $0.6, secondaryMuscles: $0.7)
+    allSeedExercises.map { exercise in
+        let id = exercise.0
+        let name = exercise.1
+
+        // Get instructions from the centralized database
+        let instructionsArray = getExerciseInstructions(for: id) ?? []
+        let instructionsJSON: String
+        if !instructionsArray.isEmpty {
+            // Encode as JSON string array for storage
+            if let data = try? JSONEncoder().encode(instructionsArray),
+               let jsonStr = String(data: data, encoding: .utf8) {
+                instructionsJSON = jsonStr
+            } else {
+                instructionsJSON = ""
+            }
+        } else {
+            instructionsJSON = ""
+        }
+
+        // Get localized name
+        let localizedName = exerciseNamesES[id]
+
+        return ExerciseM(
+            id: id,
+            name: name,
+            bodyPart: exercise.2,
+            category: exercise.3,
+            isTimed: exercise.4,
+            isUnilateral: exercise.5,
+            primaryMuscles: exercise.6,
+            secondaryMuscles: exercise.7,
+            instructions: instructionsJSON,
+            exerciseNamesEN: nil,
+            exerciseNamesES: localizedName,
+            difficulty: nil,
+            updatedAt: Date(),
+            deletedAt: nil
+        )
     }
 }
 

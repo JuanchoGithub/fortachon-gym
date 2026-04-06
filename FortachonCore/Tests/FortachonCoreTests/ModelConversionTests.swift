@@ -10,15 +10,25 @@ struct ModelConversionTests {
             id: "ex-1", name: "Bench Press", bodyPart: .chest,
             category: .barbell, notes: "Keep elbows in",
             isTimed: false, isUnilateral: false,
-            primaryMuscles: ["Pectorals"]
+            primaryMuscles: ["Pectorals"],
+            instructions: ["Lie on bench", "Grip bar at shoulder width", "Lower to chest", "Press up"],
+            exerciseNamesEN: "Bench Press",
+            exerciseNamesES: "Press de Banca",
+            difficulty: .intermediate
         )
+        let instrJSON = try JSONEncoder().encode(original.instructions)
+        let instrStr = String(data: instrJSON, encoding: .utf8)!
         let model = ExerciseM(
             id: original.id, name: original.name,
             bodyPart: original.bodyPart.rawValue,
             category: original.category.rawValue,
             notes: original.notes, isTimed: original.isTimed ?? false,
             isUnilateral: original.isUnilateral ?? false,
-            primaryMuscles: original.primaryMuscles ?? []
+            primaryMuscles: original.primaryMuscles ?? [],
+            instructions: instrStr,
+            exerciseNamesEN: original.exerciseNamesEN,
+            exerciseNamesES: original.exerciseNamesES,
+            difficulty: original.difficulty?.rawValue
         )
         let decoded = Exercise(from: model)
         #expect(decoded.id == original.id)
@@ -26,21 +36,26 @@ struct ModelConversionTests {
         #expect(decoded.bodyPart == original.bodyPart)
         #expect(decoded.category == original.category)
         #expect(decoded.notes == original.notes)
+        #expect(decoded.exerciseNamesEN == original.exerciseNamesEN)
+        #expect(decoded.exerciseNamesES == original.exerciseNamesES)
+        #expect(decoded.difficulty == original.difficulty)
+        #expect(decoded.instructions?.count == 4)
     }
 
-    @Test("PerformedSet roundtrip struct → Model → struct")
+    @Test("PerformedSet roundtrip struct → Model → struct with RPE")
     func performedSet_roundtrip() async throws {
         let original = PerformedSet(
             id: "s-1", reps: 10, weight: 80, time: nil,
             type: .normal, isComplete: true, completedAt: 1700000000,
-            rest: 90, actualRest: 95
+            rest: 90, actualRest: 95, rpe: 8, distance: 2.5
         )
         let model = PerformedSetM(
             id: original.id, reps: original.reps, weight: original.weight,
             time: original.time, type: original.type.rawValue,
             isComplete: original.isComplete,
             completedAt: original.completedAt.map { Date(timeIntervalSince1970: $0) },
-            rest: original.rest, actualRest: original.actualRest
+            rest: original.rest, actualRest: original.actualRest,
+            rpe: original.rpe, distance: original.distance
         )
         let decoded = PerformedSet(from: model)
         #expect(decoded.id == original.id)
@@ -48,6 +63,8 @@ struct ModelConversionTests {
         #expect(decoded.weight == original.weight)
         #expect(decoded.type == original.type)
         #expect(decoded.isComplete == original.isComplete)
+        #expect(decoded.rpe == 8)
+        #expect(decoded.distance == 2.5)
     }
 
     @Test("WorkoutExercise roundtrip struct → Model → struct")

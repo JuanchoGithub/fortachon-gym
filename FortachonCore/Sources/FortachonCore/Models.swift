@@ -14,14 +14,30 @@ public final class ExerciseM {
     public var isUnilateral: Bool
     public var primaryMuscles: [String] = []
     public var secondaryMuscles: [String] = []
+    // Extended fields for localization and instructions
+    public var instructions: String
+    public var exerciseNamesEN: String?
+    public var exerciseNamesES: String?
+    public var difficultyStr: String?
+    public var updatedAt: Date?
+    public var deletedAt: Date?
     public init(id: String, name: String, bodyPart: String, category: String,
                 notes: String? = nil, isTimed: Bool = false, isUnilateral: Bool = false,
-                primaryMuscles: [String] = [], secondaryMuscles: [String] = []) {
+                primaryMuscles: [String] = [], secondaryMuscles: [String] = [],
+                instructions: String = "", exerciseNamesEN: String? = nil,
+                exerciseNamesES: String? = nil, difficulty: String? = nil,
+                updatedAt: Date? = nil, deletedAt: Date? = nil) {
         self.id = id; self.name = name; self.bodyPartStr = bodyPart
         self.categoryStr = category; self.notes = notes
         self.isTimed = isTimed; self.isUnilateral = isUnilateral
         self.primaryMuscles = primaryMuscles
         self.secondaryMuscles = secondaryMuscles
+        self.instructions = instructions
+        self.exerciseNamesEN = exerciseNamesEN
+        self.exerciseNamesES = exerciseNamesES
+        self.difficultyStr = difficulty
+        self.updatedAt = updatedAt
+        self.deletedAt = deletedAt
     }
 }
 
@@ -173,13 +189,38 @@ public final class RoutineM {
 
 extension Exercise {
     public init(from m: ExerciseM) {
+        // Parse instructions from JSON string array or use as plain text
+        let instructions: [String]?
+        if let data = m.instructions.data(using: .utf8),
+           let parsed = try? JSONDecoder().decode([String].self, from: data) {
+            instructions = parsed
+        } else if !m.instructions.isEmpty {
+            instructions = [m.instructions]
+        } else {
+            instructions = nil
+        }
+
+        // Parse difficulty
+        let difficulty: ExerciseDifficulty?
+        if let diffStr = m.difficultyStr {
+            difficulty = ExerciseDifficulty(rawValue: diffStr)
+        } else {
+            difficulty = nil
+        }
+
         self.init(id: m.id, name: m.name,
                   bodyPart: BodyPart(rawValue: m.bodyPartStr) ?? .fullBody,
                   category: ExerciseCategory(rawValue: m.categoryStr) ?? .bodyweight,
                   notes: m.notes, isTimed: m.isTimed,
                   isUnilateral: m.isUnilateral,
                   primaryMuscles: m.primaryMuscles,
-                  secondaryMuscles: m.secondaryMuscles)
+                  secondaryMuscles: m.secondaryMuscles,
+                  instructions: instructions,
+                  exerciseNamesEN: m.exerciseNamesEN,
+                  exerciseNamesES: m.exerciseNamesES,
+                  difficulty: difficulty,
+                  updatedAt: m.updatedAt?.timeIntervalSince1970,
+                  deletedAt: m.deletedAt?.timeIntervalSince1970)
     }
 }
 
@@ -197,7 +238,9 @@ extension PerformedSet {
                   actualRest: m.actualRestTime,
                   historicalWeight: m.historicalWeight,
                   historicalReps: m.historicalReps,
-                  storedBodyWeight: m.storedBodyWeight)
+                  storedBodyWeight: m.storedBodyWeight,
+                  rpe: m.rpe,
+                  distance: m.distance)
     }
 }
 
@@ -343,6 +386,20 @@ public final class SupplementLogM {
         self.stock = stock; self.isCustom = isCustom
         self.trainingDayOnly = trainingDayOnly; self.restDayOnly = restDayOnly
         self.planId = planId; self.takenHistory = takenHistory
+    }
+}
+
+// MARK: - ExerciseM Helpers
+
+extension ExerciseM {
+    /// Returns the localized exercise name based on user preferences
+    /// - Parameter useSpanish: Whether to use Spanish names
+    /// - Returns: Localized exercise name
+    public func displayName(useSpanish: Bool) -> String {
+        if useSpanish {
+            return localizedExerciseName(for: id, locale: "es", defaultName: name)
+        }
+        return name
     }
 }
 

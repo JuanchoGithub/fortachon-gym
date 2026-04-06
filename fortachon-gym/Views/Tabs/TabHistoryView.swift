@@ -7,12 +7,52 @@ struct TabHistoryView: View {
     @Query(sort: \WorkoutSessionM.startTime, order: .reverse) private var sessions: [WorkoutSessionM]
     @State private var selectedSession: WorkoutSessionM?
     @State private var searchQuery = ""
+    @State private var showFilters = false
+    @State private var showExportSheet = false
+    @State private var selectedDateRange: DateRange = .all
+    @State private var selectedMuscleGroup: String?
+    @State private var showAnalytics = false
+    
+    enum DateRange: String, CaseIterable {
+        case all = "All Time"
+        case week = "This Week"
+        case month = "This Month"
+        case quarter = "Last 3 Months"
+        
+        var startDate: Date? {
+            let calendar = Calendar.current
+            switch self {
+            case .all: return nil
+            case .week: return calendar.date(byAdding: .day, value: -7, to: Date())
+            case .month: return calendar.date(byAdding: .month, value: -1, to: Date())
+            case .quarter: return calendar.date(byAdding: .month, value: -3, to: Date())
+            }
+        }
+    }
     
     var filteredSessions: [WorkoutSessionM] {
-        if searchQuery.isEmpty {
-            return sessions
+        var result = sessions
+        
+        // Search filter
+        if !searchQuery.isEmpty {
+            result = result.filter { $0.routineName.localizedCaseInsensitiveContains(searchQuery) }
         }
-        return sessions.filter { $0.routineName.localizedCaseInsensitiveContains(searchQuery) }
+        
+        // Date range filter
+        if let startDate = selectedDateRange.startDate {
+            result = result.filter { $0.startTime >= startDate }
+        }
+        
+        // Muscle group filter (basic - filters by exercise name containing muscle)
+        if let muscle = selectedMuscleGroup {
+            result = result.filter { session in
+                session.exercises.contains { ex in
+                    ex.exerciseId.localizedCaseInsensitiveContains(muscle)
+                }
+            }
+        }
+        
+        return result
     }
     
     // Group by date
@@ -40,26 +80,110 @@ struct TabHistoryView: View {
                     HistorySummaryView(sessions: sessions)
                         .padding(.horizontal)
                         .padding(.bottom, 16)
+                    
+                    // Volume Chart
+                    VolumeChartView(sessions: sessions)
+                        .padding(.horizontal)
+                        .padding(.bottom, 16)
                 }
                 
-                // Search
-                HStack {
-                    Image(systemName: "magnifyingglass")
-                        .foregroundStyle(.secondary)
-                    TextField("Search workouts...", text: $searchQuery)
-                    if !searchQuery.isEmpty {
-                        Button {
-                            searchQuery = ""
+                // Search and Filters
+                VStack(spacing: 8) {
+                    HStack {
+                        Image(systemName: "magnifyingglass")
+                            .foregroundStyle(.secondary)
+                        TextField("Search workouts...", text: $searchQuery)
+                        if !searchQuery.isEmpty {
+                            Button {
+                                searchQuery = ""
+                            } label: {
+                                Image(systemName: "xmark.circle.fill")
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                    }
+                    .padding()
+                    .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12))
+                    
+                    // Filter buttons
+                    HStack(spacing: 8) {
+                        Menu {
+                            Picker("Date Range", selection: $selectedDateRange) {
+                                ForEach(DateRange.allCases, id: \.self) { range in
+                                    Text(range.rawValue).tag(range)
+                                }
+                            }
                         } label: {
-                            Image(systemName: "xmark.circle.fill")
-                                .foregroundStyle(.secondary)
+                            HStack(spacing: 4) {
+                                Image(systemName: "calendar")
+                                    .font(.caption)
+                                Text(selectedDateRange.rawValue)
+                                    .font(.caption)
+                                Image(systemName: "chevron.down")
+                                    .font(.caption2)
+                            }
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 8)
+                            .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 8))
+                        }
+                        
+                        Button {
+                            showFilters = true
+                        } label: {
+                            HStack(spacing: 4) {
+                                Image(systemName: "line.3.horizontal.decrease.circle")
+                                    .font(.caption)
+                                Text("Filters")
+                                    .font(.caption)
+                            }
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 8)
+                            .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 8))
+                        }
+                        
+                        Spacer()
+                        
+                        // Analytics button
+                        Button {
+                            showAnalytics = true
+                        } label: {
+                            Image(systemName: "chart.bar.fill")
+                                .font(.caption)
+                                .padding(8)
+                                .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 8))
+                        }
+                        
+                        // Export button
+                        Button {
+                            showExportSheet = true
+                        } label: {
+                            Image(systemName: "square.and.arrow.up")
+                                .font(.caption)
+                                .padding(8)
+                                .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 8))
                         }
                     }
                 }
-                .padding()
-                .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12))
                 .padding(.horizontal)
                 .padding(.bottom, 8)
+                
+                // Active filters indicator
+                if selectedDateRange != .all || selectedMuscleGroup != nil {
+                    HStack {
+                        Label("Filters Active", systemImage: "line.3.horizontal.decrease.circle.fill")
+                            .font(.caption)
+                            .foregroundStyle(.blue)
+                        Spacer()
+                        Button("Clear") {
+                            selectedDateRange = .all
+                            selectedMuscleGroup = nil
+                        }
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                    }
+                    .padding(.horizontal)
+                    .padding(.bottom, 4)
+                }
                 
                 // Sessions List
                 List {
@@ -89,6 +213,24 @@ struct TabHistoryView: View {
             .navigationBarTitleDisplayMode(.inline)
             .sheet(item: $selectedSession) { session in
                 SessionDetailView(session: session)
+            }
+            .sheet(isPresented: $showFilters) {
+                HistoryFilterSheet(
+                    selectedMuscleGroup: $selectedMuscleGroup,
+                    isPresented: $showFilters
+                )
+            }
+            .sheet(isPresented: $showAnalytics) {
+                AnalyticsDashboardView(
+                    sessions: sessions
+                )
+                .presentationDetents([.large])
+            }
+            .sheet(isPresented: $showExportSheet) {
+                ExportDataView(
+                    sessions: filteredSessions,
+                    isPresented: $showExportSheet
+                )
             }
         }
     }

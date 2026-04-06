@@ -40,11 +40,19 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/ExerciseLocalizedNames.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/ExerciseSeedData.swift"
         },
         {
           "kind" : "file",
           "name" : "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/ExerciseSeeder.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/FatigueUtils.swift"
         },
         {
           "kind" : "file",
@@ -85,6 +93,10 @@
         {
           "kind" : "file",
           "name" : "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/RoutineSeedData.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/SearchUtils.swift"
         },
         {
           "kind" : "file",
@@ -130,8 +142,10 @@
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/AnalyticsUtils.swift.o",
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/CloudSyncService.swift.o",
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/DomainTypes.swift.o",
+        "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/ExerciseLocalizedNames.swift.o",
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/ExerciseSeedData.swift.o",
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/ExerciseSeeder.swift.o",
+        "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/FatigueUtils.swift.o",
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/FilterConstants.swift.o",
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/FortachonCore.swift.o",
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/LifterProfile.swift.o",
@@ -142,6 +156,7 @@
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/RecommendationEngine.swift.o",
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/RoutineGenerator.swift.o",
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/RoutineSeedData.swift.o",
+        "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/SearchUtils.swift.o",
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/SessionTypes.swift.o",
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/StrengthProfile.swift.o",
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/SupplementService.swift.o",
@@ -215,11 +230,19 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/ExerciseLocalizedNames.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/ExerciseSeedData.swift.o"
         },
         {
           "kind" : "file",
           "name" : "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/ExerciseSeeder.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/FatigueUtils.swift.o"
         },
         {
           "kind" : "file",
@@ -263,6 +286,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/SearchUtils.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/SessionTypes.swift.o"
         },
         {
@@ -299,8 +326,10 @@
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/AnalyticsUtils.swift",
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/CloudSyncService.swift",
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/DomainTypes.swift",
+        "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/ExerciseLocalizedNames.swift",
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/ExerciseSeedData.swift",
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/ExerciseSeeder.swift",
+        "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/FatigueUtils.swift",
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/FilterConstants.swift",
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/FortachonCore.swift",
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/LifterProfile.swift",
@@ -311,6 +340,7 @@
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/RecommendationEngine.swift",
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/RoutineGenerator.swift",
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/RoutineSeedData.swift",
+        "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/SearchUtils.swift",
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/SessionTypes.swift",
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/StrengthProfile.swift",
         "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/SupplementService.swift",
@@ -616,8 +646,10 @@
       "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/AnalyticsUtils.swift",
       "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/CloudSyncService.swift",
       "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/DomainTypes.swift",
+      "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/ExerciseLocalizedNames.swift",
       "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/ExerciseSeedData.swift",
       "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/ExerciseSeeder.swift",
+      "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/FatigueUtils.swift",
       "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/FilterConstants.swift",
       "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/FortachonCore.swift",
       "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/LifterProfile.swift",
@@ -628,6 +660,7 @@
       "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/RecommendationEngine.swift",
       "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/RoutineGenerator.swift",
       "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/RoutineSeedData.swift",
+      "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/SearchUtils.swift",
       "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/SessionTypes.swift",
       "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/StrengthProfile.swift",
       "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/SupplementService.swift",
@@ -871,11 +904,19 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/ExerciseLocalizedNames.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/ExerciseSeedData.swift"
         },
         {
           "kind" : "file",
           "name" : "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/ExerciseSeeder.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/FatigueUtils.swift"
         },
         {
           "kind" : "file",
@@ -916,6 +957,10 @@
         {
           "kind" : "file",
           "name" : "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/RoutineSeedData.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/Sources/FortachonCore/SearchUtils.swift"
         },
         {
           "kind" : "file",
@@ -983,11 +1028,19 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/ExerciseLocalizedNames.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/ExerciseSeedData.swift.o"
         },
         {
           "kind" : "file",
           "name" : "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/ExerciseSeeder.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/FatigueUtils.swift.o"
         },
         {
           "kind" : "file",
@@ -1028,6 +1081,10 @@
         {
           "kind" : "file",
           "name" : "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/RoutineSeedData.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/jayjay/gitrepos/fortachon-gym/FortachonCore/.build/arm64-apple-macosx/debug/FortachonCore.build/SearchUtils.swift.o"
         },
         {
           "kind" : "file",

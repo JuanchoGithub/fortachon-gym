@@ -35,6 +35,7 @@ struct TabExercisesView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var exercises: [ExerciseM]
     @Query(sort: \WorkoutSessionM.startTime, order: .reverse) private var sessions: [WorkoutSessionM]
+    @Query private var preferences: [UserPreferencesM]
     @State private var searchQuery = ""
     @State private var selectedBodyPart: String?
     @State private var selectedCategory: String?
@@ -44,6 +45,8 @@ struct TabExercisesView: View {
     @State private var selectedExercise: ExerciseM?
     @State private var showCreateExercise = false
     @State private var favoritesChanged = false // Trigger refresh
+    
+    var prefs: UserPreferencesM? { preferences.first }
     
     enum SortOrder {
         case ascending, descending, recentlyUsed
@@ -63,6 +66,10 @@ struct TabExercisesView: View {
         case .descending: return "Z-A"
         case .recentlyUsed: return "Recent"
         }
+    }
+    
+    var useLocalizedNames: Bool {
+        prefs?.localizedExerciseNames ?? false
     }
     
     var filteredExercises: [ExerciseM] {
@@ -85,12 +92,14 @@ struct TabExercisesView: View {
             result = result.filter { favs.contains($0.id) }
         }
         
-        // Fuzzy/partial matching search
+        // Fuzzy/partial matching search (search both localized and original names)
         if !searchQuery.isEmpty {
             let terms = searchQuery.lowercased().split(separator: " ").map(String.init)
             result = result.filter { exercise in
+                let displayName = exercise.displayName(useSpanish: useLocalizedNames)
                 let searchText = [
-                    exercise.name,
+                    displayName,
+                    exercise.name,  // Always include original name for search
                     exercise.bodyPartStr,
                     exercise.categoryStr,
                     exercise.primaryMuscles.joined(separator: " "),
@@ -104,9 +113,9 @@ struct TabExercisesView: View {
         
         switch sortOrder {
         case .ascending:
-            return result.sorted { $0.name < $1.name }
+            return result.sorted { $0.displayName(useSpanish: useLocalizedNames) < $1.displayName(useSpanish: useLocalizedNames) }
         case .descending:
-            return result.sorted { $1.name < $0.name }
+            return result.sorted { $1.displayName(useSpanish: useLocalizedNames) < $0.displayName(useSpanish: useLocalizedNames) }
         case .recentlyUsed:
             return result.sorted { a, b in
                 let dateA = ExercisePreferences.shared.lastUsedDate(for: a.id) ?? Date.distantPast
@@ -384,8 +393,10 @@ struct TabExercisesView: View {
                 List(filteredExercises) { exercise in
                     ExerciseRowView(
                         exercise: exercise,
-                        bestSet: bestSet(for: exercise.id)
+                        bestSet: bestSet(for: exercise.id),
+                        useLocalizedNames: useLocalizedNames
                     )
+                    .id("\(exercise.id)-\(useLocalizedNames)") // Force refresh when locale changes
                     .contentShape(Rectangle())
                     .onTapGesture {
                         selectedExercise = exercise
@@ -473,13 +484,19 @@ struct FilterPill: View {
 struct ExerciseRowView: View {
     let exercise: ExerciseM
     let bestSet: ExerciseBestSet?
+    let useLocalizedNames: Bool
     @State private var isFavorite: Bool
     @State private var showDifficultyPicker = false
     
-    init(exercise: ExerciseM, bestSet: ExerciseBestSet?) {
+    init(exercise: ExerciseM, bestSet: ExerciseBestSet?, useLocalizedNames: Bool = false) {
         self.exercise = exercise
         self.bestSet = bestSet
+        self.useLocalizedNames = useLocalizedNames
         _isFavorite = State(initialValue: ExercisePreferences.shared.isFavorite(exercise.id))
+    }
+    
+    var displayName: String {
+        exercise.displayName(useSpanish: useLocalizedNames)
     }
     
     var body: some View {
@@ -498,8 +515,9 @@ struct ExerciseRowView: View {
                 
                 VStack(alignment: .leading, spacing: 4) {
                     HStack(spacing: 6) {
-                        Text(exercise.name)
+                        Text(displayName)
                             .font(.headline)
+                            .lineLimit(1)
                         
                         // Difficulty Badge
                         if let difficulty = ExercisePreferences.shared.getDifficulty(exercise.id) {

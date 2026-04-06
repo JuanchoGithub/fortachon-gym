@@ -31,14 +31,58 @@ public struct Exercise: Codable, Identifiable, Sendable {
     public let isUnilateral: Bool?
     public let primaryMuscles: [String]?
     public let secondaryMuscles: [String]?
+    // Extended fields for localization and instructions
+    public let instructions: [String]?
+    public let exerciseNamesEN: String?
+    public let exerciseNamesES: String?
+    public let difficulty: ExerciseDifficulty?
+    public let updatedAt: Double?
+    public let deletedAt: Double?
+
     public init(id: String, name: String, bodyPart: BodyPart, category: ExerciseCategory,
                 notes: String? = nil, isTimed: Bool? = nil, isUnilateral: Bool? = nil,
-                primaryMuscles: [String]? = nil, secondaryMuscles: [String]? = nil) {
+                primaryMuscles: [String]? = nil, secondaryMuscles: [String]? = nil,
+                instructions: [String]? = nil, exerciseNamesEN: String? = nil,
+                exerciseNamesES: String? = nil, difficulty: ExerciseDifficulty? = nil,
+                updatedAt: Double? = nil, deletedAt: Double? = nil) {
         self.id = id; self.name = name; self.bodyPart = bodyPart
         self.category = category; self.notes = notes
         self.isTimed = isTimed; self.isUnilateral = isUnilateral
         self.primaryMuscles = primaryMuscles
         self.secondaryMuscles = secondaryMuscles
+        self.instructions = instructions
+        self.exerciseNamesEN = exerciseNamesEN
+        self.exerciseNamesES = exerciseNamesES
+        self.difficulty = difficulty
+        self.updatedAt = updatedAt
+        self.deletedAt = deletedAt
+    }
+}
+
+// MARK: - ExerciseDifficulty
+
+public enum ExerciseDifficulty: String, Codable, CaseIterable, Sendable {
+    case beginner = "beginner"
+    case intermediate = "intermediate"
+    case advanced = "advanced"
+    case expert = "expert"
+
+    public var label: String {
+        switch self {
+        case .beginner: return "Beginner"
+        case .intermediate: return "Intermediate"
+        case .advanced: return "Advanced"
+        case .expert: return "Expert"
+        }
+    }
+
+    public var emoji: String {
+        switch self {
+        case .beginner: return "🟢"
+        case .intermediate: return "🟡"
+        case .advanced: return "🟠"
+        case .expert: return "🔴"
+        }
     }
 }
 
@@ -61,6 +105,10 @@ public struct PerformedSet: Codable, Identifiable, Sendable {
     public let historicalReps: Int?
     public let historicalTime: Int?
     public let storedBodyWeight: Double?
+    // RPE (Rate of Perceived Exertion) 1-10
+    public let rpe: Int?
+    // Cardio distance in km
+    public let distance: Double?
 
     public init(id: String, reps: Int, weight: Double, time: Int? = nil,
                 type: SetType, isComplete: Bool = false, completedAt: Double? = nil,
@@ -68,7 +116,8 @@ public struct PerformedSet: Codable, Identifiable, Sendable {
                 isRepsInherited: Bool? = nil, isTimeInherited: Bool? = nil,
                 actualRest: Int? = nil, historicalWeight: Double? = nil,
                 historicalReps: Int? = nil, historicalTime: Int? = nil,
-                storedBodyWeight: Double? = nil) {
+                storedBodyWeight: Double? = nil, rpe: Int? = nil,
+                distance: Double? = nil) {
         self.id = id; self.reps = reps; self.weight = weight; self.time = time
         self.type = type; self.isComplete = isComplete; self.completedAt = completedAt
         self.rest = rest; self.isWeightInherited = isWeightInherited
@@ -78,6 +127,8 @@ public struct PerformedSet: Codable, Identifiable, Sendable {
         self.historicalReps = historicalReps
         self.historicalTime = historicalTime
         self.storedBodyWeight = storedBodyWeight
+        self.rpe = rpe
+        self.distance = distance
     }
 }
 

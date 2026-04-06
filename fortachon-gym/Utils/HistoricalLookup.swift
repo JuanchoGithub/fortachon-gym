@@ -97,4 +97,13 @@ struct HistoricalLookup {
         
         return nil
     }
+    
+    /// Gets recent workout sessions for muscle freshness calculation.
+    func getRecentSessions(limit: Int = 10) -> [WorkoutSessionM] {
+        let descriptor = FetchDescriptor<WorkoutSessionM>(
+            sortBy: [SortDescriptor(\.startTime, order: .reverse)]
+        )
+        guard let sessions = try? modelContext.fetch(descriptor) else { return [] }
+        return Array(sessions.prefix(limit))
+    }
 }

@@ -7,6 +7,11 @@ struct ExerciseInstructionCard: View {
     let exercise: ExerciseM
     @State private var isExpanded = false
     
+    // Get instructions from centralized database using instructionsAsSteps helper
+    private var instructions: [String] {
+        exercise.instructionsAsSteps ?? []
+    }
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             // Header
@@ -42,13 +47,13 @@ struct ExerciseInstructionCard: View {
                 Divider()
                     .padding(.horizontal)
                 
-                // Instructions
-                if let notes = exercise.notes, !notes.isEmpty {
+                // Instructions from centralized database
+                if !instructions.isEmpty {
                     VStack(alignment: .leading, spacing: 12) {
                         Text("Instructions")
                             .font(.subheadline.bold())
                         
-                        ForEach(Array(notes.components(separatedBy: "\n").enumerated()), id: \.offset) { idx, instruction in
+                        ForEach(Array(instructions.enumerated()), id: \.offset) { idx, instruction in
                             HStack(alignment: .top, spacing: 12) {
                                 Circle()
                                     .fill(.blue)
@@ -67,7 +72,7 @@ struct ExerciseInstructionCard: View {
                     .padding()
                 }
                 
-                // Tips
+                // Secondary notes if available
                 if let notes = exercise.notes, !notes.isEmpty {
                     VStack(alignment: .leading, spacing: 8) {
                         HStack {
@@ -77,15 +82,9 @@ struct ExerciseInstructionCard: View {
                                 .font(.subheadline.bold())
                         }
                         
-                        ForEach(Array(notes.components(separatedBy: "\n").enumerated()), id: \.offset) { _, tip in
-                            HStack(alignment: .top, spacing: 8) {
-                                Image(systemName: "checkmark.circle.fill")
-                                    .foregroundStyle(.green)
-                                Text(tip)
-                                    .font(.subheadline)
-                                    .foregroundStyle(.secondary)
-                            }
-                        }
+                        Text(notes)
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
                     }
                     .padding(.horizontal)
                     .padding(.bottom)

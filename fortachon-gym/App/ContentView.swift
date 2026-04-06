@@ -6,13 +6,14 @@ struct ContentView: View {
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
     
     enum AppTab: Int, CaseIterable {
-        case train, history, exercises, supplements, profile
+        case train, history, exercises, timers, supplements, profile
         
         var title: String {
             switch self {
             case .train: return "Train"
             case .history: return "History"
             case .exercises: return "Exercises"
+            case .timers: return "Timers"
             case .supplements: return "Supplements"
             case .profile: return "Profile"
             }
@@ -23,6 +24,7 @@ struct ContentView: View {
             case .train: return "figure.strengthtraining.traditional"
             case .history: return "clock.arrow.circlepath"
             case .exercises: return "dumbbell"
+            case .timers: return "timer"
             case .supplements: return "pill"
             case .profile: return "person.circle"
             }
@@ -54,6 +56,12 @@ struct ContentView: View {
                             Label(AppTab.exercises.title, systemImage: AppTab.exercises.icon)
                         }
                         .tag(AppTab.exercises.tag)
+                    
+                    TabTimersView()
+                        .tabItem {
+                            Label(AppTab.timers.title, systemImage: AppTab.timers.icon)
+                        }
+                        .tag(AppTab.timers.tag)
                     
                     TabSupplementsView()
                         .tabItem {

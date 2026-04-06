@@ -24,9 +24,19 @@ struct SupersetManagerView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
     @Query private var allExercises: [ExerciseM]
+    @Query private var preferences: [UserPreferencesM]
     
     @Binding var sessionExercises: [WorkoutExerciseM]
     @Binding var sessionSupersets: [SupersetM]
+    
+    var prefs: UserPreferencesM? { preferences.first }
+    var useLocalizedNames: Bool { prefs?.localizedExerciseNames ?? false }
+    
+    /// Get localized exercise name
+    private func exerciseName(for exerciseDef: ExerciseM?) -> String {
+        guard let ex = exerciseDef else { return "Unknown" }
+        return ex.displayName(useSpanish: useLocalizedNames)
+    }
     
     @State private var selectedExerciseIndices: Set<Int> = []
     @State private var showCreateSuperset = false
@@ -80,7 +90,7 @@ struct SupersetManagerView: View {
                             HStack {
                                 Image(systemName: "circle")
                                     .foregroundStyle(.secondary)
-                                Text(exerciseDef?.name ?? ex.exerciseId)
+                                Text(exerciseName(for: exerciseDef))
                                     .font(.headline)
                                 Spacer()
                                 if selectedExerciseIndices.contains(sessionExercises.firstIndex(where: { $0.weId == ex.weId }) ?? -1) {
@@ -191,7 +201,7 @@ struct SupersetManagerView: View {
             
             ForEach(exercises, id: \.weId) { ex in
                 let exerciseDef = allExercises.first { $0.id == ex.exerciseId }
-                Label(exerciseDef?.name ?? ex.exerciseId, systemImage: "dumbbell")
+                Label(exerciseName(for: exerciseDef), systemImage: "dumbbell")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             }
